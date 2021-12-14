@@ -80,7 +80,7 @@
                                         <tr>
                                             <td>
                                                 <div class="media-box">
-                                                    <img src="{{asset('uploads/product/'.$sale->image)}}" class="media-avatar" alt="Product">
+                                                    <img src="{{asset('uploads/product/'.$sale->image)}}" class="media-avatar" alt="">
                                                     <div class="media-box-body">
                                                         <a href="#" class="text-truncate">{{$sale->product_name}}</a>
                                                         <p><b>barcode</b>: {{$sale->barcode}}</p>
