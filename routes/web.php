@@ -38,3 +38,5 @@ Route::get('del', [\App\Http\Controllers\StockController::class, 'del']);
 Route::post('sales', [\App\Http\Controllers\StockController::class, 'sales']);
 Route::get('stockEdit/{id}', [\App\Http\Controllers\StockController::class, 'stockEdit']);
 Route::get('sell', [\App\Http\Controllers\AdminController::class, 'sell']);
+Route::get('uSell', [\App\Http\Controllers\AdminController::class, 'uSell']);
+Route::post('burgain', [\App\Http\Controllers\AdminController::class, 'burgain']);

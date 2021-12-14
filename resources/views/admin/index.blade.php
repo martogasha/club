@@ -98,7 +98,7 @@
                                             @if($sale->payment_method==1)
                                             <td><span class="badge badge-warning">Mpesa</span></td>
                                             @else
-                                                <td><span class="badge badge-warning">Mpesa</span></td>
+                                                <td><span class="badge badge-warning">Cash</span></td>
 
                                             @endif
                                         </tr>

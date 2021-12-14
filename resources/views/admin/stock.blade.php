@@ -57,9 +57,9 @@
                                                     <a href="{{url('stockEdit',$product->id)}}" data-placement="top" title="Edit" data-original-title="Edit">
                                                         <i class="icon-edit1 text-info"></i>
                                                     </a>
-                                                    <a href="#" class="delete" id="{{$product->id}}" data-bs-toggle="modal" data-bs-target="#deleteStock" data-placement="top" title="Delete" data-original-title="Delete">
-                                                        <i class="icon-x-circle text-danger"></i>
-                                                    </a>
+                                                        <a href="#" class="delete" id="{{$product->id}}" data-bs-toggle="modal" data-bs-target="#deleteStock" data-placement="top" title="Delete" data-original-title="Delete">
+                                                            <i class="icon-x-circle text-danger"></i>
+                                                        </a>
                                                 </div>
                                             </td>
                                         </tr>

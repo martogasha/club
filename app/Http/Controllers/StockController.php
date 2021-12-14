@@ -261,7 +261,7 @@ class StockController extends Controller
         foreach($sells as $sell){
             $getStock = Stock::where('barcode',$sell->barcode)->first();
             $buyingPrice = $getStock->buying_price;
-            $sellingPrice = $getStock->selling_price;
+            $sellingPrice = $sell->selling_price;
             $prof = $sellingPrice-$buyingPrice;
             $profit = $prof*$sell->quantity;
             $sales = new Sales();
