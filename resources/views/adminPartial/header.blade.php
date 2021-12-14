@@ -10,7 +10,7 @@
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap4 Dashboard Template">
     <meta name="author" content="ParkerThemes">
-    <link rel="shortcut icon" href="img/fav.png">
+    <link rel="shortcut icon" href="{{asset('img/fav.png')}}">
 
     <!-- Title -->
     <title>Pos - Admin Dashboard</title>
@@ -20,13 +20,13 @@
         ************ Common Css Files *************
     ************ -->
     <!-- Bootstrap css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 
     <!-- Icomoon Font Icons css -->
-    <link rel="stylesheet" href="fonts/style.css">
+    <link rel="stylesheet" href="{{asset('fonts/style.css')}}">
 
     <!-- Main css -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="{{asset('css/main.css')}}">
 
 
     <!-- *************
@@ -34,15 +34,15 @@
     ************ -->
 
     <!-- Mega Menu -->
-    <link rel="stylesheet" href="vendor/megamenu/css/megamenu.css">
+    <link rel="stylesheet" href="{{asset('vendor/megamenu/css/megamenu.css')}}">
 
     <!-- Search Filter JS -->
-    <link rel="stylesheet" href="vendor/search-filter/search-filter.css">
-    <link rel="stylesheet" href="vendor/search-filter/custom-search-filter.css">
+    <link rel="stylesheet" href="{{asset('vendor/search-filter/search-filter.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/search-filter/custom-search-filter.css')}}">
     <!-- Data Tables -->
-    <link rel="stylesheet" href="vendor/datatables/dataTables.bs4.css" />
-    <link rel="stylesheet" href="vendor/datatables/dataTables.bs4-custom.css" />
-    <link href="vendor/datatables/buttons.bs.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('vendor/datatables/dataTables.bs4.css')}}" />
+    <link rel="stylesheet" href="{{asset('vendor/datatables/dataTables.bs4-custom.css')}}" />
+    <link href="{{asset('vendor/datatables/buttons.bs.css')}}" rel="stylesheet" />
 
 </head>
 <body>

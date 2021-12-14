@@ -15,8 +15,8 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>25</h2>
-                                <p>Products</p>
+                                <h2>ksh {{\App\Models\Sales::sum('profit')}}</h2>
+                                <p>PROFIT</p>
                             </div>
                             <div class="sale-graph">
                                 <div id="sparklineLine1"></div>
@@ -29,25 +29,11 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>32</h2>
-                                <p>Orders</p>
+                                <h2>Ksh{{\App\Models\Sales::sum('total')}}</h2>
+                                <p>SALES</p>
                             </div>
                             <div class="sale-graph">
                                 <div id="sparklineLine2"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                        <div class="stats-tile">
-                            <div class="sale-icon">
-                                <i class="icon-check-circle"></i>
-                            </div>
-                            <div class="sale-details">
-                                <h2>19</h2>
-                                <p>Customers</p>
-                            </div>
-                            <div class="sale-graph">
-                                <div id="sparklineLine3"></div>
                             </div>
                         </div>
                     </div>
@@ -71,7 +57,7 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">Recent Orders</div>
+                                <div class="card-title">Recent Sales</div>
                                 <div class="graph-day-selection" role="group">
                                     <button type="button" class="btn active">Export to Excel</button>
                                 </div>
@@ -81,73 +67,37 @@
                                     <table class="table products-table">
                                         <thead>
                                         <tr>
-                                            <th>Order No.</th>
-                                            <th>Ordered Date</th>
                                             <th>Product</th>
-                                            <th>Delivery Status</th>
+                                            <th>Quantity</th>
                                             <th>Amount</th>
-                                            <th>Discount</th>
-                                            <th>Location</th>
-                                            <th>Est Delivery Date</th>
+                                            <th>Total</th>
+                                            <th>Date</th>
+                                            <th>Profit</th>
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($sales as $sale)
                                         <tr>
-                                            <td>#55589</td>
-                                            <td>20/11/2020</td>
                                             <td>
-                                                <img class="user" src="img/products/bag.jpg" alt="Product Image">
+                                                <div class="media-box">
+                                                    <img src="{{asset('uploads/product/'.$sale->image)}}" class="media-avatar" alt="Product">
+                                                    <div class="media-box-body">
+                                                        <a href="#" class="text-truncate">{{$sale->product_name}}</a>
+                                                        <p><b>barcode</b>: {{$sale->barcode}}</p>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>
-                                                <span class="badge">Moving</span>
+                                                <span class="badge">{{$sale->quantity}}</span>
                                             </td>
-                                            <td>$385.00</td>
-                                            <td>30%</td>
-                                            <td>Los Angeles, California</td>
-                                            <td>22/11/2020</td>
+                                            <td>{{$sale->selling_price}}</td>
+                                            <td>{{$sale->total}}</td>
+                                            <td>{{$sale->date}}</td>
+                                            <td><span class="badge badge-warning">{{$sale->profit}}</span>
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>#23198</td>
-                                            <td>23/11/2020</td>
-                                            <td>
-                                                <img class="user" src="img/products/toy.jpg" alt="Product Image">
-                                            </td>
-                                            <td>
-                                                <span class="badge">Shipped</span>
-                                            </td>
-                                            <td>$539.00</td>
-                                            <td>25%</td>
-                                            <td>Arverne, New York</td>
-                                            <td>27/11/2020</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#87324</td>
-                                            <td>26/11/2020</td>
-                                            <td>
-                                                <img class="user" src="img/products/pencils.jpg" alt="Product Image">
-                                            </td>
-                                            <td>
-                                                <span class="badge">Pending</span>
-                                            </td>
-                                            <td>$671.00</td>
-                                            <td>35%</td>
-                                            <td>Mesquite, Texas</td>
-                                            <td>29/11/2020</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#65673</td>
-                                            <td>25/11/2020</td>
-                                            <td>
-                                                <img class="user" src="img/products/camera.jpg" alt="Product Image">
-                                            </td>
-                                            <td>
-                                                <span class="badge">Cancelled</span>
-                                            </td>
-                                            <td>$490.00</td>
-                                            <td>21%</td>
-                                            <td>Hallandale, Florida</td>
-                                            <td>26/11/2020</td>
-                                        </tr>
+                                        @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -158,40 +108,6 @@
                 <!-- Row end -->
 
                 <!-- Row start -->
-                <div class="row gutters">
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="goal-container">
-                            <div class="goal-info">
-                                <h5>Today's Goal</h5>
-                                <h6>70/100</h6>
-                            </div>
-                            <div class="goal-graph">
-                                <div id="todaysTarget"></div>
-                                <div class="circle-one"></div>
-                                <div class="circle-two"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="graph-card">
-                            <h6>New Customers</h6>
-                            <h4>2500</h4>
-                            <div class="graph-placeholder">
-                                <div id="customersGraph"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                        <div class="payments-card">
-                            <h6>Balance</h6>
-                            <h4>$5699.89</h4>
-                            <div class="custom-btn-group mt-2">
-                                <button class="btn btn-outline-primary"><i class="icon-credit-card"></i>Deposit</button>
-                                <button class="btn btn-primary"><i class="icon-credit-card"></i>Withdraw</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <!-- Row end -->
 
             </div>
