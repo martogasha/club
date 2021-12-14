@@ -33,7 +33,7 @@
                                         <tr>
                                             <td>
                                                 <div class="media-box">
-                                                    <img src="{{asset('uploads/product/'.$product->image)}}" class="media-avatar" alt="Product">
+                                                    <img src="{{asset('uploads/product/'.$product->image)}}" class="media-avatar" alt="">
                                                     <div class="media-box-body">
                                                         <a href="#" class="text-truncate">{{$product->product_name}}</a>
                                                         <p><b>barcode</b>: {{$product->barcode}}</p>

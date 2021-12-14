@@ -36,7 +36,7 @@
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                                 <div class="image-stats-tile">
                                                     <div class="image-stats-box">
-                                                        <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="Food">
+                                                        <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="">
                                                     </div>
                                                     <div class="img-stats-details">
                                                         <p>{{$stock->product_name}}</p>
@@ -93,11 +93,11 @@
                                                 <h5 class="text-danger">Sell</h5>
                                             </div>
                                             <div>
-                                                @include('flash-message');
                                                 <p style="font-size: 20px"><b>{{\App\Models\Sell::sum('total')}} /=</b></p>
                                                 <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Pay</button>
                                             </div>
                                         </div>
+                                        @include('flash-message');
 
                                         <div class="table-responsive">
                                             <table class="table products-table">
@@ -115,7 +115,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="media-box">
-                                                                <img class="media-avatar" src="{{asset('uploads/product/'.$sell->image)}}" alt="Product Image">
+                                                                <img class="media-avatar" src="{{asset('uploads/product/'.$sell->image)}}" alt="">
                                                                 <div class="media-box-body text-truncate">
                                                                     <a href="#">{{$sell->product_name}}</a>
                                                                     <p>#{{$sell->barcode}}</p>

@@ -96,7 +96,7 @@
                         <div class="sidebar-menu">
                             <ul>
                                 <li>
-                                    <a href="{{url('admin')}}" class="current-page">Dashboard</a>
+                                    <a href="{{url('/')}}" class="current-page">Dashboard</a>
                                 </li>
                                 <li>
                                     <a href="{{url('stock')}}">Stock</a>

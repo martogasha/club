@@ -278,6 +278,6 @@ class StockController extends Controller
             $sales->save();
             $sell->delete();
         }
-        return redirect()->back('success','SALE PROCESSED SUCCESS');
+        return redirect()->back()->with('success','SALES PROCESSED SUCCESS');
     }
 }
