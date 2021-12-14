@@ -73,6 +73,7 @@
                                             <th>Total</th>
                                             <th>Date</th>
                                             <th>Profit</th>
+                                            <th>Payment_method</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -93,8 +94,13 @@
                                             <td>{{$sale->selling_price}}</td>
                                             <td>{{$sale->total}}</td>
                                             <td>{{$sale->date}}</td>
-                                            <td><span class="badge badge-warning">{{$sale->profit}}</span>
-                                            </td>
+                                            <td><span class="badge badge-warning">{{$sale->profit}}</span></td>
+                                            @if($sale->payment_method==1)
+                                            <td><span class="badge badge-warning">Mpesa</span></td>
+                                            @else
+                                                <td><span class="badge badge-warning">Mpesa</span></td>
+
+                                            @endif
                                         </tr>
                                         @endforeach
 
