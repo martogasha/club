@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/f', function () {
     return view('welcome');
 });
 
@@ -23,7 +23,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('admin', [\App\Http\Controllers\AdminController::class, 'index']);
+Route::get('/', [\App\Http\Controllers\AdminController::class, 'index']);
 Route::get('stock', [\App\Http\Controllers\AdminController::class, 'stock']);
 Route::get('addProduct', [\App\Http\Controllers\AdminController::class, 'addProduct']);
 Route::post('storeStock', [\App\Http\Controllers\StockController::class, 'storeStock']);
