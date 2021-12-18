@@ -1,123 +1,102 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from bootstrap.gallery/unipro/v1-x/01-design-blue/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Aug 2021 04:54:52 GMT -->
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Meta -->
-    <meta name="description" content="UniPro App">
-    <meta name="author" content="ParkerThemes">
-    <link rel="shortcut icon" href="img/fav.png" />
-
-    <!-- Title -->
-    <title>Pos Login</title>
-
-
-    <!-- *************
-        ************ Common Css Files *************
-    ************ -->
-    <!-- Bootstrap css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-
-    <!-- Main css -->
-    <link rel="stylesheet" href="css/main.css">
-
-
-    <!-- *************
-        ************ Vendor Css Files *************
-    ************ -->
-
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <!-- fontawesome cdn for icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" />
+    <!-- main css file -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="authentication">
+<body>
+<div class="container">
 
-<!-- Loading wrapper start -->
-<div id="loading-wrapper">
-    <div class="spinner-border"></div>
-    Loading...
-</div>
-<!-- Loading wrapper end -->
-
-<!-- *************
-    ************ Login container start *************
-************* -->
-<div class="login-container">
-
-    <div class="container-fluid h-100">
-
-        <!-- Row start -->
-        <div class="row g-0 h-100">
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="login-about">
-                    <div class="slogan">
-                        <span>Design</span>
-                        <span>Made</span>
-                        <span>Simple.</span>
-                    </div>
-                    <div class="about-desc">
-                        UniPro a data dashboard is an information management tool that visually tracks, analyzes and displays key performance indicators (KPI), metrics and key data points to monitor the health of a business, department or specific process.
-                    </div>
-                    <a href="crm.html" class="know-more">Know More <img src="img/right-arrow.svg" alt="Uni Pro Admin"></a>
-
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="login-wrapper">
-                    <form action="http://bootstrap.gallery/unipro/v1-x/01-design-blue/crm.html">
-                        <div class="login-screen">
-                            <div class="login-body">
-                                <a href="crm.html" class="login-logo">
-                                    <img src="img/logo.svg" alt="iChat">
-                                </a>
-                                <h6>Welcome back,<br>Please login to your account.</h6>
-                                <div class="field-wrapper">
-                                    <input type="email" autofocus>
-                                    <div class="field-placeholder">Email ID</div>
-                                </div>
-                                <div class="field-wrapper mb-3">
-                                    <input type="password">
-                                    <div class="field-placeholder">Password</div>
-                                </div>
-                                <div class="actions">
-                                    <a href="forgot-password.html">Forgot password?</a>
-                                    <button type="submit" class="btn btn-primary">Login</button>
-                                </div>
-                            </div>
-                            <div class="login-footer">
-                                <span class="additional-link">No Account? <a href="signup.html" class="btn btn-light">Sign Up</a></span>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <!-- form start -->
+    <div class="my-form">
+        <div class="form-title">
+            <h1>Member Login</h1>
+            @include('flash-message')
         </div>
-        <!-- Row end -->
+        <!-- main form -->
+        <form action="{{url('Login')}}" method="post">
+            @csrf
+            <div class="single-input">
+                <span><i class="fas fa-user"></i></span>
+                <input type="text" placeholder="Phone Number" name="phone">
+            </div>
+            <div class="single-input">
+                <span><i class="fas fa-unlock"></i></span>
+                <input type="password" placeholder="Password" name="password">
+            </div>
+
+            <div class="single-input submit-btn">
+                <input type="submit" value="Login">
+            </div>
+        </form>
 
     </div>
+
+
 </div>
-<!-- *************
-    ************ Login container end *************
-************* -->
 
-<!-- *************
-    ************ Required JavaScript Files *************
-************* -->
-<!-- Required jQuery first, then Bootstrap Bundle JS -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/modernizr.js"></script>
-<script src="js/moment.js"></script>
 
-<!-- *************
-    ************ Vendor Js Files *************
-************* -->
 
-<!-- Main Js Required -->
-<script src="js/main.js"></script>
+
 
 </body>
+<style>
+    /*css file*/
+    body{
+        margin: 0px;
+        padding: 0px;
+        background: #333;
+    }
+    .container{
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .my-form{
+        background: #fff;
+        padding: 30px 50px;
+        border-radius: 10px;
+    }
+    .form-title{
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .form-title h1{
+        margin: 0px;
+        color: #0cd6a8;
+    }
+    .single-input{
+        width: 270px;
+        border:1px solid #c1c1c1;
+        display: flex;
+        margin-bottom: 15px;
+    }
+    .single-input i{
+        padding: 8px 16px;
+        color: #0cd6a8;
+    }
+    .single-input input{
+        border:0px solid #c1c1c1;
+        width: 100%;
+        outline: none;
+        height: 30px;
+        font-size: 18px;
+    }
+    .submit-btn{
+        border:0px solid #c1c1c1;
+        margin-top: 30px;
 
-<!-- Mirrored from bootstrap.gallery/unipro/v1-x/01-design-blue/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Aug 2021 04:54:53 GMT -->
+    }
+    .submit-btn input{
+        background: #0cd6a8;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
 </html>

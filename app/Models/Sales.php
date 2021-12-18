@@ -11,14 +11,13 @@ class Sales extends Model
     protected $fillable = [
         'barcode',
         'product_name',
-        'phone',
-        'payment_method',
         'profit',
         'loss',
         'quantity',
         'number_of_pack',
         'selling_price',
         'total',
+        'order_id',
         'date',
         'image',
     ];

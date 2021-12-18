@@ -1,6 +1,6 @@
 @include('adminPartial.header')
         <!-- Page header ends -->
-<title>Stock - Admin Dashboard</title>
+<title>Users - Admin Dashboard</title>
 
         <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
@@ -16,49 +16,34 @@
                             <div class="card-body">
                                 @include('flash-message')
                                 <div class="table-responsive">
-                                    <a href="{{url('addProduct')}}"><button class="btn btn-info">Add Product</button></a>
+                                    <a href="{{url('addUser')}}"><button class="btn btn-info">Add User</button></a>
                                     <table id="copy-print-csv" class="table v-middle">
                                         <thead>
                                         <tr>
-                                            <th>Products</th>
-                                            <th>Total Qnty</th>
-                                            <th>Packs</th>
-                                            <th>Updated Date</th>
-                                            <th>Buying Price</th>
-                                            <th>Selling Price</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Phone</th>
+                                            <th>Role</th>
                                             <th>Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($products as $product)
+                                        @foreach($users as $user)
                                         <tr>
-                                            <td>
-                                                <div class="media-box">
-                                                    <img src="{{asset('uploads/product/'.$product->image)}}" class="media-avatar" alt="">
-                                                    <div class="media-box-body">
-                                                        <a href="#" class="text-truncate">{{$product->product_name}}</a>
-                                                        <p><b>barcode</b>: {{$product->barcode}}</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><b>{{$product->quantity}}</b></td>
-                                        @if(is_null($product->number_of_pack))
-                                            <td><b>N/A</b></td>
+                                            <td>{{$user->first_name}}</td>
+                                            <td>{{$user->last_name}}</td>
+                                            <td>{{$user->phone}}</td>
+                                            @if($user->role==1)
+                                            <td>Hotel</td>
                                             @else
-                                                <td><b>{{$product->number_of_pack}}</b></td>
+                                                <td>Hardware</td>
                                             @endif
-                                            <td>{{$product->date}}</td>
-                                            <td>{{$product->buying_price}}</td>
-                                            <td>{{$product->selling_price}}</td>
                                             <td>
                                                 <div class="actions">
-                                                    <a href="#" class="view" title="View" id="{{$product->id}}" data-bs-toggle="modal" data-bs-target="#viewStock">
-                                                        <i class="icon-eye text-info"></i>
-                                                    </a>
-                                                    <a href="{{url('stockEdit',$product->id)}}" data-placement="top" title="Edit" data-original-title="Edit">
+                                                    <a href="{{url('userEdit',$user->id)}}" data-placement="top" title="Edit" data-original-title="Edit">
                                                         <i class="icon-edit1 text-info"></i>
                                                     </a>
-                                                        <a href="#" class="delete" id="{{$product->id}}" data-bs-toggle="modal" data-bs-target="#deleteStock" data-placement="top" title="Delete" data-original-title="Delete">
+                                                        <a href="#" class="delete" id="{{$user->id}}" data-bs-toggle="modal" data-bs-target="#deleteUser" data-placement="top" title="Delete" data-original-title="Delete">
                                                             <i class="icon-x-circle text-danger"></i>
                                                         </a>
                                                 </div>
@@ -93,10 +78,10 @@
 
         </div>
         <!-- Content wrapper scroll end -->
-<div id="deleteStock" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
+<div id="deleteUser" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{url('dStock')}}" method="post">
+            <form action="{{url('dUser')}}" method="post">
                 @csrf
                 <div class="modal-header" style="background-color: red" id="basic">
                 </div>
@@ -166,7 +151,7 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('deleteStock')}}",
+            url:"{{url('deleteUser')}}",
             data:{'id':$value},
             success:function (data) {
                 $('#basic').html(data);

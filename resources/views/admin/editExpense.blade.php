@@ -1,5 +1,5 @@
 @include('adminPartial.header')
-<title>Edit {{$edit->product_name}} - Admin Dashboard</title>
+<title>Edit {{$expense->name}} - Admin Dashboard</title>
 
 <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
@@ -16,9 +16,9 @@
                                 <div class="card-title">Add New Product</div>
                             </div>
                             <div class="card-body">
-                                <form action="{{url('eStock')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{url('eExpense')}}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" value="{{$edit->id}}" name="stockId">
+                                    <input type="hidden" value="{{$expense->id}}" name="expenseId">
                                 <div id="example-form">
                                     <h3>General Information</h3>
                                         <h6 class="h-0 m-0">&nbsp;</h6>
@@ -27,28 +27,17 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" value="{{$edit->barcode}}" placeholder="Set Barcode" name="barcode" required>
+                                                            <input type="text" class="form-control" value="{{$expense->name}}" name="name" required>
                                                         </div>
-                                                        <div class="field-placeholder">Barcode <span class="text-danger">*</span></div>
+                                                        <div class="field-placeholder">Expense Name <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
                                                     <div class="field-wrapper">
-                                                        <input type="text" value="{{$edit->product_name}}" placeholder="Enter Product Name" name="product_name" required>
-                                                        <div class="field-placeholder">Product Name <span class="text-danger">*</span></div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-
-                                                    <div class="field-wrapper">
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" value="{{$edit->buying_price}}" placeholder="Set Buying Price" name="buying_price" required>
-                                                            <span class="input-group-text">Ksh</span>
-                                                        </div>
-                                                        <div class="field-placeholder">Buying Price <span class="text-danger">*</span></div>
+                                                        <input type="text" value="{{$expense->desc}}" name="desc" required>
+                                                        <div class="field-placeholder">Expense Description <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
@@ -56,67 +45,38 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" value="{{$edit->selling_price}}" placeholder="Set Selling Price" name="selling_price" required>
+                                                            <input type="text" class="form-control" value="{{$expense->amount}}" name="amount" required>
                                                             <span class="input-group-text">Ksh</span>
                                                         </div>
-                                                        <div class="field-placeholder">Selling Price <span class="text-danger">*</span></div>
+                                                        <div class="field-placeholder">Amount <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                                <div class="row">
-                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
-                                                        <div class="field-wrapper">
-                                                            <div class="input-group">
-                                                                @if(!is_null($edit->number_of_pack))
-                                                                <input type="text" class="form-control" value="{{$edit->quantity%$edit->quantity_of_pack}}" placeholder="Quantity" name="quantity">
-                                                                @else
-                                                                    <input type="text" class="form-control" value="{{$edit->quantity}}" placeholder="Quantity" name="quantity">
-
-                                                                @endif
-                                                            </div>
-                                                            <div class="field-placeholder">Quantity(Incomplete Park)</div>
-                                                        </div>
-
+                                                <div class="field-wrapper">
+                                                    <div class="input-group">
+                                                        <input type="date" value="{{$expense->date}}" class="form-control" name="date" required>
                                                     </div>
-                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-
-                                                        <div class="field-wrapper">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" value="{{$edit->quantity_of_pack}}" placeholder="Quantity in pack" name="quantity_of_pack">
-                                                            </div>
-                                                            <div class="field-placeholder">Quantity in pack</div>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-
-                                                        <div class="field-wrapper">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" value="{{$edit->number_of_pack}}" placeholder="Pack No:" name="number_of_pack">
-                                                            </div>
-                                                            <div class="field-placeholder">Pack Number</div>
-                                                        </div>
-
-                                                    </div>
-
+                                                    <div class="field-placeholder">Date <span class="text-danger">*</span></div>
                                                 </div>
 
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
-                                                    <div class="field-wrapper">
-                                                        <div class="input-group">
-                                                            <input type="date" class="form-control" value="{{$edit->date}}" name="date">
-                                                        </div>
-                                                        <div class="field-placeholder">Date <span class="text-danger">*</span></div>
-                                                    </div>
-
+                                                <div class="field-wrapper">
+                                                    <select class="form-select" id="paymentSelect" name="paymentMethod">
+                                                        @if($expense->payment_method==1)
+                                                        <option value="1">Mpesa</option>
+                                                        <option value="2">Cash</option>
+                                                        @else
+                                                            <option value="2">Cash</option>
+                                                            <option value="1">Mpesa</option>
+                                                        @endif
+                                                    </select>
+                                                    <div class="field-placeholder">Payment Method</div>
                                                 </div>
-                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                    <input type="file" class="form-control" name="image">
-                                                </div>
+                                            </div>
                                             <br>
                                             <br>
                                             <br>

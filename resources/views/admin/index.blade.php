@@ -1,12 +1,33 @@
 @include('adminPartial.header')
         <!-- Page header ends -->
+<title>Dashboard - Admin Dashboard</title>
 
         <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
 
             <!-- Content wrapper start -->
             <div class="content-wrapper">
+                <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="field-wrapper">
+                        <div class="input-group">
+                            <input type="date" class="form-control" name="date" required>
+                        </div>
+                        <div class="field-placeholder">Start Date <span class="text-danger">*</span></div>
+                    </div>
 
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="field-wrapper">
+                        <div class="input-group">
+                            <input type="date" class="form-control" name="date" required>
+                        </div>
+                        <div class="field-placeholder">End Date <span class="text-danger">*</span></div>
+                    </div>
+
+                </div>
+                    <h4>DAILY REPORT</h4>
+                </div>
                 <!-- Row start -->
                 <div class="row gutters">
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
@@ -15,11 +36,8 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>ksh {{\App\Models\Sales::sum('profit')}}</h2>
+                                <h2>ksh {{\App\Models\Sales::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('profit')-\App\Models\Expense::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('amount')}}</h2>
                                 <p>PROFIT</p>
-                            </div>
-                            <div class="sale-graph">
-                                <div id="sparklineLine1"></div>
                             </div>
                         </div>
                     </div>
@@ -29,11 +47,20 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>Ksh{{\App\Models\Sales::sum('total')}}</h2>
+                                <h2>Ksh {{\App\Models\Sales::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('total')}}</h2>
                                 <p>SALES</p>
                             </div>
-                            <div class="sale-graph">
-                                <div id="sparklineLine2"></div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                        <div class="stats-tile">
+                            <div class="sale-icon">
+                                <i class="icon-shopping-bag1"></i>
+                            </div>
+                            <div class="sale-details">
+                                <h2>Ksh {{\App\Models\Expense::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('amount')}}</h2>
+                                <p>EXPENSE</p>
                             </div>
                         </div>
                     </div>
@@ -67,40 +94,32 @@
                                     <table class="table products-table">
                                         <thead>
                                         <tr>
-                                            <th>Product</th>
-                                            <th>Quantity</th>
-                                            <th>Amount</th>
+                                            <th>Order Id</th>
                                             <th>Total</th>
+                                            <th>Phone number</th>
+                                            <th>Payment Method</th>
                                             <th>Date</th>
-                                            <th>Profit</th>
-                                            <th>Payment_method</th>
+                                            <th>View Products</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($sales as $sale)
                                         <tr>
-                                            <td>
-                                                <div class="media-box">
-                                                    <img src="{{asset('uploads/product/'.$sale->image)}}" class="media-avatar" alt="">
-                                                    <div class="media-box-body">
-                                                        <a href="#" class="text-truncate">{{$sale->product_name}}</a>
-                                                        <p><b>barcode</b>: {{$sale->barcode}}</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="badge">{{$sale->quantity}}</span>
-                                            </td>
-                                            <td>{{$sale->selling_price}}</td>
-                                            <td>{{$sale->total}}</td>
-                                            <td>{{$sale->date}}</td>
-                                            <td><span class="badge badge-warning">{{$sale->profit}}</span></td>
-                                            @if($sale->payment_method==1)
-                                            <td><span class="badge badge-warning">Mpesa</span></td>
+                                            <td>Order #{{$sale->id}}</td>
+                                            <td>Ksh <b>{{\App\Models\Sales::where('order_id',$sale->id)->sum('total')}}</b></td>
+                                            @if(!empty($sale->phone))
+                                            <td>{{$sale->phone}}</td>
                                             @else
-                                                <td><span class="badge badge-warning">Cash</span></td>
+                                                <td><span class="badge badge-warning">N/A</span></td>
 
                                             @endif
+                                            @if($sale->payment_method==1)
+                                                <td>Mpesa</td>
+                                            @else
+                                                <td>Cash</td>
+                                            @endif
+                                            <td>{{$sale->date}}</td>
+                                            <td><button class="btn btn-success view" id="{{$sale->id}}" data-bs-toggle="modal" data-bs-target="#viewOrderProducts">View</button> </td>
                                         </tr>
                                         @endforeach
 
@@ -111,6 +130,35 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="viewOrderProducts" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" id="viewSaleHeader">
+
+                                </div>
+                                <div class="modal-body">
+                                    <table class="shop_table my_account_orders">
+
+                                        <thead>
+                                        <tr>
+                                            <th class="order-number">Name</th>
+                                            <th class="order-date">Qnty</th>
+                                            <th class="order-status">Amount</th>
+                                            <th class="order-total">Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="viewSales">
+
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
                 <!-- Row end -->
 
                 <!-- Row start -->
@@ -132,6 +180,76 @@
     ************* -->
 
 </div>
+<style>
+    body {
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    a {
+        color: #28acd7;
+        text-decoration: none;
+    }
+
+    .my_account_orders {
+        border-collapse: collapse;
+        border-spacing: 0;
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .my_account_orders th {
+        text-align: left;
+    }
+
+    tr {
+        border-bottom: 1px solid #ccc;
+    }
+
+    th,
+    td {
+        padding: 6px;
+    }
+
+    @media
+    only screen and (max-width: 600px) {
+        /* Force table to not be like tables anymore */
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 35%;
+        }
+
+        td:last-child {
+            border-width: 0;
+        }
+
+        td:before {
+            content: attr(data-title);
+            color: #ccc;
+            /* Now like a table header */
+            position: absolute;
+            /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+        }
+    }
+</style>
 <!-- Page wrapper end -->
 
 <!-- *************
@@ -176,6 +294,34 @@
 <script src="js/main.js"></script>
 
 </body>
-
+<script>
+    $(document).on('click','.view',function () {
+        $value = $(this).attr('id');
+        $.ajax({
+            type:"get",
+            url:"{{url('viewSale')}}",
+            data:{'id':$value},
+            success:function (data) {
+                $('#viewSales').html(data);
+                    $.ajax({
+                        type:"get",
+                        url:"{{url('viewSaleHeader')}}",
+                        data:{'id':$value},
+                        success:function (data) {
+                            $('#viewSaleHeader').html(data);
+                        },
+                        error:function (error) {
+                            console.log(error)
+                            alert('error')
+                        }
+                    });
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+            }
+        });
+    });
+</script>
 <!-- Mirrored from bootstrap.gallery/unipro/v1-x/01-design-blue/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Aug 2021 04:43:13 GMT -->
 </html>

@@ -17,14 +17,13 @@ class CreateSalesTable extends Migration
             $table->id();
             $table->string('barcode');
             $table->string('product_name');
-            $table->string('phone')->nullable();
-            $table->integer('payment_method');
             $table->integer('quantity');
             $table->integer('number_of_pack')->nullable();
             $table->integer('selling_price');
             $table->string('date');
             $table->string('total');
             $table->integer('profit');
+            $table->integer('order_id');
             $table->integer('loss')->nullable();
             $table->mediumText('image')->nullable();
             $table->timestamps();
