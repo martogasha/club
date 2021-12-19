@@ -1,5 +1,5 @@
 @include('adminPartial.header')
-<title>Add User - Admin Dashboard</title>
+<title>Profile - Admin Dashboard</title>
 
 <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
@@ -13,11 +13,12 @@
 @include('flash-message')
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">Add New User</div>
+                                <div class="card-title">Update Profile Details</div>
                             </div>
                             <div class="card-body">
-                                <form action="{{url('storeUsers')}}" method="post">
+                                <form action="{{url('updateProfile')}}" method="post">
                                     @csrf
+                                    <input type="hidden" value="{{\Illuminate\Support\Facades\Auth::id()}}" name="id">
                                 <div id="example-form">
                                     <h3>General Information</h3>
                                         <h6 class="h-0 m-0">&nbsp;</h6>
@@ -26,7 +27,7 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" placeholder="First Name" name="first_name" required>
+                                                            <input type="text" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->first_name}}" placeholder="First Name" name="first_name" required>
                                                         </div>
                                                         <div class="field-placeholder">First Name <span class="text-danger">*</span></div>
                                                     </div>
@@ -36,30 +37,48 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" placeholder="Last Name" name="last_name" required>
+                                                            <input type="text" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->last_name}}" placeholder="Last Name" name="last_name" required>
                                                         </div>
                                                         <div class="field-placeholder">Last Name <span class="text-danger">*</span></div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                                                    <div class="field-wrapper">
+                                                        @if(\Illuminate\Support\Facades\Auth::user()->role==1)
+                                                        <input type="text" value="Hotel" placeholder="Description" disabled>
+                                                        @else
+                                                            <input type="text" value="Hardware" placeholder="Description" disabled>
+
+                                                        @endif
+                                                        <div class="field-placeholder">Role <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
                                                     <div class="field-wrapper">
-                                                        <input type="text" placeholder="Phone Number" name="phone" required>
-                                                        <div class="field-placeholder">Phone Number <span class="text-danger">*</span></div>
+                                                        <div class="input-group">
+                                                            <input type="password" class="form-control" placeholder="Password" id="pass" name="password">
+                                                        </div>
+                                                        <div class="field-placeholder">Password</div>
                                                     </div>
 
                                                 </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
-                                            <div class="field-wrapper">
-                                                <select class="form-select" id="paymentSelect" name="role">
-                                                    <option value="1">Hotel</option>
-                                                    <option value="2">Hardware</option>
-                                                    <option value="0">ADMIN</option>
-                                                </select>
-                                                <div class="field-placeholder">Role</div>
-                                            </div>
+                                                    <div class="field-wrapper">
+                                                        <div class="input-group">
+                                                            <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password" id="confirmPassword">
+                                                        </div>
+                                                        <div class="field-placeholder">Confirm Password</div>
+                                                    </div>
+
+                                                </div>
+                                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                                <div id="CheckPasswordMatch">
+                                                </div>
                                             </div>
                                             <br>
                                             <br>
@@ -146,7 +165,15 @@
 <script src="js/main.js"></script>
 
 <script>
+    $('#confirmPassword').keyup(function () {
+        var password = $('#pass').val();
+        var confirmPassword = $('#confirmPassword').val();
+        if (password != confirmPassword)
+            $('#CheckPasswordMatch').html('Password Dont Match')
+        else
+            $('#CheckPasswordMatch').html('Password Match')
 
+    });
     // Summernote
     $(document).ready(function() {
         $('.summernote').summernote({

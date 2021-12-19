@@ -12,10 +12,10 @@
 @include('flash-message')
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">Add New Hardware Product</div>
+                                <div class="card-title">Add New Hotel Product</div>
                             </div>
                             <div class="card-body">
-                                <form action="{{url('storeStock')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{url('storeHotelStock')}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                 <div id="example-form">
                                     <h3>General Information</h3>

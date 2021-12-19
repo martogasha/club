@@ -41,7 +41,7 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>ksh {{\App\Models\Sales::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('profit')-\App\Models\Expense::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('amount')}}</h2>
+                                <h2>ksh {{$profit}}</h2>
                                 <p>PROFIT</p>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>Ksh {{\App\Models\Sales::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('total')}}</h2>
+                                <h2>Ksh {{$totalSales}}</h2>
                                 <p>SALES</p>
                             </div>
 

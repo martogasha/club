@@ -1,5 +1,5 @@
 @include('adminPartial.header')
-<title>Edit {{$edit->first_name}} {{$edit->last_name}} - Admin Dashboard</title>
+<title>Edit {{$expense->name}} - Admin Dashboard</title>
 
 <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
@@ -13,12 +13,12 @@
 @include('flash-message')
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">Edit <b style="color: red">{{$edit->first_name}} {{$edit->last_name}}</b></div>
+                                <div class="card-title">Add New Product</div>
                             </div>
                             <div class="card-body">
-                                <form action="{{url('eUser')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{url('eHotelExpense')}}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" value="{{$edit->id}}" name="userId">
+                                    <input type="hidden" value="{{$expense->id}}" name="expenseId">
                                 <div id="example-form">
                                     <h3>General Information</h3>
                                         <h6 class="h-0 m-0">&nbsp;</h6>
@@ -27,17 +27,17 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" value="{{$edit->first_name}}" name="first_name" required>
+                                                            <input type="text" class="form-control" value="{{$expense->name}}" name="name" required>
                                                         </div>
-                                                        <div class="field-placeholder">First Name <span class="text-danger">*</span></div>
+                                                        <div class="field-placeholder">Expense Name <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
                                                     <div class="field-wrapper">
-                                                        <input type="text" value="{{$edit->last_name}}" placeholder="Enter Product Name" name="last_name" required>
-                                                        <div class="field-placeholder">Last Name <span class="text-danger">*</span></div>
+                                                        <input type="text" value="{{$expense->desc}}" name="desc" required>
+                                                        <div class="field-placeholder">Expense Description <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
@@ -45,59 +45,45 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" value="{{$edit->phone}}" placeholder="Set Buying Price" name="phone" required>
+                                                            <input type="text" class="form-control" value="{{$expense->amount}}" name="amount" required>
+                                                            <span class="input-group-text">Ksh</span>
                                                         </div>
-                                                        <div class="field-placeholder">Phone Number <span class="text-danger">*</span></div>
+                                                        <div class="field-placeholder">Amount <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
-                                            @if($edit->role==1)
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                            <div class="field-wrapper">
-                                                <select class="form-select" id="paymentSelect" name="role">
-                                                    <option value="1">Hotel</option>
-                                                    <option value="2">Hardware</option>
-                                                    <option value="0">ADMIN</option>
-                                                </select>
-                                                <div class="field-placeholder">Role</div>
-                                            </div>
-                                            </div>
-                                            @elseif($edit->role==0)
-                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                                    <div class="field-wrapper">
-                                                        <select class="form-select" id="paymentSelect" name="role">
-                                                            <option value="0">ADMIN</option>
-                                                            <option value="1">Hotel</option>
-                                                            <option value="2">Hardware</option>
-                                                        </select>
-                                                        <div class="field-placeholder">Role</div>
-                                                    </div>
-                                                </div>
-                                            @else
-                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                                    <div class="field-wrapper">
-                                                        <select class="form-select" id="paymentSelect" name="role">
-                                                            <option value="2">Hardware</option>
-                                                            <option value="1">Hotel</option>
-                                                            <option value="0">ADMIN</option>
-                                                        </select>
-                                                        <div class="field-placeholder">Role</div>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <div class="row">
-                                                <button type="submit" class="btn btn-success">Save</button>
-                                                <hr>
-                                            </div>
 
+                                                <div class="field-wrapper">
+                                                    <div class="input-group">
+                                                        <input type="date" value="{{$expense->date}}" class="form-control" name="date" required>
+                                                    </div>
+                                                    <div class="field-placeholder">Date <span class="text-danger">*</span></div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                                                <div class="field-wrapper">
+                                                    <select class="form-select" id="paymentSelect" name="paymentMethod">
+                                                        @if($expense->payment_method==1)
+                                                        <option value="1">Mpesa</option>
+                                                        <option value="2">Cash</option>
+                                                        @else
+                                                            <option value="2">Cash</option>
+                                                            <option value="1">Mpesa</option>
+                                                        @endif
+                                                    </select>
+                                                    <div class="field-placeholder">Payment Method</div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                                <button type="submit" class="btn btn-success">Save</button>
                                         </div>
                                 </div>
                                 </form>
-                                <a href="{{url('reset',$edit->id)}}"><button class="btn btn-danger btn-lg btn-block">Reset Password</button></a>
-
 
                             </div>
                         </div>

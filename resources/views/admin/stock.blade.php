@@ -1,6 +1,6 @@
 @include('adminPartial.header')
         <!-- Page header ends -->
-<title>Stock - Admin Dashboard</title>
+<title>Hardware Stock - Admin Dashboard</title>
 
         <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">

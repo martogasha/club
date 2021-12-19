@@ -1,6 +1,6 @@
 @include('adminPartial.header')
         <!-- Page header ends -->
-<title>Users - Admin Dashboard</title>
+<title>Hotel Expense - Admin Dashboard</title>
 
         <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
@@ -16,37 +16,37 @@
                             <div class="card-body">
                                 @include('flash-message')
                                 <div class="table-responsive">
-                                    <a href="{{url('addUser')}}"><button class="btn btn-info">Add User</button></a>
+                                    <a href="{{url('addHotelExpense')}}"><button class="btn btn-info">Add Expense</button></a>
                                     <table id="copy-print-csv" class="table v-middle">
                                         <thead>
                                         <tr>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Phone</th>
-                                            <th>Role</th>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Amount</th>
+                                            <th>Date</th>
+                                            <th>Payment Method</th>
                                             <th>Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($users as $user)
+                                        @foreach($expenses as $expense)
                                         <tr>
-                                            <td>{{$user->first_name}}</td>
-                                            <td>{{$user->last_name}}</td>
-                                            <td>{{$user->phone}}</td>
-                                            @if($user->role==1)
-                                            <td>Hotel</td>
-                                            @elseif($user->role==0)
-                                                <td>Admin</td>
+                                            <td>{{$expense->name}}</td>
+                                            <td>{{$expense->desc}}</td>
+                                            <td>{{$expense->amount}}</td>
+                                            <td>{{$expense->date}}</td>
+                                            @if($expense->payment_method==1)
+                                            <td>Mpesa</td>
                                             @else
-                                                <td>Hardware</td>
+                                                <td>Cash</td>
 
                                             @endif
                                             <td>
                                                 <div class="actions">
-                                                    <a href="{{url('userEdit',$user->id)}}" data-placement="top" title="Edit" data-original-title="Edit">
+                                                    <a href="{{url('expenseHotelEdit',$expense->id)}}" data-placement="top" title="Edit" data-original-title="Edit">
                                                         <i class="icon-edit1 text-info"></i>
                                                     </a>
-                                                        <a href="#" class="delete" id="{{$user->id}}" data-bs-toggle="modal" data-bs-target="#deleteUser" data-placement="top" title="Delete" data-original-title="Delete">
+                                                        <a href="#" class="delete" id="{{$expense->id}}" data-bs-toggle="modal" data-bs-target="#deleteStock" data-placement="top" title="Delete" data-original-title="Delete">
                                                             <i class="icon-x-circle text-danger"></i>
                                                         </a>
                                                 </div>
@@ -81,10 +81,10 @@
 
         </div>
         <!-- Content wrapper scroll end -->
-<div id="deleteUser" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
+<div id="deleteStock" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{url('dUser')}}" method="post">
+            <form action="{{url('dHotelExpense')}}" method="post">
                 @csrf
                 <div class="modal-header" style="background-color: red" id="basic">
                 </div>
@@ -154,7 +154,7 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('deleteUser')}}",
+            url:"{{url('deleteHotelExpense')}}",
             data:{'id':$value},
             success:function (data) {
                 $('#basic').html(data);

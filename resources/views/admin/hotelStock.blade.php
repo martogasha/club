@@ -1,6 +1,6 @@
 @include('adminPartial.header')
         <!-- Page header ends -->
-<title>Users - Admin Dashboard</title>
+<title>Hotel Stock - Admin Dashboard</title>
 
         <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
@@ -16,37 +16,49 @@
                             <div class="card-body">
                                 @include('flash-message')
                                 <div class="table-responsive">
-                                    <a href="{{url('addUser')}}"><button class="btn btn-info">Add User</button></a>
+                                    <a href="{{url('addHotelProduct')}}"><button class="btn btn-info">Add Product</button></a>
                                     <table id="copy-print-csv" class="table v-middle">
                                         <thead>
                                         <tr>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Phone</th>
-                                            <th>Role</th>
+                                            <th>Products</th>
+                                            <th>Total Qnty</th>
+                                            <th>Packs</th>
+                                            <th>Updated Date</th>
+                                            <th>Buying Price</th>
+                                            <th>Selling Price</th>
                                             <th>Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($users as $user)
+                                        @foreach($products as $product)
                                         <tr>
-                                            <td>{{$user->first_name}}</td>
-                                            <td>{{$user->last_name}}</td>
-                                            <td>{{$user->phone}}</td>
-                                            @if($user->role==1)
-                                            <td>Hotel</td>
-                                            @elseif($user->role==0)
-                                                <td>Admin</td>
+                                            <td>
+                                                <div class="media-box">
+                                                    <img src="{{asset('uploads/product/'.$product->image)}}" class="media-avatar" alt="">
+                                                    <div class="media-box-body">
+                                                        <a href="#" class="text-truncate">{{$product->product_name}}</a>
+                                                        <p><b>barcode</b>: {{$product->barcode}}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><b>{{$product->quantity}}</b></td>
+                                        @if(is_null($product->number_of_pack))
+                                            <td><b>N/A</b></td>
                                             @else
-                                                <td>Hardware</td>
-
+                                                <td><b>{{$product->number_of_pack}}</b></td>
                                             @endif
+                                            <td>{{$product->date}}</td>
+                                            <td>{{$product->buying_price}}</td>
+                                            <td>{{$product->selling_price}}</td>
                                             <td>
                                                 <div class="actions">
-                                                    <a href="{{url('userEdit',$user->id)}}" data-placement="top" title="Edit" data-original-title="Edit">
+                                                    <a href="#" class="view" title="View" id="{{$product->id}}" data-bs-toggle="modal" data-bs-target="#viewStock">
+                                                        <i class="icon-eye text-info"></i>
+                                                    </a>
+                                                    <a href="{{url('stockHotelEdit',$product->id)}}" data-placement="top" title="Edit" data-original-title="Edit">
                                                         <i class="icon-edit1 text-info"></i>
                                                     </a>
-                                                        <a href="#" class="delete" id="{{$user->id}}" data-bs-toggle="modal" data-bs-target="#deleteUser" data-placement="top" title="Delete" data-original-title="Delete">
+                                                        <a href="#" class="delete" id="{{$product->id}}" data-bs-toggle="modal" data-bs-target="#deleteStock" data-placement="top" title="Delete" data-original-title="Delete">
                                                             <i class="icon-x-circle text-danger"></i>
                                                         </a>
                                                 </div>
@@ -81,10 +93,10 @@
 
         </div>
         <!-- Content wrapper scroll end -->
-<div id="deleteUser" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
+<div id="deleteStock" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{url('dUser')}}" method="post">
+            <form action="{{url('dHotelStock')}}" method="post">
                 @csrf
                 <div class="modal-header" style="background-color: red" id="basic">
                 </div>
@@ -154,7 +166,7 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('deleteUser')}}",
+            url:"{{url('deleteHotelStock')}}",
             data:{'id':$value},
             success:function (data) {
                 $('#basic').html(data);
@@ -169,7 +181,7 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('viewStock')}}",
+            url:"{{url('viewHotelStock')}}",
             data:{'id':$value},
             success:function (data) {
                 $('#basic1').html(data);

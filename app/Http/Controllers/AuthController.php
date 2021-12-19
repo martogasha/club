@@ -75,10 +75,14 @@ class AuthController extends Controller
             'password' => $request->password,
         ])){
             if ($user->role==1){
-                return redirect(url('admin'));
+                return redirect(url('hotelAdmin'));
             }
             if ($user->role==2){
                 return redirect(url('admin'));
+            }
+            if ($user->role==0){
+                return redirect(url('admin'));
+
             }
         }
         else{

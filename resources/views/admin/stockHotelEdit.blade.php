@@ -1,5 +1,5 @@
 @include('adminPartial.header')
-<title>Edit {{$edit->first_name}} {{$edit->last_name}} - Admin Dashboard</title>
+<title>Edit {{$edit->product_name}} - Admin Dashboard</title>
 
 <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
@@ -13,12 +13,12 @@
 @include('flash-message')
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">Edit <b style="color: red">{{$edit->first_name}} {{$edit->last_name}}</b></div>
+                                <div class="card-title">Add New Product</div>
                             </div>
                             <div class="card-body">
-                                <form action="{{url('eUser')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{url('eHotelStock')}}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" value="{{$edit->id}}" name="userId">
+                                    <input type="hidden" value="{{$edit->id}}" name="stockId">
                                 <div id="example-form">
                                     <h3>General Information</h3>
                                         <h6 class="h-0 m-0">&nbsp;</h6>
@@ -27,17 +27,17 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" value="{{$edit->first_name}}" name="first_name" required>
+                                                            <input type="text" class="form-control" value="{{$edit->barcode}}" placeholder="Set Barcode" name="barcode" required>
                                                         </div>
-                                                        <div class="field-placeholder">First Name <span class="text-danger">*</span></div>
+                                                        <div class="field-placeholder">Barcode <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
                                                     <div class="field-wrapper">
-                                                        <input type="text" value="{{$edit->last_name}}" placeholder="Enter Product Name" name="last_name" required>
-                                                        <div class="field-placeholder">Last Name <span class="text-danger">*</span></div>
+                                                        <input type="text" value="{{$edit->product_name}}" placeholder="Enter Product Name" name="product_name" required>
+                                                        <div class="field-placeholder">Product Name <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
@@ -45,59 +45,85 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" value="{{$edit->phone}}" placeholder="Set Buying Price" name="phone" required>
+                                                            <input type="text" class="form-control" value="{{$edit->buying_price}}" placeholder="Set Buying Price" name="buying_price" required>
+                                                            <span class="input-group-text">Ksh</span>
                                                         </div>
-                                                        <div class="field-placeholder">Phone Number <span class="text-danger">*</span></div>
+                                                        <div class="field-placeholder">Buying Price <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
-                                            @if($edit->role==1)
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                                                    <div class="field-wrapper">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" value="{{$edit->selling_price}}" placeholder="Set Selling Price" name="selling_price" required>
+                                                            <span class="input-group-text">Ksh</span>
+                                                        </div>
+                                                        <div class="field-placeholder">Selling Price <span class="text-danger">*</span></div>
+                                                    </div>
+
+                                                </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                            <div class="field-wrapper">
-                                                <select class="form-select" id="paymentSelect" name="role">
-                                                    <option value="1">Hotel</option>
-                                                    <option value="2">Hardware</option>
-                                                    <option value="0">ADMIN</option>
-                                                </select>
-                                                <div class="field-placeholder">Role</div>
-                                            </div>
-                                            </div>
-                                            @elseif($edit->role==0)
-                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                                    <div class="field-wrapper">
-                                                        <select class="form-select" id="paymentSelect" name="role">
-                                                            <option value="0">ADMIN</option>
-                                                            <option value="1">Hotel</option>
-                                                            <option value="2">Hardware</option>
-                                                        </select>
-                                                        <div class="field-placeholder">Role</div>
-                                                    </div>
-                                                </div>
-                                            @else
-                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                                    <div class="field-wrapper">
-                                                        <select class="form-select" id="paymentSelect" name="role">
-                                                            <option value="2">Hardware</option>
-                                                            <option value="1">Hotel</option>
-                                                            <option value="0">ADMIN</option>
-                                                        </select>
-                                                        <div class="field-placeholder">Role</div>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <div class="row">
-                                                <button type="submit" class="btn btn-success">Save</button>
-                                                <hr>
-                                            </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
+                                                        <div class="field-wrapper">
+                                                            <div class="input-group">
+                                                                @if(!is_null($edit->number_of_pack))
+                                                                <input type="text" class="form-control" value="{{$edit->quantity%$edit->quantity_of_pack}}" placeholder="Quantity" name="quantity">
+                                                                @else
+                                                                    <input type="text" class="form-control" value="{{$edit->quantity}}" placeholder="Quantity" name="quantity">
+
+                                                                @endif
+                                                            </div>
+                                                            <div class="field-placeholder">Quantity(Incomplete Park)</div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                                                        <div class="field-wrapper">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" value="{{$edit->quantity_of_pack}}" placeholder="Quantity in pack" name="quantity_of_pack">
+                                                            </div>
+                                                            <div class="field-placeholder">Quantity in pack</div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                                                        <div class="field-wrapper">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" value="{{$edit->number_of_pack}}" placeholder="Pack No:" name="number_of_pack">
+                                                            </div>
+                                                            <div class="field-placeholder">Pack Number</div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                                                    <div class="field-wrapper">
+                                                        <div class="input-group">
+                                                            <input type="date" class="form-control" value="{{$edit->date}}" name="date">
+                                                        </div>
+                                                        <div class="field-placeholder">Date <span class="text-danger">*</span></div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <input type="file" class="form-control" name="image">
+                                                </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                                <button type="submit" class="btn btn-success">Save</button>
                                         </div>
                                 </div>
                                 </form>
-                                <a href="{{url('reset',$edit->id)}}"><button class="btn btn-danger btn-lg btn-block">Reset Password</button></a>
-
 
                             </div>
                         </div>

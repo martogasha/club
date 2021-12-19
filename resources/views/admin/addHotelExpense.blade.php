@@ -1,5 +1,5 @@
 @include('adminPartial.header')
-<title>Add User - Admin Dashboard</title>
+<title>Add Hotel Expense - Admin Dashboard</title>
 
 <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
@@ -13,10 +13,10 @@
 @include('flash-message')
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">Add New User</div>
+                                <div class="card-title">Add New Expense</div>
                             </div>
                             <div class="card-body">
-                                <form action="{{url('storeUsers')}}" method="post">
+                                <form action="{{url('storeHotelExpense')}}" method="post">
                                     @csrf
                                 <div id="example-form">
                                     <h3>General Information</h3>
@@ -26,39 +26,49 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" placeholder="First Name" name="first_name" required>
+                                                            <input type="text" class="form-control" placeholder="Expense Name" name="name" required>
                                                         </div>
-                                                        <div class="field-placeholder">First Name <span class="text-danger">*</span></div>
-                                                    </div>
-
-                                                </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-
-                                                    <div class="field-wrapper">
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" placeholder="Last Name" name="last_name" required>
-                                                        </div>
-                                                        <div class="field-placeholder">Last Name <span class="text-danger">*</span></div>
+                                                        <div class="field-placeholder">Expense Name <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
                                                     <div class="field-wrapper">
-                                                        <input type="text" placeholder="Phone Number" name="phone" required>
-                                                        <div class="field-placeholder">Phone Number <span class="text-danger">*</span></div>
+                                                        <input type="text" placeholder="Description" name="desc" required>
+                                                        <div class="field-placeholder">Expense Description <span class="text-danger">*</span></div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                                                    <div class="field-wrapper">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Amount" name="amount" required>
+                                                            <span class="input-group-text">Ksh</span>
+                                                        </div>
+                                                        <div class="field-placeholder">Amount <span class="text-danger">*</span></div>
                                                     </div>
 
                                                 </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
+                                                <div class="field-wrapper">
+                                                    <div class="input-group">
+                                                        <input type="date" class="form-control" name="date" required>
+                                                    </div>
+                                                    <div class="field-placeholder">Date <span class="text-danger">*</span></div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
                                             <div class="field-wrapper">
-                                                <select class="form-select" id="paymentSelect" name="role">
-                                                    <option value="1">Hotel</option>
-                                                    <option value="2">Hardware</option>
-                                                    <option value="0">ADMIN</option>
+                                                <select class="form-select" id="paymentSelect" name="paymentMethod">
+                                                    <option value="1">Mpesa</option>
+                                                    <option value="2">Cash</option>
                                                 </select>
-                                                <div class="field-placeholder">Role</div>
+                                                <div class="field-placeholder">Payment Method</div>
                                             </div>
                                             </div>
                                             <br>

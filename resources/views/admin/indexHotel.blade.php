@@ -1,15 +1,15 @@
 @include('adminPartial.header')
         <!-- Page header ends -->
-<title>Hardware Dashboard - Admin Dashboard</title>
+<title>Hotel Dashboard - Admin Dashboard</title>
 
         <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
 
             <!-- Content wrapper start -->
             <div class="content-wrapper">
-                <form action="{{url('filterMpesa')}}" method="post">
+                <form action="{{url('filterHotel')}}" method="post">
                     @csrf
-                <div class="row">
+                    <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="field-wrapper">
                                 <div class="input-group">
@@ -28,9 +28,9 @@
                             </div>
 
                         </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
-                    <h4>DAILY REPORT</h4>
-                </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
+                        <h4>DAILY REPORT</h4>
+                    </div>
                 </form>
                 @include('flash-message')
                 <!-- Row start -->
@@ -41,7 +41,7 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>ksh {{\App\Models\Sales::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('profit')-\App\Models\Expense::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('amount')}}</h2>
+                                <h2>ksh {{\App\Models\salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('profit')-\App\Models\Hotelexpense::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('amount')}}</h2>
                                 <p>PROFIT</p>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>Ksh {{\App\Models\Sales::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('total')}}</h2>
+                                <h2>Ksh {{\App\Models\salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('total')}}</h2>
                                 <p>SALES</p>
                             </div>
 
@@ -64,7 +64,7 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>Ksh {{\App\Models\Expense::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('amount')}}</h2>
+                                <h2>Ksh {{\App\Models\Hotelexpense::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('amount')}}</h2>
                                 <p>EXPENSE</p>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                                         @foreach($sales as $sale)
                                         <tr>
                                             <td>Order #{{$sale->id}}</td>
-                                            <td>Ksh <b>{{\App\Models\Sales::where('order_id',$sale->id)->sum('total')}}</b></td>
+                                            <td>Ksh <b>{{\App\Models\salesHotel::where('order_id',$sale->id)->sum('total')}}</b></td>
                                             @if(!empty($sale->phone))
                                             <td>{{$sale->phone}}</td>
                                             @else
@@ -304,13 +304,13 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('viewSale')}}",
+            url:"{{url('viewHotelSale')}}",
             data:{'id':$value},
             success:function (data) {
                 $('#viewSales').html(data);
                     $.ajax({
                         type:"get",
-                        url:"{{url('viewSaleHeader')}}",
+                        url:"{{url('viewHotelSaleHeader')}}",
                         data:{'id':$value},
                         success:function (data) {
                             $('#viewSaleHeader').html(data);

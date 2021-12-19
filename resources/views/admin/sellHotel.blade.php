@@ -1,5 +1,5 @@
 @include('adminPartial.header')
-<title>Pos Sell Hardware - Admin Dashboard</title>
+<title>Pos Sell Hotel - Admin Dashboard</title>
 
 <!-- Content wrapper scroll start -->
 <div class="content-wrapper-scroll">
@@ -124,7 +124,7 @@
                                         <h5 class="text-danger">Sell</h5>
                                     </div>
                                     <div>
-                                        <p style="font-size: 20px"><b>{{\App\Models\Sell::sum('total')}} /=</b></p>
+                                        <p style="font-size: 20px"><b>{{\App\Models\sellHotel::sum('total')}} /=</b></p>
                                         <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Pay</button>
                                     </div>
                                 </div>
@@ -218,7 +218,7 @@
                         <div class="field-placeholder">Phone Number</div>
                     </div>
                     <div class="field-wrapper" id="amount">
-                        <input type="text" value="{{\App\Models\Sell::sum('total')}}" class="form-control" required>
+                        <input type="text" value="{{\App\Models\sellHotel::sum('total')}}" class="form-control" required>
                         <div class="field-placeholder">Amount</div>
                     </div>
                         <div class="field-wrapper">
@@ -238,7 +238,7 @@
 </div>
 <div class="modal fade" id="updSell" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="{{url('burgain')}}" method="post">
+        <form action="{{url('burgainHotel')}}" method="post">
             @csrf
             <div class="modal-content">
                 <div id="updateSell">
@@ -323,7 +323,7 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('sellStock')}}",
+            url:"{{url('sellHotelStock')}}",
             data:{'id':$value},
             success:function (data) {
                 location.reload();
@@ -338,7 +338,7 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('add')}}",
+            url:"{{url('addHotel')}}",
             data:{'id':$value},
             success:function (data) {
                 location.reload();
@@ -353,7 +353,7 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('minus')}}",
+            url:"{{url('minusHotel')}}",
             data:{'id':$value},
             success:function (data) {
                 location.reload();
@@ -368,7 +368,7 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('del')}}",
+            url:"{{url('delHotel')}}",
             data:{'id':$value},
             success:function (data) {
                 location.reload();
@@ -383,7 +383,7 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('uSell')}}",
+            url:"{{url('uHotelSell')}}",
             data:{'id':$value},
             success:function (data) {
                 $('#updateSell').html(data);
@@ -399,13 +399,13 @@
         $phone = $('#phone').val();
         $.ajax({
             type:"get",
-            url:"{{url('sales')}}",
+            url:"{{url('salesHotel')}}",
             data:{'paymentMethod':$paymentMethod,'phone':$phone},
             success:function (data) {
                 $('#returnPrint').html(data);
                 $.ajax({
                     type:"get",
-                    url:"{{url('CalTotal')}}",
+                    url:"{{url('CalTotalHotel')}}",
                     success:function (data) {
                         $('#calTotal').html(data);
                         var printContents = document.getElementById('printDiv').innerHTML;

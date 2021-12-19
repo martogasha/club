@@ -94,38 +94,80 @@
                     <div class="sidebarMenuScroll">
                         <div class="sidebar-menu">
                             <ul>
+                                @if(\Illuminate\Support\Facades\Auth::user()->role==2)
                                 <li>
-                                    <a href="{{url('admin')}}">Dashboard</a>
+                                    <a href="{{url('admin')}}">Hardware Dashboard</a>
                                 </li>
+                                @elseif(\Illuminate\Support\Facades\Auth::user()->role==0)
+                                    <li>
+                                        <a href="{{url('admin')}}">Hardware Dashboard</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url('hotelAdmin')}}">Hotel Dashboard</a>
+                                    </li>
+                                @else
                                 <li>
+                                    <a href="{{url('hotelAdmin')}}">Hotel Dashboard</a>
+                                </li>
+                                @endif
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role==0)
+                                    <li>
                                     <a href="{{url('users')}}">Users</a>
                                 </li>
-                                <li>
-                                    <a href="{{url('stock')}}">Stock</a>
+                                    @endif
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role==2)
+                                    <li>
+                                    <a href="{{url('stock')}}">Hardware Stock</a>
                                 </li>
+                                    @elseif(\Illuminate\Support\Facades\Auth::user()->role==0)
+                                        <li>
+                                            <a href="{{url('stock')}}">Hardware Stock</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{url('hotelStock')}}">Hotel Stock</a>
+                                        </li>
+                                    @else
                                 <li>
-                                    <a href="{{url('sell')}}">Sell</a>
+                                    <a href="{{url('hotelStock')}}">Hotel Stock</a>
                                 </li>
+                                    @endif
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role==2)
+                                    <li>
+                                    <a href="{{url('sell')}}">Sell Hardware</a>
+                                </li>
+                                    @elseif(\Illuminate\Support\Facades\Auth::user()->role==0)
+                                        <li>
+                                            <a href="{{url('sell')}}">Sell Hardware</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{url('sellHotel')}}">Sell Hotel</a>
+                                        </li>
+                                    @else
                                 <li>
-                                    <a href="{{url('expense')}}">Expenses</a>
+                                    <a href="{{url('sellHotel')}}">Sell Hotel</a>
                                 </li>
+                                    @endif
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role==2)
+                                    <li>
+                                    <a href="{{url('expense')}}">Hardware Expenses</a>
+                                </li>
+                                    @elseif(\Illuminate\Support\Facades\Auth::user()->role==0)
+                                        <li>
+                                            <a href="{{url('expense')}}">Hardware Expenses</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{url('expenseHotel')}}">Hotel Expenses</a>
+                                        </li>
+                                    @else
+                                <li>
+                                    <a href="{{url('expenseHotel')}}">Hotel Expenses</a>
+                                </li>
+                                    @endif
                             </ul>
                         </div>
                     </div>
                     <!-- Sidebar menu ends -->
 
-                    <!-- Sidebar actions starts -->
-                    <div class="sidebar-actions">
-                        <a href="orders.html" class="red">
-                            <div class="bg-avatar">12</div>
-                            <h5>New Orders</h5>
-                        </a>
-                        <a href="invoices-list.html" class="blue">
-                            <div class="bg-avatar">24</div>
-                            <h5>Bills Pending</h5>
-                        </a>
-                    </div>
-                    <!-- Sidebar actions ends -->
 
                 </div>
 
@@ -650,15 +692,17 @@
                     <ul class="header-actions">
                         <li class="dropdown">
                             <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
-										<span class="avatar">
+                                <h5>{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</h5>
+
+                                <span class="avatar">
 											<img src="img/user.svg" alt="User Avatar">
 											<span class="status busy"></span>
 										</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end md" aria-labelledby="userSettings">
                                 <div class="header-profile-actions">
-                                    <a href="user-profile.html"><i class="icon-user1"></i>Profile</a>
-                                        <a href="account-settings.html"><i class="icon-settings1"></i>Settings</a>
+                                    <a href="{{url('profile')}}"><i class="icon-user1"></i>Profile</a>
+                                        <a href="#"><i class="icon-settings1"></i>Settings</a>
                                     <form action="{{route('logout')}}" method="post" id="logout">
                                         @csrf
                                     <a href="javascript:document.getElementById('logout').submit();"><i class="icon-log-out1"></i>Logout</a>
