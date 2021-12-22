@@ -1,16 +1,17 @@
 @include('adminPartial.header')
         <!-- Page header ends -->
-<title>Hardware Dashboard - Admin Dashboard</title>
+<title>Hardware Dashboard - Admin</title>
 
         <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
-
             <!-- Content wrapper start -->
             <div class="content-wrapper">
-                @if(\Illuminate\Support\Facades\Auth::user()->role==0)
-                <form action="{{url('filterMpesa')}}" method="post">
+                <h2>Hardware Dashboard</h2>
+
+            @if(\Illuminate\Support\Facades\Auth::user()->role==0)
+                <form action="{{url('hardwareFilter')}}" method="post">
                     @csrf
-                <div class="row">
+                    <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="field-wrapper">
                                 <div class="input-group">
@@ -29,9 +30,9 @@
                             </div>
 
                         </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
-                    <h4>DAILY REPORT</h4>
-                </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
+                        <h4>DAILY REPORT</h4>
+                    </div>
                 </form>
                 @endif
                 @include('flash-message')
@@ -153,6 +154,7 @@
                                             <th class="order-number">Name</th>
                                             <th class="order-date">Qnty</th>
                                             <th class="order-status">Amount</th>
+                                            <th class="order-status">Discount</th>
                                             <th class="order-total">Total</th>
                                         </tr>
                                         </thead>

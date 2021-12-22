@@ -21,6 +21,8 @@ class CreateSellsTable extends Migration
             $table->integer('number_of_pack')->nullable();
             $table->integer('selling_price');
             $table->string('date');
+            $table->integer('discount');
+            $table->integer('discount_percentage');
             $table->string('total');
             $table->mediumText('image')->nullable();
             $table->timestamps();

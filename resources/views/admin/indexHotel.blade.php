@@ -1,12 +1,14 @@
 @include('adminPartial.header')
         <!-- Page header ends -->
-<title>Hotel Dashboard - Admin Dashboard</title>
+<title>Hotel Dashboard - POS</title>
 
         <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
-
             <!-- Content wrapper start -->
             <div class="content-wrapper">
+                <h2>Hotel Dashboard</h2>
+
+            @if(\Illuminate\Support\Facades\Auth::user()->role==0)
                 <form action="{{url('filterHotel')}}" method="post">
                     @csrf
                     <div class="row">
@@ -32,8 +34,10 @@
                         <h4>DAILY REPORT</h4>
                     </div>
                 </form>
+                @endif
                 @include('flash-message')
                 <!-- Row start -->
+                @if(\Illuminate\Support\Facades\Auth::user()->role==0)
                 <div class="row gutters">
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                         <div class="stats-tile">
@@ -70,6 +74,7 @@
                         </div>
                     </div>
                 </div>
+            @endif
                 <!-- Row end -->
 
                 <!-- Row start -->
@@ -89,7 +94,7 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">Recent Sales</div>
+                                <div class="card-title">Todays Sales  <b style="color: red;font-size: 20px">{{\Carbon\Carbon::now()->format('Y-m-d')}}</b></div>
                                 <div class="graph-day-selection" role="group">
                                     <button type="button" class="btn active">Export to Excel</button>
                                 </div>

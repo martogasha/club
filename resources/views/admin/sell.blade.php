@@ -1,5 +1,5 @@
 @include('adminPartial.header')
-<title>Pos Sell Hardware - Admin Dashboard</title>
+<title>Pos Sell Hardware - HARDWARE</title>
 
 <!-- Content wrapper scroll start -->
 <div class="content-wrapper-scroll">
@@ -24,7 +24,7 @@
 
                                 <div class="earnings-detail">
                                     <div class="earnings-info">
-                                        <p class="text-lighter"><b style="font-size: 20px;color: #0b0e23">Shop Name</b></p>
+                                        <p class="text-lighter"><b style="font-size: 20px;color: #0b0e23">Hardware</b></p>
                                         <h5 class="text-info">Stock</h5>
                                     </div>
                                     <button class="earnings-icon">
@@ -72,6 +72,10 @@
 
                                             <div id="legalcopy">
                                                 <p class="legal"><strong>Thank you for your business!</strong>  Payment is expected within 31 days; please process this invoice within that time. There will be a 5% interest charge per month on late invoices.
+                                                </p>
+                                            </div>
+                                            <div id="legalcopy">
+                                                <p class="legal">Served By: <strong>{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</strong>
                                                 </p>
                                             </div>
 
@@ -138,6 +142,7 @@
                                             <th>Product</th>
                                             <th>Quantity</th>
                                             <th>Amount</th>
+                                            <th>Discount</th>
                                             <th>Total</th>
                                             <th>Remove</th>
                                         </tr>
@@ -161,6 +166,7 @@
                                                 </td>
                                                 <td><button class="btn btn-warning btn-sm minus" id="{{$sell->id}}">-</button> <b>{{$sell->quantity}}</b> <button class="btn btn-success btn-sm add" id="{{$sell->id}}">+</button></td>
                                                 <td>{{$sell->selling_price}} /=</td>
+                                                <td>{{$sell->discount}} (<b>{{$sell->discount_percentage}}%</b>)</td>
                                                 <td><b>{{$sell->selling_price*$sell->quantity}} /=</b></td>
                                                 <td>
                                                     <button class="btn btn-danger btn-sm del" id="{{$sell->id}}">x</button>

@@ -96,18 +96,18 @@
                             <ul>
                                 @if(\Illuminate\Support\Facades\Auth::user()->role==2)
                                 <li>
-                                    <a href="{{url('admin')}}">Hardware Dashboard</a>
+                                    <a href="{{url('HardwareDashboard')}}">Hardware Dashboard</a>
                                 </li>
                                 @elseif(\Illuminate\Support\Facades\Auth::user()->role==0)
                                     <li>
-                                        <a href="{{url('admin')}}">Hardware Dashboard</a>
+                                        <a href="{{url('HardwareDashboard')}}">Hardware Dashboard</a>
                                     </li>
                                     <li>
-                                        <a href="{{url('hotelAdmin')}}">Hotel Dashboard</a>
+                                        <a href="{{url('hotelDashboard')}}">Hotel Dashboard</a>
                                     </li>
                                 @else
                                 <li>
-                                    <a href="{{url('hotelAdmin')}}">Hotel Dashboard</a>
+                                    <a href="{{url('hotelDashboard')}}">Hotel Dashboard</a>
                                 </li>
                                 @endif
                                     @if(\Illuminate\Support\Facades\Auth::user()->role==0)
@@ -115,21 +115,16 @@
                                     <a href="{{url('users')}}">Users</a>
                                 </li>
                                     @endif
-                                    @if(\Illuminate\Support\Facades\Auth::user()->role==2)
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role==0)
                                     <li>
                                     <a href="{{url('stock')}}">Hardware Stock</a>
                                 </li>
-                                    @elseif(\Illuminate\Support\Facades\Auth::user()->role==0)
                                         <li>
-                                            <a href="{{url('stock')}}">Hardware Stock</a>
-                                        </li>
+                                        <a href="{{url('stockBelowFive')}}">Hardware Stock Below 5</a>
+                                </li>
                                         <li>
                                             <a href="{{url('hotelStock')}}">Hotel Stock</a>
                                         </li>
-                                    @else
-                                <li>
-                                    <a href="{{url('hotelStock')}}">Hotel Stock</a>
-                                </li>
                                     @endif
                                     @if(\Illuminate\Support\Facades\Auth::user()->role==2)
                                     <li>
@@ -693,12 +688,12 @@
                         <li class="dropdown">
                             <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
                                 <h5>{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</h5>
-
                                 <span class="avatar">
 											<img src="img/user.svg" alt="User Avatar">
 											<span class="status busy"></span>
 										</span>
                             </a>
+
                             <div class="dropdown-menu dropdown-menu-end md" aria-labelledby="userSettings">
                                 <div class="header-profile-actions">
                                     <a href="{{url('profile')}}"><i class="icon-user1"></i>Profile</a>

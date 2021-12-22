@@ -24,7 +24,7 @@
 
                                 <div class="earnings-detail">
                                     <div class="earnings-info">
-                                        <p class="text-lighter"><b style="font-size: 20px;color: #0b0e23">Shop Name</b></p>
+                                        <p class="text-lighter"><b style="font-size: 20px;color: #0b0e23">Hotel</b></p>
                                         <h5 class="text-info">Stock</h5>
                                     </div>
                                     <button class="earnings-icon">
@@ -72,6 +72,10 @@
 
                                             <div id="legalcopy">
                                                 <p class="legal"><strong>Thank you for your business!</strong>  Payment is expected within 31 days; please process this invoice within that time. There will be a 5% interest charge per month on late invoices.
+                                                </p>
+                                            </div>
+                                            <div id="legalcopy">
+                                                <p class="legal">Served By: <strong>{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</strong>
                                                 </p>
                                             </div>
 

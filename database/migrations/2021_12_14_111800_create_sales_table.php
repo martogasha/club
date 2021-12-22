@@ -23,6 +23,8 @@ class CreateSalesTable extends Migration
             $table->string('date');
             $table->string('total');
             $table->integer('profit');
+            $table->integer('discount');
+            $table->integer('discount_percentage');
             $table->integer('order_id');
             $table->integer('loss')->nullable();
             $table->mediumText('image')->nullable();

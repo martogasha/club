@@ -4,9 +4,9 @@
 
         <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
-
             <!-- Content wrapper start -->
             <div class="content-wrapper">
+                <h2>Hardware Dashboard</h2>
                 <form action="{{url('filterMpesa')}}" method="post">
                     @csrf
                 <div class="row">
@@ -29,10 +29,12 @@
 
                         </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
-                    <h4>DAILY REPORT</h4>
                 </div>
                 </form>
+                <br>
                 @include('flash-message')
+                <h4>Start Date:<b style="color: red">{{$start_date}}</b> End Date:<b style="color: red">{{$end_date}}</b></h4>
+
                 <!-- Row start -->
                 <div class="row gutters">
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
@@ -64,7 +66,7 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>Ksh {{\App\Models\Expense::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('amount')}}</h2>
+                                <h2>Ksh {{$expense}}</h2>
                                 <p>EXPENSE</p>
                             </div>
                         </div>

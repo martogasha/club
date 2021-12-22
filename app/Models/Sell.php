@@ -13,6 +13,8 @@ class Sell extends Model
         'product_name',
         'quantity',
         'number_of_pack',
+        'discount',
+        'discount_percentage',
         'selling_price',
         'total',
         'date',

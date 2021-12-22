@@ -25,7 +25,9 @@
                                             <th>Amount</th>
                                             <th>Date</th>
                                             <th>Payment Method</th>
+                                            @if(\Illuminate\Support\Facades\Auth::user()->role==0)
                                             <th>Actions</th>
+                                            @endif
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -41,6 +43,7 @@
                                                 <td>Cash</td>
 
                                             @endif
+                                            @if(\Illuminate\Support\Facades\Auth::user()->role==0)
                                             <td>
                                                 <div class="actions">
                                                     <a href="{{url('expenseEdit',$expense->id)}}" data-placement="top" title="Edit" data-original-title="Edit">
@@ -51,6 +54,7 @@
                                                         </a>
                                                 </div>
                                             </td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                         </tbody>

@@ -31,6 +31,12 @@ class AdminController extends Controller
             'sales'=>$sales
         ]);
     }
+    public function HardwareDashboard(){
+        $sales = Order::orderByDesc('id')->get();
+        return view('admin.indexHardware',[
+            'sales'=>$sales
+        ]);
+    }
     public function expense(){
         $expenses = Expense::orderByDesc('id')->get();
         return view('admin.expense',[
@@ -125,6 +131,12 @@ class AdminController extends Controller
             'products'=>$products
         ]);
     }
+    public function stockBelowFive(){
+        $products = Stock::where('quantity','<',5)->get();
+        return view('admin.stockBelowFive',[
+            'products'=>$products
+        ]);
+    }
     public function hotelStock(){
         $products = Hotelstock::orderByDesc('id')->get();
         return view('admin.hotelStock',[
@@ -175,11 +187,20 @@ class AdminController extends Controller
     }
     public function burgain(Request $request){
         $getSell = Sell::find($request->sellId);
+        $getProduct = Stock::where('barcode',$getSell->barcode)->first();
+        $getOriginalSellingPrice = $getProduct->selling_price;
+        $selling_price = $request->amount;
+        $dis = $getOriginalSellingPrice-$selling_price;
+        $discount = $dis*$getSell->quantity;
+        $calPercent = $discount/$getOriginalSellingPrice;
+        $percentageDiscount = $calPercent*100;
         $quantity = $getSell->quantity;
         $amount = $request->amount;
         $total = $amount*$quantity;
         $updatePrice = Sell::where('id', $request->sellId)->update(['selling_price'=>$request->amount]);
         $updateTotal = Sell::where('id', $request->sellId)->update(['total'=>$total]);
+        $updateDiscount = Sell::where('id', $request->sellId)->update(['discount'=>$discount]);
+        $updateDiscountPercentage = Sell::where('id', $request->sellId)->update(['discount_percentage'=>$percentageDiscount]);
         return redirect()->back()->with('success','AMOUNT EDITED');
     }
     public function burgainHotel(Request $request){
@@ -238,6 +259,9 @@ class AdminController extends Controller
 
                                             <td class="order-status" data-title="Status">
                                                 '.$sale->selling_price.'
+                                            </td>
+                                            <td class="order-status" data-title="Status">
+                                                '.$sale->discount.'(<b>'.$sale->discount_percentage.'%</b>)
                                             </td>
 
                                             <td class="order-total" data-title="Total">
@@ -354,24 +378,34 @@ class AdminController extends Controller
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $sales  = Order::whereBetween('date', array($start_date, $end_date))->get();
-        $profit  = Sales::whereBetween('date', array($start_date, $end_date))->sum('profit');
+        $getProfit  = Sales::whereBetween('date', array($start_date, $end_date))->sum('profit');
         $totalSales  = Sales::whereBetween('date', array($start_date, $end_date))->sum('total');
+        $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
+        $profit = $getProfit-$expense;
         return view('admin.indexFilter',[
             'sales'=>$sales,
             'profit'=>$profit,
             'totalSales'=>$totalSales,
+            'start_date'=>$start_date,
+            'end_date'=>$end_date,
+            'expense'=>$expense,
         ]);
     }
     public function filterHotel(Request $request){
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $sales  = HotelOrder::whereBetween('date', array($start_date, $end_date))->get();
-        $profit  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('profit');
+        $getProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('profit');
         $totalSales  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('total');
+        $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
+        $profit = $getProfit-$expense;
         return view('admin.indexHotelFilter',[
             'sales'=>$sales,
             'profit'=>$profit,
             'totalSales'=>$totalSales,
+            'start_date'=>$start_date,
+            'end_date'=>$end_date,
+            'expense'=>$expense,
         ]);
     }
 }

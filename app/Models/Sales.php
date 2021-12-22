@@ -20,5 +20,7 @@ class Sales extends Model
         'order_id',
         'date',
         'image',
+        'discount',
+        'discount_percentage',
     ];
 }

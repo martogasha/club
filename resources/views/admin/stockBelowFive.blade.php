@@ -1,6 +1,6 @@
 @include('adminPartial.header')
         <!-- Page header ends -->
-<title>Hotel Expense - Admin Dashboard</title>
+<title>Hardware Stock Below 5 - Admin Dashboard</title>
 
         <!-- Content wrapper scroll start -->
         <div class="content-wrapper-scroll">
@@ -16,45 +16,52 @@
                             <div class="card-body">
                                 @include('flash-message')
                                 <div class="table-responsive">
-                                    <a href="{{url('addHotelExpense')}}"><button class="btn btn-info">Add Expense</button></a>
                                     <table id="copy-print-csv" class="table v-middle">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Description</th>
-                                            <th>Amount</th>
-                                            <th>Date</th>
-                                            <th>Payment Method</th>
-                                            @if(\Illuminate\Support\Facades\Auth::user()->role==0)
+                                            <th>Products</th>
+                                            <th>Total Qnty</th>
+                                            <th>Packs</th>
+                                            <th>Updated Date</th>
+                                            <th>Buying Price</th>
+                                            <th>Selling Price</th>
                                             <th>Actions</th>
-                                            @endif
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($expenses as $expense)
+                                        @foreach($products as $product)
                                         <tr>
-                                            <td>{{$expense->name}}</td>
-                                            <td>{{$expense->desc}}</td>
-                                            <td>{{$expense->amount}}</td>
-                                            <td>{{$expense->date}}</td>
-                                            @if($expense->payment_method==1)
-                                            <td>Mpesa</td>
+                                            <td>
+                                                <div class="media-box">
+                                                    <img src="{{asset('uploads/product/'.$product->image)}}" class="media-avatar" alt="">
+                                                    <div class="media-box-body">
+                                                        <a href="#" class="text-truncate">{{$product->product_name}}</a>
+                                                        <p><b>barcode</b>: {{$product->barcode}}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><b>{{$product->quantity}}</b></td>
+                                        @if(is_null($product->number_of_pack))
+                                            <td><b>N/A</b></td>
                                             @else
-                                                <td>Cash</td>
-
+                                                <td><b>{{$product->number_of_pack}}</b></td>
                                             @endif
-                                            @if(\Illuminate\Support\Facades\Auth::user()->role==0)
+                                            <td>{{$product->date}}</td>
+                                            <td>{{$product->buying_price}}</td>
+                                            <td>{{$product->selling_price}}</td>
                                             <td>
                                                 <div class="actions">
-                                                    <a href="{{url('expenseHotelEdit',$expense->id)}}" data-placement="top" title="Edit" data-original-title="Edit">
+                                                    <a href="#" class="view" title="View" id="{{$product->id}}" data-bs-toggle="modal" data-bs-target="#viewStock">
+                                                        <i class="icon-eye text-info"></i>
+                                                    </a>
+                                                    <a href="{{url('stockEdit',$product->id)}}" data-placement="top" title="Edit" data-original-title="Edit">
                                                         <i class="icon-edit1 text-info"></i>
                                                     </a>
-                                                        <a href="#" class="delete" id="{{$expense->id}}" data-bs-toggle="modal" data-bs-target="#deleteStock" data-placement="top" title="Delete" data-original-title="Delete">
+                                                        <a href="#" class="delete" id="{{$product->id}}" data-bs-toggle="modal" data-bs-target="#deleteStock" data-placement="top" title="Delete" data-original-title="Delete">
                                                             <i class="icon-x-circle text-danger"></i>
                                                         </a>
                                                 </div>
                                             </td>
-                                            @endif
                                         </tr>
                                         @endforeach
                                         </tbody>
@@ -88,7 +95,7 @@
 <div id="deleteStock" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{url('dHotelExpense')}}" method="post">
+            <form action="{{url('dStock')}}" method="post">
                 @csrf
                 <div class="modal-header" style="background-color: red" id="basic">
                 </div>
@@ -158,7 +165,7 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('deleteHotelExpense')}}",
+            url:"{{url('deleteStock')}}",
             data:{'id':$value},
             success:function (data) {
                 $('#basic').html(data);

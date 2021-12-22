@@ -383,6 +383,8 @@ class StockController extends Controller
             $sell->selling_price = $getProduct->selling_price;
             $sell->total = $getProduct->selling_price;
             $sell->date = $date;
+            $sell->discount = 0;
+            $sell->discount_percentage = 0;
             $sell->image = $getProduct->image;
             $sell->save();
             $prev = $getProduct->quantity;
@@ -442,6 +444,16 @@ class StockController extends Controller
         $prev = $getProduct->quantity;
         $stockQuantity = $prev-1;
         $updateStock = Stock::where('barcode',$add->barcode)->update(['quantity'=>$stockQuantity]);
+        $getQ = Sell::where('barcode',$add->barcode)->first();
+        $originalSellingPrice = $getProduct->selling_price;
+        $sellingPrice = $add->selling_price;
+        $dis = $originalSellingPrice - $sellingPrice;
+        $cal = $dis/$originalSellingPrice;
+        $discount = $dis*$getQ->quantity;
+        $percentage = $cal*100;
+        $updateDiscount = Sell::where('id',$add->id)->update(['discount'=>$discount]);
+        $updatePercentage = Sell::where('id',$add->id)->update(['discount_percentage'=>$percentage]);
+
 
     }
     public function addHotel(Request $request){
@@ -469,6 +481,15 @@ class StockController extends Controller
             $prev = $getProduct->quantity;
             $stockQuantity = $prev+1;
             $updateStock = Stock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
+            $getQ = Sell::where('barcode',$minus->barcode)->first();
+            $originalSellingPrice = $getProduct->selling_price;
+            $sellingPrice = $minus->selling_price;
+            $dis = $originalSellingPrice - $sellingPrice;
+            $cal = $dis/$originalSellingPrice;
+            $discount = $dis*$getQ->quantity;
+            $percentage = $cal*100;
+            $updateDiscount = Sell::where('id',$minus->id)->update(['discount'=>$discount]);
+            $updatePercentage = Sell::where('id',$minus->id)->update(['discount_percentage'=>$percentage]);
 
         }
         else{
@@ -535,6 +556,8 @@ class StockController extends Controller
             $sales->total = $sell->total;
             $sales->image = $sell->image;
             $sales->profit = $profit;
+            $sales->discount = $sell->discount;
+            $sales->discount_percentage = $sell->discount_percentage;
             $sales->order_id = $createOrder->id;
             $sales->save();
             $sell->delete();
