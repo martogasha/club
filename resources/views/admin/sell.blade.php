@@ -88,9 +88,7 @@
                                     @foreach($stocks as $stock)
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                             <div class="image-stats-tile">
-                                                <div class="image-stats-box">
                                                     <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
-                                                </div>
                                                 <div class="img-stats-details">
                                                     <p>{{$stock->product_name}}</p>
                                                     @if($stock->quantity<5)
@@ -325,6 +323,7 @@
             });
         });
     });
+
     $(document).on('click','.sell',function () {
         $value = $(this).attr('id');
         $.ajax({
