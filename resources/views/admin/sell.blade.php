@@ -89,7 +89,7 @@
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                             <div class="image-stats-tile">
                                                     <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
-                                                <div class="img-stats-details">
+                                                <div class="img-stats-details" style="margin: 10px">
                                                     <p>{{$stock->product_name}}</p>
                                                     @if($stock->quantity<5)
                                                         <h5><b style="color: red">{{$stock->quantity}} Pieces</b></h5>
@@ -98,9 +98,7 @@
                                                     @endif
                                                     <h5>{{$stock->selling_price}} /=</h5>
                                                 </div>
-                                                <div class="weekly-graph-details">
-                                                    <button class="btn btn-info sell" id="{{$stock->id}}">Sell</button>
-                                                </div>
+                                                    <button class="btn btn-info sell" id="{{$stock->id}}" style="margin: 50px">Sell</button>
                                             </div>
                                         </div>
                                     @endforeach
