@@ -86,7 +86,7 @@
                                 <!-- Row start -->
                                 <div class="row gutters" style="height: 325px;overflow: auto">
                                     @foreach($stocks as $stock)
-                                        @if($stock->id==1)
+                                        @if($stock->id==1||$stock->id==2||$stock->id==3||$stock->id==4)
 
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                                 <div class="image-stats-tile">
@@ -107,7 +107,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        @elseif($stock->id==2)
+                                        @elseif($stock->id==5)
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                                 <div class="image-stats-tile">
                                                     <div class="image-stats-box">
