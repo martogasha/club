@@ -66,8 +66,13 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>Ksh {{$expense}}</h2>
-                                <p>EXPENSE</p>
+                                @if(!is_null($check))
+                                <h2>Ksh {{$discount}}</h2>
+                                <p>Total Discount</p>
+                                @else
+                                    <h2>Ksh {{$expense}}</h2>
+                                    <p>Expenses</p>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -100,7 +105,8 @@
                                 <div class="table-responsive">
                                     <table class="table products-table">
                                         <thead>
-                                        <tr>
+                                        @if(is_null($check))
+                                            <tr>
                                             <th>Order Id</th>
                                             <th>Total</th>
                                             <th>Phone number</th>
@@ -108,8 +114,18 @@
                                             <th>Date</th>
                                             <th>View Products</th>
                                         </tr>
+                                        @else
+                                            <tr>
+                                                <th>Product Name</th>
+                                                <th>Quantity</th>
+                                                <th>Amount</th>
+                                                <th>Discount</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        @endif
                                         </thead>
                                         <tbody>
+                                        @if(is_null($check))
                                         @foreach($sales as $sale)
                                         <tr>
                                             <td>Order #{{$sale->id}}</td>
@@ -129,6 +145,18 @@
                                             <td><button class="btn btn-success view" id="{{$sale->id}}" data-bs-toggle="modal" data-bs-target="#viewOrderProducts">View</button> </td>
                                         </tr>
                                         @endforeach
+                                        @else
+                                            @foreach($sales as $sale)
+                                                <tr>
+                                                    <td>{{$sale->product_name}}</td>
+                                                    <td>{{$sale->quantity}}</td>
+                                                    <td>{{$sale->selling_price}}</td>
+                                                    <td>{{$sale->discount}}({{$sale->discount_percentage}}%)</td>
+                                                    <td>{{$sale->total}}</td>
+                                                </tr>
+                                            @endforeach
+
+                                        @endif
 
                                         </tbody>
                                     </table>

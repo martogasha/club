@@ -62,6 +62,7 @@ Route::get('del', [\App\Http\Controllers\StockController::class, 'del']);
 Route::get('delHotel', [\App\Http\Controllers\StockController::class, 'delHotel']);
 Route::get('sales', [\App\Http\Controllers\StockController::class, 'sales']);
 Route::get('salesHotel', [\App\Http\Controllers\StockController::class, 'salesHotel']);
+Route::get('salesMeat', [\App\Http\Controllers\StockController::class, 'salesMeat']);
 Route::get('stockEdit/{id}', [\App\Http\Controllers\StockController::class, 'stockEdit']);
 Route::get('stockHotelEdit/{id}', [\App\Http\Controllers\StockController::class, 'stockHotelEdit']);
 Route::get('sell', [\App\Http\Controllers\AdminController::class, 'sell']);
@@ -96,3 +97,4 @@ Route::get('filterHardware', [\App\Http\Controllers\AdminController::class, 'fil
 Route::post('hardwareFilter', [\App\Http\Controllers\AdminController::class, 'filterMpesa']);
 Route::get('filterHotelIndex', [\App\Http\Controllers\AdminController::class, 'filterHotelIndex']);
 Route::post('filterHotel', [\App\Http\Controllers\AdminController::class, 'filterHotel']);
+Route::get('sellButchery', [\App\Http\Controllers\AdminController::class, 'sellButchery']);

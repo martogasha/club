@@ -245,14 +245,16 @@
             <div class="modal-content">
                 <div id="updateSell">
                 </div>
+                <h4>Discount <span id="ddd"></span></h4>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">UPDATE</button>
+                    <button type="submit" class="btn btn-success" id="burgainButton">UPDATE</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
 
 <!-- Modal end -->
 <!-- Page wrapper end -->
@@ -434,6 +436,22 @@
                 alert('error')
             }
         });
+    });
+    $(document).on('change','.sel',function () {
+        $selling_p = $(this).val();
+        $buying_p = $('#buying_p').val();
+        $quantity = $('#quant').val();
+        $realSelling_p = $('#realSelling').val();
+        $dis = $realSelling_p-$selling_p;
+        $discount = $dis*$quantity;
+        $calPercent = $discount/$realSelling_p;
+        $percentageDiscount = $calPercent*100;
+
+        $('#ddd').append($percentageDiscount,'%');
+        if ($percentageDiscount>5){
+            alert('DISCOUNT HIGH')
+            location.reload();
+        }
     });
 </script>
 <!-- Mirrored from bootstrap.gallery/unipro/v1-x/01-design-blue/reports.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Aug 2021 04:47:02 GMT -->

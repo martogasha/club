@@ -33,8 +33,10 @@ class AdminController extends Controller
     }
     public function HardwareDashboard(){
         $sales = Order::orderByDesc('id')->get();
+        $products = Stock::all();
         return view('admin.indexHardware',[
-            'sales'=>$sales
+            'sales'=>$sales,
+            'products'=>$products
         ]);
     }
     public function expense(){
@@ -118,7 +120,7 @@ class AdminController extends Controller
         ]);
     }
     public function sellHotel(){
-        $stocks = Hotelstock::orderByDesc('id')->get();
+        $stocks = Hotelstock::all();
         $sells = sellHotel::orderByDesc('id')->get();
         return view('admin.sellHotel',[
             'stocks'=>$stocks,
@@ -152,6 +154,7 @@ class AdminController extends Controller
     public function uSell(Request $request){
         $output = "";
         $sell = Sell::find($request->id);
+        $buying = Stock::where('barcode',$sell->barcode)->first();
         $output = '
           <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">'.$sell->product_name.'</h5>
@@ -160,7 +163,10 @@ class AdminController extends Controller
                     <div class="modal-body">
                         <div class="field-wrapper">
                         <input type="hidden" value="'.$sell->id.'" name="sellId">
-                            <input type="text" class="form-control" value="'.$sell->selling_price.'" name="amount">
+                        <input type="hidden" value="'.$sell->quantity.'" id="quant">
+                        <input type="hidden" value="'.$buying->buying_price.'" name="buying_price" id="buying_p">
+                            <input type="hidden" class="form-control" value="'.$sell->selling_price.'" id="realSelling">
+                            <input type="text" class="form-control sel" value="'.$sell->selling_price.'" name="amount">
                             <div class="field-placeholder">Amount</div>
                         </div>
                     </div>
@@ -194,14 +200,21 @@ class AdminController extends Controller
         $discount = $dis*$getSell->quantity;
         $calPercent = $discount/$getOriginalSellingPrice;
         $percentageDiscount = $calPercent*100;
-        $quantity = $getSell->quantity;
-        $amount = $request->amount;
-        $total = $amount*$quantity;
-        $updatePrice = Sell::where('id', $request->sellId)->update(['selling_price'=>$request->amount]);
-        $updateTotal = Sell::where('id', $request->sellId)->update(['total'=>$total]);
-        $updateDiscount = Sell::where('id', $request->sellId)->update(['discount'=>$discount]);
-        $updateDiscountPercentage = Sell::where('id', $request->sellId)->update(['discount_percentage'=>$percentageDiscount]);
-        return redirect()->back()->with('success','AMOUNT EDITED');
+        if ($percentageDiscount>5){
+            return redirect()->back()->with('error','DISCOUNT SHOULD NOT BE MORE THAN 5%');
+
+        }
+        else{
+            $quantity = $getSell->quantity;
+            $amount = $request->amount;
+            $total = $amount*$quantity;
+            $updatePrice = Sell::where('id', $request->sellId)->update(['selling_price'=>$request->amount]);
+            $updateTotal = Sell::where('id', $request->sellId)->update(['total'=>$total]);
+            $updateDiscount = Sell::where('id', $request->sellId)->update(['discount'=>$discount]);
+            $updateDiscountPercentage = Sell::where('id', $request->sellId)->update(['discount_percentage'=>$percentageDiscount]);
+            return redirect()->back()->with('success','AMOUNT EDITED');
+        }
+
     }
     public function burgainHotel(Request $request){
         $getSell = sellHotel::find($request->sellId);
@@ -377,19 +390,47 @@ class AdminController extends Controller
     public function filterMpesa(Request $request){
         $start_date = $request->start_date;
         $end_date = $request->end_date;
-        $sales  = Order::whereBetween('date', array($start_date, $end_date))->get();
-        $getProfit  = Sales::whereBetween('date', array($start_date, $end_date))->sum('profit');
-        $totalSales  = Sales::whereBetween('date', array($start_date, $end_date))->sum('total');
-        $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
-        $profit = $getProfit-$expense;
-        return view('admin.indexFilter',[
-            'sales'=>$sales,
-            'profit'=>$profit,
-            'totalSales'=>$totalSales,
-            'start_date'=>$start_date,
-            'end_date'=>$end_date,
-            'expense'=>$expense,
-        ]);
+        if (is_null($request->productId)){
+            $sales  = Order::whereBetween('date', array($start_date, $end_date))->get();
+            $getProfit  = Sales::whereBetween('date', array($start_date, $end_date))->sum('profit');
+            $totalSales  = Sales::whereBetween('date', array($start_date, $end_date))->sum('total');
+            $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
+            $products = Stock::all();
+            $profit = $getProfit-$expense;
+            return view('admin.indexFilter',[
+                'sales'=>$sales,
+                'profit'=>$profit,
+                'totalSales'=>$totalSales,
+                'start_date'=>$start_date,
+                'end_date'=>$end_date,
+                'expense'=>$expense,
+                'products'=>$products,
+                'check'=>$request->productId,
+            ]);
+        }
+        else{
+            $sales  = Sales::whereBetween('date', array($start_date, $end_date))->where('barcode',$request->productId)->get();
+            $getProfit  = Sales::whereBetween('date', array($start_date, $end_date))->where('barcode',$request->productId)->sum('profit');
+            $totalSales  = Sales::whereBetween('date', array($start_date, $end_date))->where('barcode',$request->productId)->sum('total');
+            $discount  = Sales::whereBetween('date', array($start_date, $end_date))->where('barcode',$request->productId)->sum('discount');
+            $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
+            $products = Stock::all();
+            $profit = $getProfit-$expense;
+            return view('admin.indexFilter',[
+                'sales'=>$sales,
+                'total'=>$sales->sum('amount'),
+                'profit'=>$profit,
+                'totalSales'=>$totalSales,
+                'start_date'=>$start_date,
+                'end_date'=>$end_date,
+                'expense'=>$expense,
+                'products'=>$products,
+                'discount'=>$discount,
+                'check'=>$request->productId,
+
+            ]);
+        }
+
     }
     public function filterHotel(Request $request){
         $start_date = $request->start_date;
@@ -407,5 +448,38 @@ class AdminController extends Controller
             'end_date'=>$end_date,
             'expense'=>$expense,
         ]);
+    }
+    public function sellButchery(Request $request){
+        $output = "";
+        $sell = Hotelstock::find($request->id);
+        $output = '
+          <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">'.$sell->product_name.'</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="field-wrapper">
+                            <input type="text" class="form-control meatAmount"  id="meatAmount">
+                            <div class="field-placeholder">Amount(Ksh)</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <input type="text" class="form-control"  name="meatQuantity" id="meatQuantity" disabled>
+                            <div class="field-placeholder">Quantity(KG)</div>
+                        </div>
+                         <div class="field-wrapper">
+                        <input type="hidden" value="'.$sell->id.'" id="sellId">
+                            <input type="text" class="form-control" id="unitPrice" value="'.$sell->selling_price.'" disabled>
+                            <div class="field-placeholder">Unit Price(KG)</div>
+                        </div>
+                           <div class="field-wrapper">
+                        <select class="form-select" id="paymentMethod">
+                            <option value="1">Mpesa</option>
+                            <option value="2">Cash</option>
+                        </select>
+                        <div class="field-placeholder">Payment Method</div>
+                    </div>
+                    </div>
+        ';
+        return response($output);
     }
 }

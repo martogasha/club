@@ -45,7 +45,7 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>ksh {{\App\Models\salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('profit')-\App\Models\Hotelexpense::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('amount')}}</h2>
+                                <h2>ksh {{\App\Models\salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('total')-\App\Models\Hotelexpense::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('amount')}}</h2>
                                 <p>PROFIT</p>
                             </div>
                         </div>

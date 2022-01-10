@@ -115,14 +115,17 @@
                                     <a href="{{url('users')}}">Users</a>
                                 </li>
                                     @endif
-                                    @if(\Illuminate\Support\Facades\Auth::user()->role==0)
-                                    <li>
-                                    <a href="{{url('stock')}}">Hardware Stock</a>
+                                        @if(\Illuminate\Support\Facades\Auth::user()->role==0 || \Illuminate\Support\Facades\Auth::user()->role==2)
+                                        <li>
+                                        <a href="{{url('stock')}}">Hardware Stock</a>
                                 </li>
                                         <li>
                                         <a href="{{url('stockBelowFive')}}">Hardware Stock Below 5</a>
                                 </li>
-                                        <li>
+                                        @endif
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role==0)
+
+                                    <li>
                                             <a href="{{url('hotelStock')}}">Hotel Stock</a>
                                         </li>
                                     @endif
