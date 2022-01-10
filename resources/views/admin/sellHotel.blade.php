@@ -86,7 +86,7 @@
                                 <!-- Row start -->
                                 <div class="row gutters" style="height: 325px;overflow: auto">
                                     @foreach($stocks as $stock)
-                                        @if($stock->barcode==0500||$stock->barcode==0501||$stock->barcode==0502||$stock->barcode==0503)
+                                        @if($stock->barcode==0500)
 
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                                 <div class="image-stats-tile">
