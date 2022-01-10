@@ -116,9 +116,9 @@
                                                     <div class="img-stats-details">
                                                         <p>{{$stock->product_name}}</p>
                                                         @if($stock->quantity<20)
-                                                            <h5><b style="color: red">{{$stock->quantity}} KG</b></h5>
+                                                            <h5><b style="color: red">{{$stock->quantity}} Pieces</b></h5>
                                                         @else
-                                                            <h5>{{$stock->quantity}} KG</h5>
+                                                            <h5>{{$stock->quantity}} Pieces</h5>
                                                         @endif
                                                         <h5>{{$stock->selling_price}} /=</h5>
                                                     </div>
