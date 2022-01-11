@@ -342,7 +342,6 @@ class AdminController extends Controller
         $total = Sales::where('order_id',$getLatestOrder->id)->sum('total');
         $output = '
           <td></td>
-                                                        <td class="Rate"><h2>Total</h2></td>
                                                         <td class="payment"><h3>Ksh '.$total.'</h3></td>
         ';
         return response($output);
@@ -353,8 +352,7 @@ class AdminController extends Controller
         $total = salesHotel::where('order_id',$getLatestOrder->id)->sum('total');
         $output = '
           <td></td>
-                                                        <td class="Rate"><h2>Total</h2></td>
-                                                        <td class="payment"><h3>Ksh '.$total.'</h3></td>
+                                                        <td class="payment"><b><span>Ksh '.$total.'</span></b></td>
         ';
         return response($output);
     }
@@ -482,4 +480,5 @@ class AdminController extends Controller
         ';
         return response($output);
     }
+
 }

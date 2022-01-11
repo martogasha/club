@@ -32,56 +32,111 @@
                                     </button>
                                 </div>
                                 <div id="printDiv">
-                                    <div id="invoice-POS">
-                                        <center id="top">
-                                            <div class="logo"></div>
-                                            <div class="info">
-                                                <h2>Kamangu hardware</h2>
-                                            </div><!--End Info-->
-                                        </center><!--End InvoiceTop-->
 
-                                        <div id="mid">
-                                            <div class="info">
-                                                <h2>Contact Info</h2>
-                                                <p>
-                                                    Address : street city, state 0000</br>
-                                                    Email   : JohnDoe@gmail.com</br>
-                                                    Phone   : 555-555-5555</br>
-                                                </p>
-                                            </div>
-                                        </div><!--End Invoice Mid-->
+                                    <div class="container">
+                                        <header class="center">
+                                            <h4>Kamangu Hardware</h4>
+                                        </header>
+                                        <section>
+                                            <table class="summary" cellspacing="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td>Till No</td>
+                                                    <td>0000034</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Contact</td>
+                                                    <td>0790268795</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="separator"></div>
+                                            <table class="summary" cellspacing="0">
+                                                <tbody>
+                                                <tr id="returnPrint">
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="separator"></div>
+                                            <table class="summary" cellspacing="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td>Total TAX 16%</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="separator"></div>
+                                            <table class="summary" cellspacing="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td>Total</td>
+                                                    <td><span id="calTotal"></span></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="summary" cellspacing="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td>Served By:</td>
+                                                    <td>{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="separator"></div>
+                                        </section>
+                                    </div>
+                                    <style>
+                                        .container {
+                                            border: 1px solid crimson;
+                                            width: 80mm;
+                                        }
+                                        body {
+                                            font-family: monospace;
+                                            width: 100%;
+                                            color: #000;
+                                            margin: 0;
+                                            padding: 0 0 50mm;
+                                            font-size: 11pt;
+                                        }
 
-                                        <div id="bot">
+                                        .center {
+                                            text-align: center;
+                                        }
 
-                                            <div id="table">
-                                                <table>
-                                                    <tr class="tabletitle">
-                                                        <td class="item"><h2>Item</h2></td>
-                                                        <td class="Hours"><h2>Qty</h2></td>
-                                                        <td class="Rate"><h2>Sub Total</h2></td>
-                                                    </tr>
-                                                    <tr id="returnPrint">
+                                        img, .margin {
+                                            margin: 15px;
+                                        }
 
-                                                    </tr>
-                                                    <tr class="tabletitle" id="calTotal">
+                                        .separator {
+                                            display: block;
+                                            width: 100%;
+                                            height: 0;
+                                            margin: 10px 0;
+                                            border-bottom: 1px dashed black;
+                                        }
 
-                                                    </tr>
+                                        .product-list {
+                                            width: 100%;
+                                            padding-bottom: 50px;
+                                            word-break: break-word;
+                                        }
+                                        .product-list thead th{
+                                            font-weight: normal;
+                                        }
 
-                                                </table>
-                                            </div><!--End Table-->
+                                        .summary {
+                                            width: 100%;
+                                        }
 
-                                            <div id="legalcopy">
-                                                <p class="legal"><strong>Thank you for your business!</strong>  Payment is expected within 31 days; please process this invoice within that time. There will be a 5% interest charge per month on late invoices.
-                                                </p>
-                                            </div>
-                                            <div id="legalcopy">
-                                                <p class="legal">Served By: <strong>{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</strong>
-                                                </p>
-                                            </div>
+                                        .summary td:last-child {
+                                            text-align: right;
+                                        }
 
-                                        </div><!--End InvoiceBot-->
-                                    </div><!--End Invoice-->
+                                        .info {
+                                            margin: 50px 0;
+                                        }
 
+                                    </style>
                                 </div>
                                 <!-- Row start -->
                                 <div class="row gutters" style="height: 325px;overflow: auto">

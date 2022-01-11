@@ -98,3 +98,4 @@ Route::post('hardwareFilter', [\App\Http\Controllers\AdminController::class, 'fi
 Route::get('filterHotelIndex', [\App\Http\Controllers\AdminController::class, 'filterHotelIndex']);
 Route::post('filterHotel', [\App\Http\Controllers\AdminController::class, 'filterHotel']);
 Route::get('sellButchery', [\App\Http\Controllers\AdminController::class, 'sellButchery']);
+Route::get('quotation', [\App\Http\Controllers\Quote::class, 'quotation']);

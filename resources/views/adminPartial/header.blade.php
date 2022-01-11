@@ -156,6 +156,9 @@
                                         <li>
                                             <a href="{{url('expenseHotel')}}">Hotel Expenses</a>
                                         </li>
+                                        <li>
+                                            <a href="{{url('quotation')}}">Quote</a>
+                                        </li>
                                     @else
                                 <li>
                                     <a href="{{url('expenseHotel')}}">Hotel Expenses</a>
