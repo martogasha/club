@@ -437,7 +437,7 @@ class AdminController extends Controller
         $getProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('profit');
         $totalSales  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('total');
         $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
-        $profit = $getProfit-$expense;
+        $profit = $totalSales-$expense;
         return view('admin.indexHotelFilter',[
             'sales'=>$sales,
             'profit'=>$profit,

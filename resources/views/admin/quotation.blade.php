@@ -26,10 +26,101 @@
 <br>
 <br>
 <br>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
+                        <div id="printDiv">
+
+                            <div class="container">
+                                <header class="center">
+                                    <h4>Simumu Hardware Quotation</h4>
+                                </header>
+                                <section>
+                                    <table class="summary" cellspacing="0">
+                                        <tbody>
+                                        <tr>
+                                            <td>Till No</td>
+                                            <td>0000034</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact</td>
+                                            <td>0790268795</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="separator"></div>
+                                    <table class="summary" cellspacing="0">
+                                        <tbody>
+                                        <tr id="returnPrint">
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="separator"></div>
+                                    <table class="summary" cellspacing="0">
+                                        <tbody>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td><span id="calTotal"></span></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="separator"></div>
+                                </section>
+                            </div>
+                            <style>
+                                .container {
+                                    border: 1px solid crimson;
+                                    width: 80mm;
+                                }
+                                body {
+                                    font-family: monospace;
+                                    width: 100%;
+                                    color: #000;
+                                    margin: 0;
+                                    padding: 0 0 50mm;
+                                    font-size: 11pt;
+                                }
+
+                                .center {
+                                    text-align: center;
+                                }
+
+                                img, .margin {
+                                    margin: 15px;
+                                }
+
+                                .separator {
+                                    display: block;
+                                    width: 100%;
+                                    height: 0;
+                                    margin: 10px 0;
+                                    border-bottom: 1px dashed black;
+                                }
+
+                                .product-list {
+                                    width: 100%;
+                                    padding-bottom: 50px;
+                                    word-break: break-word;
+                                }
+                                .product-list thead th{
+                                    font-weight: normal;
+                                }
+
+                                .summary {
+                                    width: 100%;
+                                }
+
+                                .summary td:last-child {
+                                    text-align: right;
+                                }
+
+                                .info {
+                                    margin: 50px 0;
+                                }
+
+                            </style>
+                        </div>
+                        <button class="btn btn-success" id="print">Print</button>
+                        <button class="btn btn-info" id="download">Download</button>
 
                     </div>
-                    <br>
                     <style>
 
                         @media(max-width:34em){
@@ -353,6 +444,17 @@
 
 </body>
 <script>
+    $('#print').click(function () {
+        var printContents = document.getElementById('printDiv').innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+        location.reload();
+    });
     $(document).on('click','.view',function () {
         $value = $(this).attr('id');
         $.ajax({

@@ -7,30 +7,6 @@
             <!-- Content wrapper start -->
             <div class="content-wrapper">
                 <h2>Hotel Dashboard</h2>
-                <form action="{{url('filterHotel')}}" method="post">
-                    @csrf
-                <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="field-wrapper">
-                                <div class="input-group">
-                                    <input type="date" class="form-control" name="start_date" required>
-                                </div>
-                                <div class="field-placeholder">Start Date <span class="text-danger">*</span></div>
-                            </div>
-
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="field-wrapper">
-                                <div class="input-group">
-                                    <input type="date" class="form-control" name="end_date" required>
-                                </div>
-                                <div class="field-placeholder">End Date <span class="text-danger">*</span></div>
-                            </div>
-
-                        </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
-                </div>
-                </form>
                 <br>
                 @include('flash-message')
                 <!-- Row start -->
