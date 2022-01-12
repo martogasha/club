@@ -407,10 +407,6 @@ class StockController extends Controller
         $getProduct = Hotelstock::find($request->id);
         $date = Carbon::now()->format('Y-m-d');
         $getQua = sellHotel::where('barcode',$getProduct->barcode)->first();
-        if ($getProduct->id==1){
-            $getProduct = Hotelstock::find($request->id);
-            $date = Carbon::now()->format('Y-m-d');
-            $getQua = sellHotel::where('barcode',$getProduct->barcode)->first();
             if (is_null($getQua)){
                 $sell = new sellHotel();
                 $sell->barcode = $getProduct->barcode;
@@ -421,6 +417,7 @@ class StockController extends Controller
                 $sell->date = $date;
                 $sell->image = $getProduct->image;
                 $sell->save();
+                $prev = $getProduct->quantity;
                 $prev = $getProduct->quantity;
                 $stockQuantity = $prev-1;
                 $updateStock = Hotelstock::where('id',$request->id)->update(['quantity'=>$stockQuantity]);
@@ -435,59 +432,7 @@ class StockController extends Controller
                 $stockQuantity = $prev-1;
                 $updateStock = Hotelstock::where('id',$request->id)->update(['quantity'=>$stockQuantity]);
             }
-        }
-        elseif ($getProduct->id==2){
-            $getProduct = Hotelstock::find($request->id);
-            $date = Carbon::now()->format('Y-m-d');
-            $getQua = sellHotel::where('barcode',$getProduct->barcode)->first();
-            if (is_null($getQua)){
-                $sell = new sellHotel();
-                $sell->barcode = $getProduct->barcode;
-                $sell->product_name = $getProduct->product_name;
-                $sell->quantity = 1;
-                $sell->selling_price = $getProduct->selling_price;
-                $sell->total = $getProduct->selling_price;
-                $sell->date = $date;
-                $sell->image = $getProduct->image;
-                $sell->save();
-                $prev = $getProduct->quantity;
-                $stockQuantity = $prev-1;
-                $updateStock = Hotelstock::where('id',$request->id)->update(['quantity'=>$stockQuantity]);
-            }
-            else{
-                $getQuantity = sellHotel::where('barcode',$getProduct->barcode)->first();
-                $currentQuantity = $getQuantity->quantity + 1;
-                $currentTotal = $getQuantity->selling_price*$currentQuantity;
-                $updateQuantity = sellHotel::where('barcode',$getProduct->barcode)->update(['quantity'=>$currentQuantity]);
-                $updateTotal = sellHotel::where('barcode',$getProduct->barcode)->update(['total'=>$currentTotal]);
-                $prev = $getProduct->quantity;
-                $stockQuantity = $prev-1;
-                $updateStock = Hotelstock::where('id',$request->id)->update(['quantity'=>$stockQuantity]);
-            }
-        }
-        else{
-            if (is_null($getQua)){
-                $sell = new sellHotel();
-                $sell->barcode = $getProduct->barcode;
-                $sell->product_name = $getProduct->product_name;
-                $sell->quantity = 1;
-                $sell->selling_price = $getProduct->selling_price;
-                $sell->total = $getProduct->selling_price;
-                $sell->date = $date;
-                $sell->image = $getProduct->image;
-                $sell->save();
-                $prev = $getProduct->quantity;
 
-            }
-            else{
-                $getQuantity = sellHotel::where('barcode',$getProduct->barcode)->first();
-                $currentQuantity = $getQuantity->quantity + 1;
-                $currentTotal = $getQuantity->selling_price*$currentQuantity;
-                $updateQuantity = sellHotel::where('barcode',$getProduct->barcode)->update(['quantity'=>$currentQuantity]);
-                $updateTotal = sellHotel::where('barcode',$getProduct->barcode)->update(['total'=>$currentTotal]);
-                $prev = $getProduct->quantity;
-            }
-        }
     }
     public function add(Request $request){
         $add = Sell::find($request->id);
