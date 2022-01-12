@@ -26,7 +26,7 @@ class AdminController extends Controller
         ]);
     }
     public function hotelAdmin(){
-        $sales = HotelOrder::orderByDesc('id')->get();
+        $sales = HotelOrder::where('date',Carbon::now()->format('Y-m-d'))->orderByDesc('id')->get();
         return view('admin.indexHotel',[
             'sales'=>$sales
         ]);
