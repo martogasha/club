@@ -99,3 +99,7 @@ Route::get('filterHotelIndex', [\App\Http\Controllers\AdminController::class, 'f
 Route::post('filterHotel', [\App\Http\Controllers\AdminController::class, 'filterHotel']);
 Route::get('sellButchery', [\App\Http\Controllers\AdminController::class, 'sellButchery']);
 Route::get('quotation', [\App\Http\Controllers\Quote::class, 'quotation']);
+Route::get('quote', [\App\Http\Controllers\Quote::class, 'quote']);
+Route::get('editQuotation', [\App\Http\Controllers\Quote::class, 'editQuotation']);
+Route::post('editQ', [\App\Http\Controllers\Quote::class, 'editQ']);
+Route::get('startAgain', [\App\Http\Controllers\Quote::class, 'startAgain']);

@@ -7,19 +7,25 @@
             <!-- Content wrapper start -->
             <div class="content-wrapper">
                 <h2>Quotation</h2>
-
+                <button class="btn btn-success" id="print">Print</button>
+                <button class="btn btn-info" id="download">Download</button>
+                <button class="btn btn-danger" id="startAgain">Start</button>
             @if(\Illuminate\Support\Facades\Auth::user()->role==0)
                     <div class="row">
                         <div class="container">
                             <div class="main">
                                 <h5>Stock Products</h5>
-                                <select name="productId">
+                                <select id="productId">
                                     <option value="">Select Product</option>
                                 @foreach($products as $product)
                                     <option value="{{$product->barcode}}">{{$product->product_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
+                            <br>
+                            <br>
+                            <br>
+
                         </div>
 <br>
 <br>
@@ -48,8 +54,17 @@
                                     <div class="separator"></div>
                                     <table class="summary" cellspacing="0">
                                         <tbody>
-                                        <tr id="returnPrint">
+                                        @foreach($quotations as $quotation)
+                                        <tr class="service">
+                                            <td class="tableitem"><p class="itemtext">{{$quotation->product_name}}</p></td>
+                                            <td class="tableitem"><p class="itemtext">{{$quotation->quantity}}</p></td>
+                                            <td class="tableitem"><p class="itemtext">Ksh {{$quotation->total}}</p></td>
+                                            <td id="editHide"><a href="#" class="view" id="{{$quotation->id}}" title="View" data-bs-toggle="modal" data-bs-target="#viewStock">
+                                                    <i class="icon-edit1 text-info"></i>
+                                                </a>
+                                            </td>
                                         </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                     <div class="separator"></div>
@@ -57,7 +72,7 @@
                                         <tbody>
                                         <tr>
                                             <td>Total</td>
-                                            <td><span id="calTotal"></span></td>
+                                            <td><span id="calTotal"><b>Ksh {{\App\Models\Quotation::sum('total')}}</b></span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -117,8 +132,7 @@
 
                             </style>
                         </div>
-                        <button class="btn btn-success" id="print">Print</button>
-                        <button class="btn btn-info" id="download">Download</button>
+
 
                     </div>
                     <style>
@@ -400,7 +414,17 @@
     }
 </style>
 <!-- Page wrapper end -->
+<div id="viewStock" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
+    <form action="{{url('editQ')}}" method="post">
+        @csrf
+    <div class="modal-dialog">
+        <div class="modal-content" id="basic1">
 
+        </div>
+    </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Update</button>
+    </form>
+</div>
 <!-- *************
     ************ Required JavaScript Files *************
 ************* -->
@@ -444,7 +468,23 @@
 
 </body>
 <script>
+    $(document).on('click','.view',function () {
+        $value = $(this).attr('id');
+        $.ajax({
+            type:"get",
+                    url:"{{url('editQuotation')}}",
+            data:{'id':$value},
+            success:function (data) {
+                $('#basic1').html(data);
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+            }
+        });
+    });
     $('#print').click(function () {
+        $('#editHide').hide();
         var printContents = document.getElementById('printDiv').innerHTML;
         var originalContents = document.body.innerHTML;
 
@@ -455,26 +495,27 @@
         document.body.innerHTML = originalContents;
         location.reload();
     });
-    $(document).on('click','.view',function () {
-        $value = $(this).attr('id');
+    $('#productId').on('change',function () {
+        $value = $(this).val();
         $.ajax({
             type:"get",
-            url:"{{url('viewSale')}}",
+            url:"{{url('quote')}}",
             data:{'id':$value},
             success:function (data) {
-                $('#viewSales').html(data);
-                    $.ajax({
-                        type:"get",
-                        url:"{{url('viewSaleHeader')}}",
-                        data:{'id':$value},
-                        success:function (data) {
-                            $('#viewSaleHeader').html(data);
-                        },
-                        error:function (error) {
-                            console.log(error)
-                            alert('error')
-                        }
-                    });
+                location.reload();
+            },
+            error:function (error) {
+                console.log(error)
+                alert('DUBLICATE ENTRY')
+            }
+        });
+    });
+    $('#startAgain').on('click',function () {
+        $.ajax({
+            type:"get",
+            url:"{{url('startAgain')}}",
+            success:function (data) {
+                location.reload();
             },
             error:function (error) {
                 console.log(error)
