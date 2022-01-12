@@ -32,7 +32,7 @@ class AdminController extends Controller
         ]);
     }
     public function HardwareDashboard(){
-        $sales = Order::orderByDesc('id')->get();
+        $sales = Order::where('date',Carbon::now()->format('Y-m-d'))->orderByDesc('id')->get();
         $products = Stock::all();
         return view('admin.indexHardware',[
             'sales'=>$sales,
