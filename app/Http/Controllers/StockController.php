@@ -460,19 +460,6 @@ class StockController extends Controller
     public function addHotel(Request $request){
         $add = sellHotel::find($request->id);
         $stock = Hotelstock::where('barcode',$add->barcode)->first();
-       if ($stock->id==2){
-           $add = sellHotel::find($request->id);
-           $getProduct = Hotelstock::where('barcode',$add->barcode)->first();
-           $quant = $add->quantity;
-           $currentQuantity = $quant+1;
-           $currentTotal = $add->selling_price*$currentQuantity;
-           $update = sellHotel::where('id',$add->id)->update(['quantity'=>$currentQuantity]);
-           $updateTotal = sellHotel::where('barcode',$add->barcode)->update(['total'=>$currentTotal]);
-           $prev = $getProduct->quantity;
-           $stockQuantity = $prev-1;
-           $updateStock = Hotelstock::where('barcode',$add->barcode)->update(['quantity'=>$stockQuantity]);
-        }
-        else{
             $getProduct = Hotelstock::where('barcode',$add->barcode)->first();
             $quant = $add->quantity;
             $currentQuantity = $quant+1;
@@ -480,7 +467,8 @@ class StockController extends Controller
             $update = sellHotel::where('id',$add->id)->update(['quantity'=>$currentQuantity]);
             $updateTotal = sellHotel::where('barcode',$add->barcode)->update(['total'=>$currentTotal]);
             $prev = $getProduct->quantity;
-        }
+            $stockQuantity = $prev-1;
+            $updateStock = Hotelstock::where('barcode',$add->barcode)->update(['quantity'=>$stockQuantity]);
     }
     public function minus(Request $request){
         $minus = Sell::find($request->id);
@@ -512,9 +500,6 @@ class StockController extends Controller
     public function minusHotel(Request $request){
         $minus = sellHotel::find($request->id);
         $getProduct = Hotelstock::where('barcode',$minus->barcode)->first();
-        if ($getProduct->id==2){
-            $minus = sellHotel::find($request->id);
-            $getProduct = Hotelstock::where('barcode',$minus->barcode)->first();
             $quant = $minus->quantity;
             $currentQuantity = $quant-1;
             $currentTotal = $minus->selling_price*$currentQuantity;
@@ -523,25 +508,11 @@ class StockController extends Controller
                 $updateTotal = sellHotel::where('barcode',$minus->barcode)->update(['total'=>$currentTotal]);
                 $prev = $getProduct->quantity;
                 $stockQuantity = $prev+1;
-                $updateStock = Hotelstock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
-
+                $updateStock = Stock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
             }
             else{
                 $minus->delete();
             }
-        }
-        else{
-            $quant = $minus->quantity;
-            $currentQuantity = $quant-1;
-            $currentTotal = $minus->selling_price*$currentQuantity;
-            if ($currentQuantity>0){
-                $update = sellHotel::where('id',$minus->id)->update(['quantity'=>$currentQuantity]);
-                $updateTotal = sellHotel::where('barcode',$minus->barcode)->update(['total'=>$currentTotal]);
-            }
-            else{
-                $minus->delete();
-            }
-        }
     }
     public function del(Request $request){
         $delete = Sell::find($request->id);
@@ -555,7 +526,7 @@ class StockController extends Controller
     public function delHotel(Request $request){
         $delete = sellHotel::find($request->id);
         $stock = Hotelstock::where('barcode',$delete->barcode)->first();
-        if ($stock->id==1){
+        if ($stock->id==5){
             $delete = sellHotel::find($request->id);
             $getProduct = Hotelstock::where('barcode',$delete->barcode)->first();
             $prev = $getProduct->quantity;
@@ -563,16 +534,6 @@ class StockController extends Controller
             $stockQuantity = $prev+$cur;
             $updateStock = Hotelstock::where('barcode',$delete->barcode)->update(['quantity'=>$stockQuantity]);
             $delete->delete();
-        }
-        elseif ($stock->id==2){
-            $delete = sellHotel::find($request->id);
-            $getProduct = Hotelstock::where('barcode',$delete->barcode)->first();
-            $prev = $getProduct->quantity;
-            $cur = $delete->quantity;
-            $stockQuantity = $prev+$cur;
-            $updateStock = Hotelstock::where('barcode',$delete->barcode)->update(['quantity'=>$stockQuantity]);
-            $delete->delete();
-
         }
         else{
             $delete->delete();
