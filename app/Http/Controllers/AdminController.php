@@ -15,6 +15,7 @@ use App\Models\Stock;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -26,36 +27,72 @@ class AdminController extends Controller
         ]);
     }
     public function hotelAdmin(){
-        $sales = HotelOrder::where('date',Carbon::now()->format('Y-m-d'))->orderByDesc('id')->get();
-        return view('admin.indexHotel',[
-            'sales'=>$sales
-        ]);
+        if (Auth::check()){
+            $sales = HotelOrder::where('date',Carbon::now()->format('Y-m-d'))->orderByDesc('id')->get();
+            return view('admin.indexHotel',[
+                'sales'=>$sales
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
     }
     public function HardwareDashboard(){
-        $sales = Order::where('date',Carbon::now()->format('Y-m-d'))->orderByDesc('id')->get();
-        $products = Stock::all();
-        return view('admin.indexHardware',[
-            'sales'=>$sales,
-            'products'=>$products
-        ]);
+        if (Auth::check()){
+            $sales = Order::where('date',Carbon::now()->format('Y-m-d'))->orderByDesc('id')->get();
+            $products = Stock::all();
+            return view('admin.indexHardware',[
+                'sales'=>$sales,
+                'products'=>$products
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
+
     }
     public function expense(){
-        $expenses = Expense::orderByDesc('id')->get();
-        return view('admin.expense',[
-            'expenses'=>$expenses
-        ]);
+        if (Auth::check()){
+            $expenses = Expense::orderByDesc('id')->get();
+            return view('admin.expense',[
+                'expenses'=>$expenses
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+
+        }
+
     }
     public function expenseHotel(){
-        $expenses = Hotelexpense::orderByDesc('id')->get();
-        return view('admin.expenseHotel',[
-            'expenses'=>$expenses
-        ]);
+        if (Auth::check()){
+            $expenses = Hotelexpense::orderByDesc('id')->get();
+            return view('admin.expenseHotel',[
+                'expenses'=>$expenses
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
+
     }
     public function addExpense(){
-        return view('admin.addExpense');
+        if (Auth::check()){
+            return view('admin.addExpense');
+
+        }
+        else{
+            return redirect(url('login'));
+        }
     }
     public function addHotelExpense(){
-        return view('admin.addHotelExpense');
+        if (Auth::check()){
+            return view('admin.addHotelExpense');
+
+        }
+        else{
+            return redirect('login');
+        }
     }
     public function storeExpense(Request $request){
         $store = Expense::create([
@@ -112,44 +149,87 @@ class AdminController extends Controller
         return redirect(url('expenseHotel'))->with('success','EXPENSE EDITED SUCCESS');
     }
     public function sell(){
-        $stocks = Stock::orderByDesc('id')->get();
-        $sells = Sell::orderByDesc('id')->get();
-        return view('admin.sell',[
-            'stocks'=>$stocks,
-            'sells'=>$sells
-        ]);
+        if (Auth::check()){
+            $stocks = Stock::orderByDesc('id')->get();
+            $sells = Sell::orderByDesc('id')->get();
+            return view('admin.sell',[
+                'stocks'=>$stocks,
+                'sells'=>$sells
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
+
     }
     public function sellHotel(){
-        $stocks = Hotelstock::all();
-        $sells = sellHotel::orderByDesc('id')->get();
-        return view('admin.sellHotel',[
-            'stocks'=>$stocks,
-            'sells'=>$sells
-        ]);
+        if (Auth::check()){
+            $stocks = Hotelstock::all();
+            $sells = sellHotel::orderByDesc('id')->get();
+            return view('admin.sellHotel',[
+                'stocks'=>$stocks,
+                'sells'=>$sells
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+
+        }
+
     }
     public function stock(){
-        $products = Stock::orderByDesc('id')->get();
-        return view('admin.stock',[
-            'products'=>$products
-        ]);
+        if (Auth::check()){
+            $products = Stock::orderByDesc('id')->get();
+            return view('admin.stock',[
+                'products'=>$products
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
+
     }
     public function stockBelowFive(){
-        $products = Stock::where('quantity','<',5)->get();
-        return view('admin.stockBelowFive',[
-            'products'=>$products
-        ]);
+        if (Auth::check()){
+            $products = Stock::where('quantity','<',5)->get();
+            return view('admin.stockBelowFive',[
+                'products'=>$products
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
+
     }
     public function hotelStock(){
-        $products = Hotelstock::orderByDesc('id')->get();
-        return view('admin.hotelStock',[
-            'products'=>$products
-        ]);
+        if (Auth::check()){
+            $products = Hotelstock::orderByDesc('id')->get();
+            return view('admin.hotelStock',[
+                'products'=>$products
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
+
     }
     public function addProduct(){
-        return view('admin.addProduct');
+        if (Auth::check()){
+            return view('admin.addProduct');
+
+        }
+        else{
+            return redirect(url('login'));
+        }
     }
     public function addHotelProduct(){
-        return view('admin.addProductHotel');
+        if (Auth::check()){
+            return view('admin.addProductHotel');
+
+        }
+        else{
+            return redirect(url('login'));
+        }
     }
     public function uSell(Request $request){
         $output = "";
@@ -357,7 +437,13 @@ class AdminController extends Controller
         return response($output);
     }
     public function profile(){
-        return view('admin.profile');
+        if (Auth::check()){
+            return view('admin.profile');
+
+        }
+        else{
+            return redirect(url('login'));
+        }
     }
     public function updateProfile(Request $request){
         $update = User::find($request->id);
@@ -374,16 +460,28 @@ class AdminController extends Controller
         }
     }
     public function filterHardware(){
-        $sales = Order::orderByDesc('id')->get();
-        return view('admin.indexFilter',[
-            'sales'=>$sales
-        ]);
+        if (Auth::check()){
+            $sales = Order::orderByDesc('id')->get();
+            return view('admin.indexFilter',[
+                'sales'=>$sales
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
+
     }
     public function filterHotelIndex(){
-        $sales = Hotelstock::orderByDesc('id')->get();
-        return view('admin.indexHotelFilter',[
-            'sales'=>$sales
-        ]);
+        if (Auth::check()){
+            $sales = Hotelstock::orderByDesc('id')->get();
+            return view('admin.indexHotelFilter',[
+                'sales'=>$sales
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
+
     }
     public function filterMpesa(Request $request){
         $start_date = $request->start_date;

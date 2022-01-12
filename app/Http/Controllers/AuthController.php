@@ -14,10 +14,16 @@ class AuthController extends Controller
         return view('auth.login');
     }
     public function users(){
-        $users = User::orderByDesc('id')->get();
-        return view('admin.users',[
-            'users'=>$users
-        ]);
+        if (Auth::check()){
+            $users = User::orderByDesc('id')->get();
+            return view('admin.users',[
+                'users'=>$users
+            ]);
+        }
+        else{
+            redirect(url('login'));
+        }
+
     }
     public function userEdit($id){
         $edit = User::find($id);
