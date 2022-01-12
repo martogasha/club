@@ -508,7 +508,7 @@ class StockController extends Controller
                 $updateTotal = sellHotel::where('barcode',$minus->barcode)->update(['total'=>$currentTotal]);
                 $prev = $getProduct->quantity;
                 $stockQuantity = $prev+1;
-                $updateStock = Stock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
+                $updateStock = Hotelstock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
             }
             else{
                 $minus->delete();
