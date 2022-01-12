@@ -494,6 +494,9 @@ class StockController extends Controller
 
         }
         else{
+            $prev = $getProduct->quantity;
+            $stockQuantity = $prev+1;
+            $updateStock = Stock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
             $minus->delete();
         }
     }
@@ -511,6 +514,9 @@ class StockController extends Controller
                 $updateStock = Hotelstock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
             }
             else{
+                $prev = $getProduct->quantity;
+                $stockQuantity = $prev+1;
+                $updateStock = Hotelstock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
                 $minus->delete();
             }
     }
