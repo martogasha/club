@@ -353,6 +353,7 @@
     <div class="modal-dialog">
             <div class="modal-content">
                 <div id="updateSellButchery">
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -559,7 +560,7 @@
         });
     });
     $('#sellMeat').on('click',function () {
-        $paymentMethod = $('#paymentMethod').val();
+        $paymentMethod = $('#paymentM').val();
         $phone = $('#phone').val();
         $id = $('#sellId').val();
         $quantity = $('#meatQuantity').val();

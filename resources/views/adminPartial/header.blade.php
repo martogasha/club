@@ -159,6 +159,9 @@
                                         <li>
                                             <a href="{{url('quotation')}}">Quote</a>
                                         </li>
+                                        <li>
+                                            <a href="{{url('highMovingproducts')}}">Highly Moving Products</a>
+                                        </li>
                                     @else
                                 <li>
                                     <a href="{{url('expenseHotel')}}">Hotel Expenses</a>
@@ -696,7 +699,6 @@
                                 <h5>{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</h5>
                                 <span class="avatar">
 											<img src="img/user.svg" alt="User Avatar">
-											<span class="status busy"></span>
 										</span>
                             </a>
 

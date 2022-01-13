@@ -12,6 +12,7 @@ use App\Models\sellHotel;
 use App\Models\Stock;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
@@ -679,5 +680,20 @@ class StockController extends Controller
                                                     </tr>
         ';
         return response($output);
+    }
+    public function highMovingproducts(){
+
+        if (Auth::check()){
+            $sales = Sales::where('date',Carbon::now()->format('Y-m-d'))->get()->unique('barcode');
+            $hotels = salesHotel::where('date',Carbon::now()->format('Y-m-d'))->get()->unique('barcode');
+            return view('admin.highlyMovingProducts',[
+                'sales'=>$sales,
+                'hotels'=>$hotels,
+                'today'=>Carbon::now()->format('Y-m-d')
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
     }
 }

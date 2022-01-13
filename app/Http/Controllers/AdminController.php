@@ -41,9 +41,11 @@ class AdminController extends Controller
         if (Auth::check()){
             $sales = Order::where('date',Carbon::now()->format('Y-m-d'))->orderByDesc('id')->get();
             $products = Stock::all();
+            $alertStock = Stock::where('quantity','<',5)->first();
             return view('admin.indexHardware',[
                 'sales'=>$sales,
-                'products'=>$products
+                'products'=>$products,
+                'alertStock'=>$alertStock
             ]);
         }
         else{
@@ -528,6 +530,18 @@ class AdminController extends Controller
         }
 
     }
+    public function highly(Request $request){
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+            $sals  = Sales::whereBetween('date', array($start_date, $end_date))->get()->unique('barcode');
+            $hots  = salesHotel::whereBetween('date', array($start_date, $end_date))->get()->unique('barcode');
+            return view('admin.highlyMovingProducts',[
+                'sals'=>$sals,
+                'hots'=>$hots,
+                'start_date'=>$start_date,
+                'end_date'=>$end_date,
+            ]);
+    }
     public function filterHotel(Request $request){
         $start_date = $request->start_date;
         $end_date = $request->end_date;
@@ -568,7 +582,7 @@ class AdminController extends Controller
                             <div class="field-placeholder">Unit Price(KG)</div>
                         </div>
                            <div class="field-wrapper">
-                        <select class="form-select" id="paymentMethod">
+                        <select class="form-select" id="paymentM">
                             <option value="1">Mpesa</option>
                             <option value="2">Cash</option>
                         </select>

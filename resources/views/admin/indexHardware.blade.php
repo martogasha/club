@@ -48,7 +48,6 @@
 <br>
 <br>
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
-
                     </div>
                     <br>
                     <style>
@@ -241,6 +240,32 @@
 
                     </style>
                 </form>
+                @if(!is_null($alertStock))
+                    <a href="{{url('stockBelowFive')}}"><button type="submit" class="btn btn-danger btn-lg btn-block">Check Products below 5</button></a>
+                    @endif
+                <br>
+                <br>
+                <style>
+                    .box {
+                        align-self: flex-end;
+                        animation-duration: 2s;
+                        animation-iteration-count: infinite;
+                        background-color: #F44336;
+                        height: 200px;
+                        margin: 0 auto 0 auto;
+                        transform-origin: bottom;
+                        width: 200px;
+                    }
+                    .bounce-1 {
+                        animation-name: bounce-1;
+                        animation-timing-function: linear;
+                    }
+                    @keyframes bounce-1 {
+                        0%   { transform: translateY(0); }
+                        50%  { transform: translateY(-100px); }
+                        100% { transform: translateY(0); }
+                    }
+                </style>
                 @endif
                 @include('flash-message')
                 <!-- Row start -->
