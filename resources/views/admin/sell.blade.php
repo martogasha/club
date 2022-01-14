@@ -35,18 +35,23 @@
 
                                     <div class="container">
                                         <header class="center">
-                                            <h4>Kamangu Hardware</h4>
+                                            <h4>Siwamu Hardware</h4>
                                         </header>
                                         <section>
                                             <table class="summary" cellspacing="0">
                                                 <tbody>
                                                 <tr>
-                                                    <td>Till No</td>
-                                                    <td>0000034</td>
+                                                    <td>Paybill No</td>
+                                                    <td>247247</td>
                                                 </tr>
                                                 <tr>
+                                                    <td>A/C No</td>
+                                                    <td>0714399377</td>
+                                                </tr>
+                                                <tr></tr>
+                                                <tr>
                                                     <td>Contact</td>
-                                                    <td>0790268795</td>
+                                                    <td>0790436545</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
