@@ -33,120 +33,207 @@
                                 </div>
                                 <div id="printDiv">
 
-                                    <div class="container">
-                                        <header class="center">
-                                            <h4>Siwamu Hardware</h4>
-                                        </header>
-                                        <section>
-                                            <table class="summary" cellspacing="0">
-                                                <tbody>
-                                                <tr>
-                                                    <td>Paybill No</td>
-                                                    <td>247247</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>A/C No</td>
-                                                    <td>0714399377</td>
-                                                </tr>
-                                                <tr></tr>
-                                                <tr>
-                                                    <td>Contact</td>
-                                                    <td>0790436545, 0728930978, 0714395000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td><span style="margin-right: 20px">Qnty</span>Price</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="separator"></div>
-                                            <table class="summary" cellspacing="0">
-                                                <tbody>
-                                                <tr id="returnPrint">
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="separator"></div>
-                                            <table class="summary" cellspacing="0">
-                                                <tbody>
-                                                <tr>
-                                                    <td>Total TAX 16%</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="separator"></div>
-                                            <table class="summary" cellspacing="0">
-                                                <tbody>
-                                                <tr>
-                                                    <td>Total</td>
-                                                    <td><span id="calTotal"></span></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <table class="summary" cellspacing="0">
-                                                <tbody>
-                                                <tr>
-                                                    <td>Served By:</td>
-                                                    <td>{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="separator"></div>
-                                        </section>
+                                    <div class="receipt">
+
+                                        <h2 class="name"> Brandname </h2>
+
+                                        <p class="greeting"> Thank you for your order! </p>
+
+                                        <!-- Order info -->
+                                        <div class="order">
+
+                                            <p> Order No : 1234567890 </p>
+                                            <p> Date : 4/5/2020 </p>
+                                            <p> Shipping Address : My sweet home </p>
+
+                                        </div>
+
+                                        <hr>
+
+                                        <!-- Details -->
+                                        <div class="details">
+
+                                            <h3> Details </h3>
+
+                                            <div class="product">
+
+                                                <img src="https://www.freeiconspng.com/uploads/aesthetic-chair-png-5.png" alt="">
+
+                                                <div class="info">
+
+                                                    <h4> Zmerc </h4>
+
+                                                    <p> Color: Mercine </p>
+                                                    <p> Qty: 1 </p>
+
+                                                </div>
+
+                                            </div>
+
+                                            <p> 128 &dollar; </p>
+
+                                        </div>
+
+                                        <!-- Sub and total price -->
+                                        <div class="totalprice">
+
+                                            <p class="sub"> Subtotal <span> 128 &dollar; </span></p>
+
+                                            <p class="del"> Delivery <span> 10 &dollar; </span> </p>
+
+                                            <hr>
+
+                                            <p class="tot"> Total <span> 138 &dollar; </span> </p>
+
+                                        </div>
+
+                                        <!-- Footer -->
+                                        <footer> Lorem ipsum dolor sit amet consectetur adipisicing. </footer>
+
                                     </div>
                                     <style>
-                                        .container {
-                                            border: 1px solid crimson;
-                                            width: auto;
-                                            overflow: hidden;
-                                            float: none;
-                                        }
-                                        body {
-                                            font-family: monospace;
-                                            width: 100%;
-                                            color: #000;
+                                        /* Our Font */
+                                        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+                                        /* Global */
+                                        * {
                                             margin: 0;
-                                            padding: 0 0 50mm;
-                                            font-size: 11pt;
+                                            padding: 0;
+                                            box-sizing: border-box;
+                                            font-family: 'Poppins'
                                         }
 
-                                        .center {
+                                        body {
+                                            height: 100vh;
+                                            background-color: #D3E1E1
+                                        }
+
+                                        /* The Receipt */
+                                        .receipt {
+                                            width: 360px;
+                                            height: 720px;
+                                            background-color: white;
+                                            border-radius: 30px;
+                                            position: relative;
+                                            top: 50%;
+                                            left: 50%;
+                                            margin-top: -360px; /* -half height and width to center */
+                                            margin-left: -180px;
+                                            box-shadow: 14px 14px 22px -18px;
+                                            padding: 20px
+                                        }
+
+                                        /* Heading */
+                                        .name {
+                                            text-transform: uppercase;
                                             text-align: center;
+                                            color: #6c8b8e;
+                                            letter-spacing: 10px;
+                                            font-size: 1.8em;
+                                            margin-top: 10px
                                         }
 
-                                        img, .margin {
-                                            margin: 15px;
+                                        /* Big thank */
+                                        .greeting {
+                                            font-size: 21px;
+                                            text-transform: capitalize;
+                                            text-align: center;
+                                            color: #6f8d90;
+                                            margin: 35px 0;
+                                            letter-spacing: 1.2px
                                         }
 
-                                        .separator {
-                                            display: block;
-                                            width: 100%;
-                                            height: 0;
-                                            margin: 10px 0;
-                                            border-bottom: 1px dashed black;
+                                        /* Order info */
+                                        .order p {
+                                            font-size: 13px;
+                                            color: #aaa;
+                                            padding-left: 10px;
+                                            letter-spacing: .7px
                                         }
 
-                                        .product-list {
-                                            width: 100%;
-                                            padding-bottom: 50px;
-                                            word-break: break-word;
-                                        }
-                                        .product-list thead th{
-                                            font-weight: normal;
+                                        /* Our line */
+                                        hr {
+                                            border: .7px solid #ddd;
+                                            margin: 15px 0;
                                         }
 
-                                        .summary {
-                                            width: 100%;
+                                        /* Order details */
+                                        .details {
+                                            padding-left: 10px;
+                                            margin-bottom: 35px;
+                                            overflow: hidden
                                         }
 
-                                        .summary td:last-child {
-                                            text-align: right;
+                                        .details h3 {
+                                            font-weight: 400;
+                                            color: #6c8b8e;
+                                            font-size: 1.5em;
+                                            margin-bottom: 15px
                                         }
 
-                                        .info {
-                                            margin: 50px 0;
+                                        /* Image and the info of the order */
+                                        .product {
+                                            float: left;
+                                            width: 83%
                                         }
 
+                                        .product img {
+                                            width: 65px;
+                                            float: left
+                                        }
+
+                                        .product .info {
+                                            float: left;
+                                            margin-left: 15px
+                                        }
+
+                                        .product .info h4 {
+                                            color: #6f8d90;
+                                            font-weight: 400;
+                                            text-transform: uppercase;
+                                            margin-top: 10px
+                                        }
+
+                                        .product .info p {
+                                            font-size: 12px;
+                                            color: #aaa;
+                                        }
+
+                                        /* Net price */
+                                        .details > p {
+                                            color: #6f8d90;
+                                            margin-top: 25px;
+                                            font-size: 15px
+                                        }
+
+                                        /* Total price */
+                                        .totalprice p {
+                                            padding-left: 10px
+                                        }
+
+                                        .totalprice .sub,
+                                        .totalprice .del {
+                                            font-size: 13px;
+                                            color: #aaa
+                                        }
+
+                                        .totalprice span {
+                                            float: right;
+                                            margin-right: 17px
+                                        }
+
+                                        .totalprice .tot {
+                                            color: #6f8d90;
+                                            font-size: 15px
+                                        }
+
+                                        /* Footer */
+                                        footer {
+                                            font-size: 10px;
+                                            text-align: center;
+                                            margin-top: 135px; /* You can make it with position try it */
+                                            color: #aaa
+                                        }
                                     </style>
                                 </div>
                                 <!-- Row start -->
