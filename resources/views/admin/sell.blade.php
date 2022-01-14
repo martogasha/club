@@ -98,6 +98,8 @@
                                         .container {
                                             border: 1px solid crimson;
                                             width: auto;
+                                            overflow: hidden;
+                                            float: none;
                                         }
                                         body {
                                             font-family: monospace;
