@@ -580,11 +580,38 @@ class StockController extends Controller
         $receipts = Sales::where('order_id',$createOrder->id)->orderByDesc('id')->get();
         foreach ($receipts as $receipt){
             $output .='
-							<tr class="service">
-								<td class="tableitem"><p class="itemtext">'.$receipt->product_name.'</p></td>
-								<td class="tableitem"><p class="itemtext">'.$receipt->quantity.'</p></td>
-								<td class="tableitem"><p class="itemtext">'.$receipt->total.'</p></td>
-							</tr>
+
+							     <tr>
+                                                    <td data-label="Account">'.$receipt->product_name.'</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td data-label="Due Date">'.$receipt->quantity.'</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td data-label="Amount">'.$receipt->selling_price.'</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td data-label="Amount">'.$receipt->total.'</td>
+                                                </tr>
+
         ';
         }
 
