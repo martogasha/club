@@ -97,6 +97,7 @@
                                     <style>
                                         .container {
                                             border: 1px solid crimson;
+                                            width: 100%;
                                         }
                                         body {
                                             font-family: monospace;
