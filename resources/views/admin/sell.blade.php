@@ -259,14 +259,6 @@
                                             border: 1px solid crimson;
                                             width: 100%;
                                         }
-                                        body {
-                                            font-family: monospace;
-                                            width: 100%;
-                                            color: #000;
-                                            margin: 0;
-                                            padding: 0 0 50mm;
-                                            font-size: 11pt;
-                                        }
 
                                         .center {
                                             text-align: center;
