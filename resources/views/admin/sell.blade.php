@@ -86,18 +86,7 @@
                                                     <th scope="col"></th>
                                                     <th scope="col"></th>
                                                     <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
+
                                                     <th scope="col">Qnty</th>
                                                     <th scope="col"></th>
                                                     <th scope="col"></th>
@@ -125,104 +114,13 @@
                                                     <th scope="col"></th>
                                                     <th scope="col"></th>
                                                     <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
+
+
 
                                                     <th scope="col">Amount</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td data-label="Account">Visa dffgd</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td data-label="Due Date">1</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td data-label="Amount">$1,190</td>
-                                                </tr>
                                                 <tr>
                                                     <td data-label="Account">Visadsdfds sdfdsfsd sdfgsd sd fe dffgd</td>
                                                     <td></td>
@@ -251,31 +149,8 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+
                                                     <td data-label="Due Date">1</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
