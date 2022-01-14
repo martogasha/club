@@ -88,7 +88,6 @@
                                     <style>
                                         .container {
                                             border: 1px solid crimson;
-                                            width: 80mm;
                                         }
                                         body {
                                             font-family: monospace;
