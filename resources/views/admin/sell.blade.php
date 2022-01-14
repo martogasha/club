@@ -51,7 +51,11 @@
                                                 <tr></tr>
                                                 <tr>
                                                     <td>Contact</td>
-                                                    <td>0790436545</td>
+                                                    <td>0790436545, 0728930978, 0714395000</td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td><span style="margin-right: 20px">Qnty</span>Price</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
