@@ -53,17 +53,212 @@
                                                     <td>Contact</td>
                                                     <td>0790436545, 0728930978, 0714395000</td>
                                                 </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td><span style="margin-right: 20px">Qnty</span>Price</td>
-                                                </tr>
                                                 </tbody>
                                             </table>
                                             <div class="separator"></div>
-                                            <table class="summary" cellspacing="0">
-                                                <tbody>
-                                                <tr id="returnPrint">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Item</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">Qnty</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">Amount</th>
                                                 </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td data-label="Account">Visa dffgd</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td data-label="Due Date">1</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td data-label="Amount">$1,190</td>
+                                                </tr>
+
                                                 </tbody>
                                             </table>
                                             <div class="separator"></div>
