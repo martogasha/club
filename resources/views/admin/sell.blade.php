@@ -127,8 +127,9 @@
                                             </table>
                                             <div class="separator"></div>
                                         </section>
-                                        <p>Thank you for your service</p>
                                     </div>
+                                    <p>Thank you for your service</p>
+
                                     <style>
                                         .container {
                                             border: 1px solid crimson;
