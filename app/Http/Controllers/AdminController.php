@@ -513,7 +513,7 @@ class AdminController extends Controller
             $discount  = Sales::whereBetween('date', array($start_date, $end_date))->where('barcode',$request->productId)->sum('discount');
             $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
             $products = Stock::all();
-            $profit = $getProfit-$expense;
+            $profit = $getProfit;
             return view('admin.indexFilter',[
                 'sales'=>$sales,
                 'total'=>$sales->sum('amount'),
