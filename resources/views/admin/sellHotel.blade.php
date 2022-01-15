@@ -35,26 +35,65 @@
 
                                     <div class="container">
                                         <header class="center">
-                                            <h4>Kamangu Hotel</h4>
+                                            <h4>Simumu Hotel</h4>
                                         </header>
                                         <section>
                                             <table class="summary" cellspacing="0">
                                                 <tbody>
                                                 <tr>
                                                     <td>Till No</td>
-                                                    <td>0000034</td>
+                                                    <td>247247</td>
                                                 </tr>
+                                                <tr></tr>
                                                 <tr>
                                                     <td>Contact</td>
-                                                    <td>0790268795</td>
+                                                    <td>0790436545, 0728930978, 0714395000</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
                                             <div class="separator"></div>
-                                            <table class="summary" cellspacing="0">
-                                                <tbody>
-                                                <tr id="returnPrint">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Item</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+
+
+                                                    <th scope="col">Qnty</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+
+
+                                                    <th scope="col">Amount</th>
+
+
                                                 </tr>
+                                                </thead>
+                                                <tbody id="returnPrint">
+
                                                 </tbody>
                                             </table>
                                             <div class="separator"></div>
@@ -85,58 +124,60 @@
                                             <div class="separator"></div>
                                         </section>
                                     </div>
-                                <style>
-                                    .container {
-                                        border: 1px solid crimson;
-                                        width: 80mm;
-                                    }
-                                    body {
-                                        font-family: monospace;
-                                        width: 100%;
-                                        color: #000;
-                                        margin: 0;
-                                        padding: 0 0 50mm;
-                                        font-size: 11pt;
-                                    }
+                                    <p>Thank you for your service</p>
 
-                                    .center {
-                                        text-align: center;
-                                    }
+                                    <style>
+                                        .container {
+                                            border: 1px solid crimson;
+                                            width: 100%;
+                                        }
+                                        body {
+                                            font-family: monospace;
+                                            width: 100%;
+                                            color: #000;
+                                            margin: 0;
+                                            padding: 0 0 50mm;
+                                            font-size: 11pt;
+                                        }
 
-                                    img, .margin {
-                                        margin: 15px;
-                                    }
+                                        .center {
+                                            text-align: center;
+                                        }
 
-                                    .separator {
-                                        display: block;
-                                        width: 100%;
-                                        height: 0;
-                                        margin: 10px 0;
-                                        border-bottom: 1px dashed black;
-                                    }
+                                        img, .margin {
+                                            margin: 15px;
+                                        }
 
-                                    .product-list {
-                                        width: 100%;
-                                        padding-bottom: 50px;
-                                        word-break: break-word;
-                                    }
-                                    .product-list thead th{
-                                        font-weight: normal;
-                                    }
+                                        .separator {
+                                            display: block;
+                                            width: 100%;
+                                            height: 0;
+                                            margin: 10px 0;
+                                            border-bottom: 1px dashed black;
+                                        }
 
-                                    .summary {
-                                        width: 100%;
-                                    }
+                                        .product-list {
+                                            width: 100%;
+                                            padding-bottom: 50px;
+                                            word-break: break-word;
+                                        }
+                                        .product-list thead th{
+                                            font-weight: normal;
+                                        }
 
-                                    .summary td:last-child {
-                                        text-align: right;
-                                    }
+                                        .summary {
+                                            width: 100%;
+                                        }
 
-                                    .info {
-                                        margin: 50px 0;
-                                    }
+                                        .summary td:last-child {
+                                            text-align: right;
+                                        }
 
-                                </style>
+                                        .info {
+                                            margin: 50px 0;
+                                        }
+
+                                    </style>
                                 </div>
                                 <!-- Row start -->
                                 <div class="row gutters" style="height: 325px;overflow: auto">
