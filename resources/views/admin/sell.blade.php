@@ -127,6 +127,7 @@
                                             </table>
                                             <div class="separator"></div>
                                         </section>
+                                        <p>Thank you for your service</p>
                                     </div>
                                     <style>
                                         .container {
