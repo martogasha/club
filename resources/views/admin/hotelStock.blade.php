@@ -24,7 +24,9 @@
                                             <th>Total Qnty</th>
                                             <th>Packs</th>
                                             <th>Updated Date</th>
+                                            @if(\Illuminate\Support\Facades\Auth::user()->role==0)
                                             <th>Buying Price</th>
+                                            @endif
                                             <th>Selling Price</th>
                                             <th>Actions</th>
                                         </tr>
