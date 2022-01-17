@@ -123,7 +123,7 @@
                                         <a href="{{url('stockBelowFive')}}">Hardware Stock Below 5</a>
                                 </li>
                                         @endif
-                                    @if(\Illuminate\Support\Facades\Auth::user()->role==0)
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role==0||\Illuminate\Support\Facades\Auth::user()->role==1)
 
                                     <li>
                                             <a href="{{url('hotelStock')}}">Hotel Stock</a>

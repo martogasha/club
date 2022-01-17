@@ -48,7 +48,9 @@
                                                 <td><b>{{$product->number_of_pack}}</b></td>
                                             @endif
                                             <td>{{$product->date}}</td>
+                                            @if(\Illuminate\Support\Facades\Auth::user()->role==0)
                                             <td>{{$product->buying_price}}</td>
+                                            @endif
                                             <td>{{$product->selling_price}}</td>
                                             <td>
                                                 <div class="actions">

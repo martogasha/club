@@ -688,7 +688,6 @@ class StockController extends Controller
     public function salesMeat(Request $request){
         $output = "";
         $date = Carbon::now()->format('Y-m-d');
-        $sells = sellHotel::all();
         $createOrder = HotelOrder::create([
            'phone'=>$request->phone,
             'payment_method'=>$request->paymentMethod,
