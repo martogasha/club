@@ -13,6 +13,8 @@ class Hotelexpense extends Model
         'desc',
         'amount',
         'date',
+        'end_date',
+        'barcode',
         'payment_method',
     ];
 }

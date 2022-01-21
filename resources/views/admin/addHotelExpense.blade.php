@@ -16,17 +16,27 @@
                                 <div class="card-title">Add New Expense</div>
                             </div>
                             <div class="card-body">
-                                <form action="{{url('storeHotelExpense')}}" method="post">
-                                    @csrf
                                 <div id="example-form">
                                     <h3>General Information</h3>
                                         <h6 class="h-0 m-0">&nbsp;</h6>
                                         <div class="row gutters">
-                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" id="productT">
+
+                                                <div class="field-wrapper">
+                                                    <select class="form-select" id="productType">
+                                                        @foreach($products as $product)
+                                                            @if($product->id==1||$product->id==2||$product->id==3||$product->id==4)
+                                                            <option value="{{$product->id}}">{{$product->product_name}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                    <div class="field-placeholder">Take Away Stock</div></div>
+                                            </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" id="expenseName">
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" placeholder="Expense Name" name="name" required>
+                                                            <input type="text" class="form-control" placeholder="Expense Name" id="name" required>
                                                         </div>
                                                         <div class="field-placeholder">Expense Name <span class="text-danger">*</span></div>
                                                     </div>
@@ -35,7 +45,7 @@
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
                                                     <div class="field-wrapper">
-                                                        <input type="text" placeholder="Description" name="desc" required>
+                                                        <input type="text" placeholder="Description" id="desc" required>
                                                         <div class="field-placeholder">Expense Description <span class="text-danger">*</span></div>
                                                     </div>
 
@@ -44,7 +54,7 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" placeholder="Amount" name="amount" required>
+                                                            <input type="text" class="form-control" placeholder="Amount" id="amount" required>
                                                             <span class="input-group-text">Ksh</span>
                                                         </div>
                                                         <div class="field-placeholder">Amount <span class="text-danger">*</span></div>
@@ -55,16 +65,26 @@
 
                                                 <div class="field-wrapper">
                                                     <div class="input-group">
-                                                        <input type="date" class="form-control" name="date" required>
+                                                        <input type="date" class="form-control" id="date" required>
                                                     </div>
-                                                    <div class="field-placeholder">Date <span class="text-danger">*</span></div>
+                                                    <div class="field-placeholder">Start Date <span class="text-danger">*</span></div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                                                <div class="field-wrapper">
+                                                    <div class="input-group">
+                                                        <input type="date" class="form-control" id="end_date">
+                                                    </div>
+                                                    <div class="field-placeholder">End Date</div>
                                                 </div>
 
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
                                             <div class="field-wrapper">
-                                                <select class="form-select" id="paymentSelect" name="paymentMethod">
+                                                <select class="form-select" id="paymentMethod">
                                                     <option value="1">Mpesa</option>
                                                     <option value="2">Cash</option>
                                                 </select>
@@ -74,11 +94,9 @@
                                             <br>
                                             <br>
                                             <br>
-                                                <button type="submit" class="btn btn-success">Save</button>
+                                                <button class="btn btn-success" id="addExpense">Save</button>
                                         </div>
                                 </div>
-                                </form>
-
                             </div>
                         </div>
 
@@ -156,7 +174,33 @@
 <script src="js/main.js"></script>
 
 <script>
-
+    $('#addExpense').on('click',function () {
+        $value = $('#productType').val();
+        $name = $('#name').val();
+        $desc = $('#desc').val();
+        $amount = $('#amount').val();
+        $date = $('#date').val();
+        $payment_method = $('#paymentMethod').val();
+        $end_date = $('#end_date').val();
+        $.ajax({
+            type:"get",
+            url:"{{url('storeHotelExpense')}}",
+            data:{'id':$value,'name':$name,'desc':$desc,'amount':$amount,'date':$date,'payment_method':$payment_method,'end_date':$end_date},
+            success:function (data) {
+                alert('SUCCESS')
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+            }
+        });
+    });
+$('#productType').on('change',function () {
+   $('#expenseName').hide();
+});
+$('#expenseName').on('keyup',function () {
+    $('#productT').hide();
+});
     // Summernote
     $(document).ready(function() {
         $('.summernote').summernote({

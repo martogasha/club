@@ -29,8 +29,10 @@ class AdminController extends Controller
     public function hotelAdmin(){
         if (Auth::check()){
             $sales = HotelOrder::where('date',Carbon::now()->format('Y-m-d'))->orderByDesc('id')->get();
+            $products = Hotelstock::all();
             return view('admin.indexHotel',[
-                'sales'=>$sales
+                'sales'=>$sales,
+                'products'=>$products
             ]);
         }
         else{
@@ -89,7 +91,10 @@ class AdminController extends Controller
     }
     public function addHotelExpense(){
         if (Auth::check()){
-            return view('admin.addHotelExpense');
+            $products = Hotelstock::all();
+            return view('admin.addHotelExpense',[
+                'products'=>$products
+            ]);
 
         }
         else{
@@ -107,14 +112,30 @@ class AdminController extends Controller
         return redirect(url('expense'))->with('success','EXPENSE ADDED SUCCESS');
     }
     public function storeHotelExpense(Request $request){
-        $store = Hotelexpense::create([
-            'name'=>$request->name,
-            'desc'=>$request->desc,
-            'amount'=>$request->amount,
-            'date'=>$request->date,
-            'payment_method'=>$request->paymentMethod,
-        ]);
-        return redirect(url('expenseHotel'))->with('success','EXPENSE ADDED SUCCESS');
+        $getProduct = Hotelstock::find($request->id);
+        $productName = $getProduct->product_name;
+        $productBarcode = $getProduct->barcode;
+        if (isset($request->name)){
+            $store = Hotelexpense::create([
+                'name'=>$request->name,
+                'desc'=>$request->desc,
+                'amount'=>$request->amount,
+                'date'=>$request->date,
+                'end_date'=>$request->end_date,
+                'payment_method'=>$request->payment_method,
+            ]);
+        }
+        else{
+            $store = Hotelexpense::create([
+                'name'=>$productName,
+                'barcode'=>$productBarcode,
+                'desc'=>$request->desc,
+                'amount'=>$request->amount,
+                'date'=>$request->date,
+                'end_date'=>$request->end_date,
+                'payment_method'=>$request->payment_method,
+            ]);
+        }
     }
     public function expenseEdit($id){
         $expense = Expense::find($id);
@@ -146,6 +167,7 @@ class AdminController extends Controller
         $edit->desc = $request->desc;
         $edit->amount = $request->amount;
         $edit->date = $request->date;
+        $edit->end_date = $request->end_date;
         $edit->payment_method = $request->paymentMethod;
         $edit->save();
         return redirect(url('expenseHotel'))->with('success','EXPENSE EDITED SUCCESS');
@@ -545,19 +567,37 @@ class AdminController extends Controller
     public function filterHotel(Request $request){
         $start_date = $request->start_date;
         $end_date = $request->end_date;
-        $sales  = HotelOrder::whereBetween('date', array($start_date, $end_date))->get();
-        $getProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('profit');
-        $totalSales  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('total');
-        $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
-        $profit = $totalSales-$expense;
-        return view('admin.indexHotelFilter',[
-            'sales'=>$sales,
-            'profit'=>$profit,
-            'totalSales'=>$totalSales,
-            'start_date'=>$start_date,
-            'end_date'=>$end_date,
-            'expense'=>$expense,
-        ]);
+        if (is_null($request->productId)){
+            $sales  = HotelOrder::whereBetween('date', array($start_date, $end_date))->get();
+            $getProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('profit');
+            $totalSales  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('total');
+            $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
+            $profit = $totalSales-$expense;
+            return view('admin.indexHotelFilter',[
+                'sales'=>$sales,
+                'profit'=>$profit,
+                'totalSales'=>$totalSales,
+                'start_date'=>$start_date,
+                'end_date'=>$end_date,
+                'expense'=>$expense,
+            ]);
+        }
+        else{
+            $sales  = HotelOrder::whereBetween('date', array($start_date, $end_date))->get();
+            $getProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('profit');
+            $totalSales  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('total');
+            $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
+            $profit = $totalSales-$expense;
+            return view('admin.indexHotelFilter',[
+                'sales'=>$sales,
+                'profit'=>$profit,
+                'totalSales'=>$totalSales,
+                'start_date'=>$start_date,
+                'end_date'=>$end_date,
+                'expense'=>$expense,
+            ]);
+        }
+
     }
     public function sellButchery(Request $request){
         $output = "";

@@ -16,6 +16,8 @@ class Hotelstock extends Model
         'number_of_pack',
         'buying_price',
         'selling_price',
+        'fixed',
+        'barcodeOne',
         'date',
         'image',
     ];

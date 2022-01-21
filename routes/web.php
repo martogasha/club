@@ -77,7 +77,7 @@ Route::get('expenseHotel', [\App\Http\Controllers\AdminController::class, 'expen
 Route::get('addExpense', [\App\Http\Controllers\AdminController::class, 'addExpense']);
 Route::get('addHotelExpense', [\App\Http\Controllers\AdminController::class, 'addHotelExpense']);
 Route::post('storeExpense', [\App\Http\Controllers\AdminController::class, 'storeExpense']);
-Route::post('storeHotelExpense', [\App\Http\Controllers\AdminController::class, 'storeHotelExpense']);
+Route::get('storeHotelExpense', [\App\Http\Controllers\AdminController::class, 'storeHotelExpense']);
 Route::get('expenseEdit/{id}', [\App\Http\Controllers\AdminController::class, 'expenseEdit']);
 Route::get('expenseHotelEdit/{id}', [\App\Http\Controllers\AdminController::class, 'expenseHotelEdit']);
 Route::post('eExpense', [\App\Http\Controllers\AdminController::class, 'eExpense']);

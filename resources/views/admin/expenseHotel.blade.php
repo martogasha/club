@@ -23,7 +23,8 @@
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Amount</th>
-                                            <th>Date</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
                                             <th>Payment Method</th>
                                             @if(\Illuminate\Support\Facades\Auth::user()->role==0)
                                             <th>Actions</th>
@@ -37,6 +38,11 @@
                                             <td>{{$expense->desc}}</td>
                                             <td>{{$expense->amount}}</td>
                                             <td>{{$expense->date}}</td>
+                                            @if(!is_null($expense->end_date))
+                                            <td>{{$expense->end_date}}</td>
+                                            @else
+                                                <td><b><span style="color: red">NOT SET</span></b></td>
+                                            @endif
                                             @if($expense->payment_method==1)
                                             <td>Mpesa</td>
                                             @else

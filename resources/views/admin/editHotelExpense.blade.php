@@ -58,7 +58,17 @@
                                                     <div class="input-group">
                                                         <input type="date" value="{{$expense->date}}" class="form-control" name="date" required>
                                                     </div>
-                                                    <div class="field-placeholder">Date <span class="text-danger">*</span></div>
+                                                    <div class="field-placeholder">Start Date <span class="text-danger">*</span></div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                                                <div class="field-wrapper">
+                                                    <div class="input-group">
+                                                        <input type="date" value="{{$expense->end_date}}" class="form-control" name="end_date">
+                                                    </div>
+                                                    <div class="field-placeholder">End Date</div>
                                                 </div>
 
                                             </div>

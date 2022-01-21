@@ -22,6 +22,16 @@
                                 <div id="example-form">
                                     <h3>General Information</h3>
                                         <h6 class="h-0 m-0">&nbsp;</h6>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                                        <div class="field-wrapper">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" value="0" placeholder="Add Stock" name="addStock">
+                                            </div>
+                                            <div class="field-placeholder">Add Stock</div>
+                                        </div>
+
+                                    </div>
                                         <div class="row gutters">
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
@@ -70,9 +80,9 @@
                                                         <div class="field-wrapper">
                                                             <div class="input-group">
                                                                 @if(!is_null($edit->number_of_pack))
-                                                                <input type="text" class="form-control" value="{{$edit->quantity%$edit->quantity_of_pack}}" placeholder="Quantity" name="quantity">
+                                                                <input type="text" class="form-control" value="{{$edit->quantity%$edit->quantity_of_pack}}" placeholder="Quantity" name="quantity" disabled>
                                                                 @else
-                                                                    <input type="text" class="form-control" value="{{$edit->quantity}}" placeholder="Quantity" name="quantity">
+                                                                    <input type="text" class="form-control" value="{{$edit->quantity}}" placeholder="Quantity" name="quantity" disabled>
 
                                                                 @endif
                                                             </div>

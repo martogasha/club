@@ -93,6 +93,26 @@
                                                         </div>
 
                                                     </div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                                                        <div class="field-wrapper">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="Fixed Quantity:" name="fixed">
+                                                            </div>
+                                                            <div class="field-placeholder">Fixed Quantity</div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                                                        <div class="field-wrapper">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="Barcode TakeAway:" name="takeAway">
+                                                            </div>
+                                                            <div class="field-placeholder">Barcode TakeAway</div>
+                                                        </div>
+
+                                                    </div>
 
                                                 </div>
 

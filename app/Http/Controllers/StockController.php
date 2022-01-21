@@ -64,6 +64,8 @@ class StockController extends Controller
         $store->buying_price = $request->input('buying_price');
         $store->selling_price = $request->input('selling_price');
         $store->date = $request->input('date');
+        $store->fixed = $request->input('fixed');
+        $store->barcodeOne = $request->input('takeAway');
         if ($request->image) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalName();
@@ -97,9 +99,11 @@ class StockController extends Controller
             $quantity = $request->quantity;
         }
         $edit = Stock::find($request->stockId);
+        $currentQuantity = $edit->quantity;
+        $finalQuantity = $currentQuantity+$request->addStock;
         $edit->barcode = $request->barcode;
         $edit->product_name = $request->product_name;
-        $edit->quantity = $quantity;
+        $edit->quantity = $finalQuantity;
         $edit->quantity_of_pack = $request->input('quantity_of_pack');
         $edit->number_of_pack = $request->input('number_of_pack');
         $edit->buying_price = $request->buying_price;
@@ -134,6 +138,8 @@ class StockController extends Controller
         $edit->buying_price = $request->buying_price;
         $edit->selling_price = $request->selling_price;
         $edit->date = $request->date;
+        $edit->fixed = $request->fixed;
+        $edit->barcodeOne = $request->takeAway;
         if ($request->image) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalName();
@@ -406,10 +412,14 @@ class StockController extends Controller
     }
     public function sellHotelStock(Request $request){
         $getProduct = Hotelstock::find($request->id);
+        $getTakeAwayStock = Hotelstock::where('barcode',$getProduct->barcodeOne)->first();
+        $current = $getTakeAwayStock->quantity;
+        $selling = $getProduct->fixed;
+        $stockQ = $current-$selling;
         $date = Carbon::now()->format('Y-m-d');
         $getQua = sellHotel::where('barcode',$getProduct->barcode)->first();
             if (is_null($getQua)){
-                $sell = new sellHotel();
+                    $sell = new sellHotel();
                 $sell->barcode = $getProduct->barcode;
                 $sell->product_name = $getProduct->product_name;
                 $sell->quantity = 1;
@@ -422,6 +432,7 @@ class StockController extends Controller
                 $prev = $getProduct->quantity;
                 $stockQuantity = $prev-1;
                 $updateStock = Hotelstock::where('id',$request->id)->update(['quantity'=>$stockQuantity]);
+                $updateS = Hotelstock::where('id',$getTakeAwayStock->id)->update(['quantity'=>$stockQ]);
             }
             else{
                 $getQuantity = sellHotel::where('barcode',$getProduct->barcode)->first();
@@ -432,6 +443,8 @@ class StockController extends Controller
                 $prev = $getProduct->quantity;
                 $stockQuantity = $prev-1;
                 $updateStock = Hotelstock::where('id',$request->id)->update(['quantity'=>$stockQuantity]);
+                $updateS = Hotelstock::where('id',$getTakeAwayStock->id)->update(['quantity'=>$stockQ]);
+
             }
 
     }
@@ -707,7 +720,7 @@ class StockController extends Controller
             $sales->date = $date;
             $sales->total = $request->meatAmount;
             $sales->image = $getStock->image;
-            $sales->profit = 0;
+            $sales->profit = $request->meatAmount;
             $sales->order_id = $createOrder->id;
             $sales->save();
         $receipts = salesHotel::where('order_id',$createOrder->id)->orderByDesc('id')->get();
