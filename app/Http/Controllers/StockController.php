@@ -413,9 +413,11 @@ class StockController extends Controller
     public function sellHotelStock(Request $request){
         $getProduct = Hotelstock::find($request->id);
         $getTakeAwayStock = Hotelstock::where('barcode',$getProduct->barcodeOne)->first();
-        $current = $getTakeAwayStock->quantity;
-        $selling = $getProduct->fixed;
-        $stockQ = $current-$selling;
+        if (is_null($getTakeAwayStock)){
+            $current = $getTakeAwayStock->quantity;
+            $selling = $getProduct->fixed;
+            $stockQ = $current-$selling;
+        }
         $date = Carbon::now()->format('Y-m-d');
         $getQua = sellHotel::where('barcode',$getProduct->barcode)->first();
             if (is_null($getQua)){

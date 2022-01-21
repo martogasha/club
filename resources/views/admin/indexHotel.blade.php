@@ -29,21 +29,21 @@
                             <div class="field-placeholder">End Date <span class="text-danger">*</span></div>
                         </div>
                     </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="container">
-                            <div class="main">
-                                <h5>Stock Products</h5>
-                                <select name="productId">
-                                    <option value="">Select Product</option>
-                                    @foreach($products as $product)
-                                        @if($product->id==1||$product->id==2||$product->id==3||$product->id==4)
-                                        <option value="{{$product->barcode}}">{{$product->product_name}}</option>
-                                            @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        </div>
+{{--                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">--}}
+{{--                        <div class="container">--}}
+{{--                            <div class="main">--}}
+{{--                                <h5>Stock Products</h5>--}}
+{{--                                <select name="productId">--}}
+{{--                                    <option value="">Select Product</option>--}}
+{{--                                    @foreach($products as $product)--}}
+{{--                                        @if($product->id==1||$product->id==2||$product->id==3||$product->id==4)--}}
+{{--                                        <option value="{{$product->barcode}}">{{$product->product_name}}</option>--}}
+{{--                                            @endif--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        </div>--}}
                         <br>
                         <br>
                         <br>
