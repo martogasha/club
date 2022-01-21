@@ -19,9 +19,25 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>ksh {{$profit}}</h2>
-                                <p>PROFIT</p>
+                                <h4>ksh {{$getTakeWayProfit}}</h4>
+                                <p>Take Away + Others Profit</p>
+                                <hr>
+                                <h4>ksh {{$getChipsProfit}}</h4>
+                                <p>Chips Profit</p>
                             </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                        <div class="stats-tile">
+                            <div class="sale-icon">
+                                <i class="icon-shopping-bag1"></i>
+                            </div>
+                            <div class="sale-details">
+                                <h2>Ksh {{$profit}}</h2>
+                                <p>Total Profit</p>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">

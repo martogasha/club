@@ -569,12 +569,15 @@ class AdminController extends Controller
         $end_date = $request->end_date;
         if (is_null($request->productId)){
             $sales  = HotelOrder::whereBetween('date', array($start_date, $end_date))->get();
-            $getProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('profit');
+            $getTakeWayProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','!=','3456')->sum('profit');
+            $getChipsProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','3456')->sum('profit');
             $totalSales  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('total');
-            $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->where('end_date',null)->sum('amount');
-            $profit = $totalSales-$expense;
+            $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
+            $profit = $getChipsProfit+$getTakeWayProfit-$expense;
             return view('admin.indexHotelFilter',[
                 'sales'=>$sales,
+                'getTakeWayProfit'=>$getTakeWayProfit,
+                'getChipsProfit'=>$getChipsProfit,
                 'profit'=>$profit,
                 'totalSales'=>$totalSales,
                 'start_date'=>$start_date,

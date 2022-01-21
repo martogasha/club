@@ -254,9 +254,25 @@
                             <i class="icon-shopping-bag1"></i>
                         </div>
                         <div class="sale-details">
-                            <h2>ksh {{\App\Models\salesHotel::sum('profit')-\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h2>
-                            <p>PROFIT</p>
+                            <h4>ksh {{\App\Models\salesHotel::where('barcode','!=','3456')->sum('profit')-\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h4>
+                            <p>Take Away + Others Profit</p>
+                            <hr>
+                            <h4>ksh {{\App\Models\salesHotel::where('barcode','3456')->sum('profit')}}</h4>
+                            <p>Chips Profit</p>
                         </div>
+
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                    <div class="stats-tile">
+                        <div class="sale-icon">
+                            <i class="icon-shopping-bag1"></i>
+                        </div>
+                        <div class="sale-details">
+                            <h2>Ksh {{\App\Models\salesHotel::where('barcode','!=','3456')->sum('profit')+\App\Models\salesHotel::where('barcode','3456')->sum('profit')-\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h2>
+                            <p>Total Profit</p>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
