@@ -582,7 +582,7 @@ class StockController extends Controller
     public function delHotel(Request $request){
         $delete = sellHotel::find($request->id);
         $stock = Hotelstock::where('barcode',$delete->barcode)->first();
-        if ($stock->id==5||$stock->id==30){
+        if ($stock->id==5||$stock->barcode==3456){
             $delete = sellHotel::find($request->id);
             $getProduct = Hotelstock::where('barcode',$delete->barcode)->first();
             $prev = $getProduct->quantity;

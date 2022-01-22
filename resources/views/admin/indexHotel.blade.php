@@ -254,11 +254,14 @@
                             <i class="icon-shopping-bag1"></i>
                         </div>
                         <div class="sale-details">
-                            <h4>ksh {{\App\Models\salesHotel::where('barcode','!=','3456')->sum('profit')-\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h4>
+                            <h4>ksh {{\App\Models\salesHotel::where('barcode','!=','3456')->where('barcode','!=','0502')->sum('profit')-\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h4>
                             <p>Take Away + Others Profit</p>
                             <hr>
                             <h4>ksh {{\App\Models\salesHotel::where('barcode','3456')->sum('profit')}}</h4>
                             <p>Chips Profit</p>
+                            <hr>
+                            <h4>ksh {{\App\Models\salesHotel::where('barcode','0502')->sum('profit')}}</h4>
+                            <p>Smokie Profit</p>
                         </div>
 
                     </div>
@@ -269,7 +272,7 @@
                             <i class="icon-shopping-bag1"></i>
                         </div>
                         <div class="sale-details">
-                            <h2>Ksh {{\App\Models\salesHotel::where('barcode','!=','3456')->sum('profit')+\App\Models\salesHotel::where('barcode','3456')->sum('profit')-\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h2>
+                            <h2>Ksh {{\App\Models\salesHotel::where('barcode','!=','3456')->where('barcode','!=','0502')->sum('profit')+\App\Models\salesHotel::where('barcode','3456')->sum('profit')+\App\Models\salesHotel::where('barcode','0502')->sum('profit')-\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h2>
                             <p>Total Profit</p>
                         </div>
 

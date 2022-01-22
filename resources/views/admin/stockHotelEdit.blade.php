@@ -27,7 +27,7 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" placeholder="Add Stock" name="number_of_pack">
+                                                            <input type="text" class="form-control" value="0" placeholder="Add Stock" name="number_of_pack">
                                                         </div>
                                                         <div class="field-placeholder">Add Stock</div>
                                                     </div>
