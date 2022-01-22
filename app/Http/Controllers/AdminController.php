@@ -569,8 +569,10 @@ class AdminController extends Controller
         $end_date = $request->end_date;
         if (is_null($request->productId)){
             $sales  = HotelOrder::whereBetween('date', array($start_date, $end_date))->get();
-            $getTakeWayProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','!=','3456')->sum('profit');
-            $getChipsProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','3456')->sum('profit');
+            $getTakeWayProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','!=','0606')->sum('profit');
+            $getChipsProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','0606')->sum('profit');
+            $getsmokieProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','0502')->sum('profit');
+            $getsodaProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','0702')->sum('profit');
             $totalSales  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('total');
             $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
             $profit = $getChipsProfit+$getTakeWayProfit-$expense;
@@ -578,6 +580,8 @@ class AdminController extends Controller
                 'sales'=>$sales,
                 'getTakeWayProfit'=>$getTakeWayProfit,
                 'getChipsProfit'=>$getChipsProfit,
+                'getsmokieProfit'=>$getsmokieProfit,
+                'getsodaProfit'=>$getsodaProfit,
                 'profit'=>$profit,
                 'totalSales'=>$totalSales,
                 'start_date'=>$start_date,

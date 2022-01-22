@@ -24,6 +24,12 @@
                                 <hr>
                                 <h4>ksh {{$getChipsProfit}}</h4>
                                 <p>Chips Profit</p>
+                                <hr>
+                                <h4>ksh {{$getsmokieProfit}}</h4>
+                                <p>Smokie Profit</p>
+                                <hr>
+                                <h4>ksh {{$getsodaProfit}}</h4>
+                                <p>Soda Profit</p>
                             </div>
 
                         </div>
