@@ -195,7 +195,7 @@
                                                         <button class="btn btn-info sellByProduct" id="{{$stock->id}}" style="margin: 50px">Sell</button>
                                                     </div>
                                             </div>
-                                        @elseif($stock->barcode=='0606')
+                                        @elseif($stock->barcode=='0606'||$stock->barcode=='702')
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                                 <div class="image-stats-tile">
                                                     <div class="image-stats-box">
