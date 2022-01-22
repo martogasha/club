@@ -496,6 +496,12 @@ class StockController extends Controller
     public function addHotel(Request $request){
         $add = sellHotel::find($request->id);
         $stock = Hotelstock::where('barcode',$add->barcode)->first();
+        $getTakeAwayStock = Hotelstock::where('barcode',$stock->barcodeOne)->first();
+        if (!is_null($getTakeAwayStock)){
+            $current = $getTakeAwayStock->quantity;
+            $selling = $stock->fixed;
+            $stockQ = $current-$selling;
+        }
             $getProduct = Hotelstock::where('barcode',$add->barcode)->first();
             $quant = $add->quantity;
             $currentQuantity = $quant+1;
@@ -505,6 +511,9 @@ class StockController extends Controller
             $prev = $getProduct->quantity;
             $stockQuantity = $prev-1;
             $updateStock = Hotelstock::where('barcode',$add->barcode)->update(['quantity'=>$stockQuantity]);
+        if (!is_null($getTakeAwayStock)) {
+            $updateS = Hotelstock::where('id', $getTakeAwayStock->id)->update(['quantity' => $stockQ]);
+        }
             $getStock = Hotelstock::where('barcode',$add->barcode)->first();
             $getQuant = $getStock->quantity;
             $noOfPack = $getStock->quantity_of_pack;
@@ -548,12 +557,21 @@ class StockController extends Controller
             $quant = $minus->quantity;
             $currentQuantity = $quant-1;
             $currentTotal = $minus->selling_price*$currentQuantity;
+        $getTakeAwayStock = Hotelstock::where('barcode',$getProduct->barcodeOne)->first();
+        if (!is_null($getTakeAwayStock)){
+            $current = $getTakeAwayStock->quantity;
+            $selling = $getProduct->fixed;
+            $stockQ = $current+$selling;
+        }
             if ($currentQuantity>0){
                 $update = sellHotel::where('id',$minus->id)->update(['quantity'=>$currentQuantity]);
                 $updateTotal = sellHotel::where('barcode',$minus->barcode)->update(['total'=>$currentTotal]);
                 $prev = $getProduct->quantity;
                 $stockQuantity = $prev+1;
                 $updateStock = Hotelstock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
+                if (!is_null($getTakeAwayStock)) {
+                    $updateS = Hotelstock::where('id', $getTakeAwayStock->id)->update(['quantity' => $stockQ]);
+                }
                 $getP = Hotelstock::where('barcode',$minus->barcode)->first();
                 $getQuant = $getP->quantity;
                 $noOfPack = $getP->quantity_of_pack;
@@ -565,6 +583,9 @@ class StockController extends Controller
                 $prev = $getProduct->quantity;
                 $stockQuantity = $prev+1;
                 $updateStock = Hotelstock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
+                if (!is_null($getTakeAwayStock)) {
+                    $updateS = Hotelstock::where('id', $getTakeAwayStock->id)->update(['quantity' => $stockQ]);
+                }
                 $getP = Hotelstock::where('barcode',$minus->barcode)->first();
                 $getQuant = $getP->quantity;
                 $noOfPack = $getP->quantity_of_pack;
@@ -585,7 +606,13 @@ class StockController extends Controller
     public function delHotel(Request $request){
         $delete = sellHotel::find($request->id);
         $stock = Hotelstock::where('barcode',$delete->barcode)->first();
-        if ($stock->id==5||$stock->barcode==3456){
+        $getTakeAwayStock = Hotelstock::where('barcode',$stock->barcodeOne)->first();
+        if (!is_null($getTakeAwayStock)){
+            $current = $getTakeAwayStock->quantity;
+            $selling = $stock->fixed;
+            $stockQ = $current+$selling;
+        }
+        if ($stock->id==5||$stock->barcode==0606){
             $delete = sellHotel::find($request->id);
             $getProduct = Hotelstock::where('barcode',$delete->barcode)->first();
             $prev = $getProduct->quantity;
@@ -600,6 +627,9 @@ class StockController extends Controller
             $delete->delete();
         }
         else{
+            if (!is_null($getTakeAwayStock)) {
+                $updateS = Hotelstock::where('id', $getTakeAwayStock->id)->update(['quantity' => $stockQ]);
+            }
             $delete->delete();
 
         }
