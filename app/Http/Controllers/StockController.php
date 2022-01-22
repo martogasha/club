@@ -617,7 +617,7 @@ class StockController extends Controller
         $getTakeAwayStock = Hotelstock::where('barcode',$stock->barcodeOne)->first();
         if (!is_null($getTakeAwayStock)){
             $current = $getTakeAwayStock->quantity;
-            $selling = $stock->fixed;
+            $selling = $stock->fixed*$delete->quantity;
             $stockQ = $current+$selling;
         }
         if ($stock->id==5||$stock->barcode==0606){
@@ -627,6 +627,9 @@ class StockController extends Controller
             $cur = $delete->quantity;
             $stockQuantity = $prev+$cur;
             $updateStock = Hotelstock::where('barcode',$delete->barcode)->update(['quantity'=>$stockQuantity]);
+            if (!is_null($getTakeAwayStock)) {
+                $updateS = Hotelstock::where('id', $getTakeAwayStock->id)->update(['quantity' => $stockQ]);
+            }
             $getP = Hotelstock::where('barcode',$delete->barcode)->first();
             if (!is_null($getP->quantity_of_pack)){
                 $getQuant = $getP->quantity;
