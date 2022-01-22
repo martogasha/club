@@ -80,7 +80,7 @@
                                                         <div class="field-wrapper">
                                                             <div class="input-group">
                                                                 @if(!is_null($edit->number_of_pack))
-                                                                <input type="text" class="form-control" value="{{$edit->quantity%$edit->quantity_of_pack}}" placeholder="Quantity" name="quantity" disabled>
+                                                                <input type="text" class="form-control" value="{{$edit->quantity_of_pack}}" placeholder="Quantity" name="quantity" disabled>
                                                                 @else
                                                                     <input type="text" class="form-control" value="{{$edit->quantity}}" placeholder="Quantity" name="quantity" disabled>
 
