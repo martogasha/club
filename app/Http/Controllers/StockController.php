@@ -124,7 +124,10 @@ class StockController extends Controller
             $incompleteQuantity = $request->quantity;
             $packs = $request->number_of_pack;
             $packsQuantity = $request->quantity_of_pack;
-            $quantity = $packs*$packsQuantity+$incompleteQuantity;
+            $edit = Hotelstock::find($request->stockId);
+            $stockPackNumber = $edit->number_of_pack;
+            $currentPackNumber = $stockPackNumber+$packs;
+            $quantity = $currentPackNumber*$packsQuantity+$incompleteQuantity;
         }
         else{
             $quantity = $request->quantity;
@@ -134,7 +137,7 @@ class StockController extends Controller
         $edit->product_name = $request->product_name;
         $edit->quantity = $quantity;
         $edit->quantity_of_pack = $request->input('quantity_of_pack');
-        $edit->number_of_pack = $request->input('number_of_pack');
+        $edit->number_of_pack = $currentPackNumber;
         $edit->buying_price = $request->buying_price;
         $edit->selling_price = $request->selling_price;
         $edit->date = $request->date;
@@ -437,6 +440,11 @@ class StockController extends Controller
                 if (!is_null($getTakeAwayStock)) {
                     $updateS = Hotelstock::where('id', $getTakeAwayStock->id)->update(['quantity' => $stockQ]);
                 }
+                $getP = Hotelstock::where('barcode',$getProduct->barcode)->first();
+                $getQuant = $getP->quantity;
+                $noOfPack = $getP->quantity_of_pack;
+                $numberOfPack = intdiv($getQuant, $noOfPack);
+                $updateS = Hotelstock::where('barcode',$getProduct->barcode)->update(['number_of_pack'=>$numberOfPack]);
             }
             else{
                 $getQuantity = sellHotel::where('barcode',$getProduct->barcode)->first();
@@ -450,6 +458,11 @@ class StockController extends Controller
                 if (!is_null($getTakeAwayStock)) {
                     $updateS = Hotelstock::where('id', $getTakeAwayStock->id)->update(['quantity' => $stockQ]);
                 }
+                $getP = Hotelstock::where('barcode',$getProduct->barcode)->first();
+                $getQuant = $getP->quantity;
+                $noOfPack = $getP->quantity_of_pack;
+                $numberOfPack = intdiv($getQuant, $noOfPack);
+                $updateS = Hotelstock::where('barcode',$getProduct->barcode)->update(['number_of_pack'=>$numberOfPack]);
 
             }
 
@@ -489,6 +502,12 @@ class StockController extends Controller
             $prev = $getProduct->quantity;
             $stockQuantity = $prev-1;
             $updateStock = Hotelstock::where('barcode',$add->barcode)->update(['quantity'=>$stockQuantity]);
+            $getStock = Hotelstock::where('barcode',$add->barcode)->first();
+            $getQuant = $getStock->quantity;
+            $noOfPack = $getStock->quantity_of_pack;
+            $numberOfPack = intdiv($getQuant, $noOfPack);
+            $updateS = Hotelstock::where('barcode',$add->barcode)->update(['number_of_pack'=>$numberOfPack]);
+
     }
     public function minus(Request $request){
         $minus = Sell::find($request->id);
@@ -532,11 +551,22 @@ class StockController extends Controller
                 $prev = $getProduct->quantity;
                 $stockQuantity = $prev+1;
                 $updateStock = Hotelstock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
+                $getP = Hotelstock::where('barcode',$minus->barcode)->first();
+                $getQuant = $getP->quantity;
+                $noOfPack = $getP->quantity_of_pack;
+                $numberOfPack = intdiv($getQuant, $noOfPack);
+                $updateS = Hotelstock::where('barcode',$minus->barcode)->update(['number_of_pack'=>$numberOfPack]);
+
             }
             else{
                 $prev = $getProduct->quantity;
                 $stockQuantity = $prev+1;
                 $updateStock = Hotelstock::where('barcode',$minus->barcode)->update(['quantity'=>$stockQuantity]);
+                $getP = Hotelstock::where('barcode',$minus->barcode)->first();
+                $getQuant = $getP->quantity;
+                $noOfPack = $getP->quantity_of_pack;
+                $numberOfPack = intdiv($getQuant, $noOfPack);
+                $updateS = Hotelstock::where('barcode',$minus->barcode)->update(['number_of_pack'=>$numberOfPack]);
                 $minus->delete();
             }
     }
@@ -552,13 +582,18 @@ class StockController extends Controller
     public function delHotel(Request $request){
         $delete = sellHotel::find($request->id);
         $stock = Hotelstock::where('barcode',$delete->barcode)->first();
-        if ($stock->id==5){
+        if ($stock->id==5||$stock->id==30){
             $delete = sellHotel::find($request->id);
             $getProduct = Hotelstock::where('barcode',$delete->barcode)->first();
             $prev = $getProduct->quantity;
             $cur = $delete->quantity;
             $stockQuantity = $prev+$cur;
             $updateStock = Hotelstock::where('barcode',$delete->barcode)->update(['quantity'=>$stockQuantity]);
+            $getP = Hotelstock::where('barcode',$delete->barcode)->first();
+            $getQuant = $getP->quantity;
+            $noOfPack = $getP->quantity_of_pack;
+            $numberOfPack = intdiv($getQuant, $noOfPack);
+            $updateS = Hotelstock::where('barcode',$delete->barcode)->update(['number_of_pack'=>$numberOfPack]);
             $delete->delete();
         }
         else{
