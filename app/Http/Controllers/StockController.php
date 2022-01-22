@@ -681,7 +681,7 @@ class StockController extends Controller
             'date'=>$date,
         ]);
         foreach($sells as $sell){
-            $getStock = Hotelstock::where('barcode',$sell->barcode)->first();
+                $getStock = Hotelstock::where('barcode',$sell->barcode)->first();
             $buyingPrice = $getStock->buying_price;
             $sellingPrice = $sell->selling_price;
             $prof = $sellingPrice-$buyingPrice;
@@ -762,6 +762,71 @@ class StockController extends Controller
             $sales->total = $request->meatAmount;
             $sales->image = $getStock->image;
             $sales->profit = $request->meatAmount;
+            $sales->order_id = $createOrder->id;
+            $sales->save();
+        $receipts = salesHotel::where('order_id',$createOrder->id)->orderByDesc('id')->get();
+        foreach ($receipts as $receipt){
+            $output .='
+
+							     <tr>
+                                                    <td data-label="Account">'.$receipt->product_name.'</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td data-label="Due Date">'.$receipt->quantity.'</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td data-label="Amount">'.$receipt->selling_price.'</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td data-label="Amount">'.$receipt->total.'</td>
+                                                </tr>
+
+        ';
+        }
+
+        return response($output);
+    }
+    public function salesB(Request $request){
+        $output = "";
+        $date = Carbon::now()->format('Y-m-d');
+        $createOrder = HotelOrder::create([
+            'payment_method'=>$request->paymentMethod,
+            'date'=>$date,
+        ]);
+
+            $getStock = Hotelstock::find($request->id);
+            $getTakeAway = Hotelstock::where('barcode',$getStock->barcodeOne)->first();
+            $currentQuantity = $getTakeAway->quantity;
+            $quantity = $request->quantity;
+            $final = $currentQuantity-$quantity;
+            $updateMeatQuantity =Hotelstock::where('id',$getTakeAway->id)->update(['quantity'=>$final]);
+            $sales = new salesHotel();
+            $sales->barcode = $getStock->barcode;
+            $sales->product_name = $getStock->product_name;
+            $sales->quantity = $request->quantity;
+            $sales->selling_price = 0;
+            $sales->date = $date;
+            $sales->total = 0;
+            $sales->image = $getStock->image;
+            $sales->profit = 0;
             $sales->order_id = $createOrder->id;
             $sales->save();
         $receipts = salesHotel::where('order_id',$createOrder->id)->orderByDesc('id')->get();

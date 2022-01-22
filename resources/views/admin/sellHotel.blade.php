@@ -182,8 +182,20 @@
                                 <!-- Row start -->
                                 <div class="row gutters" style="height: 325px;overflow: auto">
                                     @foreach($stocks as $stock)
-                                        @if($stock->id==1||$stock->id==2||$stock->id==3||$stock->id==4)
-
+                                        @if($stock->barcode=='0700'||$stock->barcode=='0701')
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
+                                                <div class="image-stats-tile">
+                                                    <div class="image-stats-box">
+                                                        <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
+                                                    </div>
+                                                    <div class="img-stats-details">
+                                                        <p>{{$stock->product_name}}</p>
+                                                        <h5>{{$stock->selling_price}} /=</h5>
+                                                    </div>
+                                                        <button class="btn btn-info sellByProduct" id="{{$stock->id}}" style="margin: 50px">Sell</button>
+                                                    </div>
+                                            </div>
+                                        @elseif($stock->barcode=='0606')
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                                 <div class="image-stats-tile">
                                                     <div class="image-stats-box">
@@ -192,54 +204,72 @@
                                                     <div class="img-stats-details">
                                                         <p>{{$stock->product_name}}</p>
                                                         @if($stock->quantity<10)
-                                                            <h5><b style="color: red">{{$stock->quantity}} KG</b></h5>
+                                                            <h5><b style="color: red">{{$stock->quantity}}</b></h5>
                                                         @else
-                                                            <h5>{{$stock->quantity}} KG</h5>
+                                                            <h5>{{$stock->quantity}}</h5>
                                                         @endif
                                                         <h5>{{$stock->selling_price}} /=</h5>
                                                     </div>
-                                                    <div class="weekly-graph-details">
-                                                        <button class="btn btn-info sellButchery" id="{{$stock->id}}">Sell</button>
+                                                        <button class="btn btn-info sell" id="{{$stock->id}}" style="margin: 50px">Sell</button>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        @elseif($stock->id==5)
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
-                                                <div class="image-stats-tile">
-                                                    <div class="image-stats-box">
-                                                        <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
-                                                    </div>
-                                                    <div class="img-stats-details">
-                                                        <p>{{$stock->product_name}}</p>
-                                                        @if($stock->quantity<20)
-                                                            <h5><b style="color: red">{{$stock->quantity}} Pieces</b></h5>
-                                                        @else
-                                                            <h5>{{$stock->quantity}} Pieces</h5>
-                                                        @endif
-                                                        <h5>{{$stock->selling_price}} /=</h5>
-                                                    </div>
-                                                    <div class="weekly-graph-details">
-                                                        <button class="btn btn-info sell" id="{{$stock->id}}">Sell</button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         @else
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
-                                                <div class="image-stats-tile">
-                                                    <div class="image-stats-box">
-                                                        <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
-                                                    </div>
-                                                    <div class="img-stats-details">
-                                                        <p>{{$stock->product_name}}</p>
+                                            @if($stock->id==1||$stock->id==2||$stock->id==3||$stock->id==4)
 
-                                                        <h5>{{$stock->selling_price}} /=</h5>
-                                                    </div>
-                                                    <div class="weekly-graph-details">
-                                                        <button class="btn btn-info sell" id="{{$stock->id}}">Sell</button>
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
+                                                    <div class="image-stats-tile">
+                                                        <div class="image-stats-box">
+                                                            <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
+                                                        </div>
+                                                        <div class="img-stats-details">
+                                                            <p>{{$stock->product_name}}</p>
+                                                            @if($stock->quantity<10)
+                                                                <h5><b style="color: red">{{$stock->quantity}} KG</b></h5>
+                                                            @else
+                                                                <h5>{{$stock->quantity}} KG</h5>
+                                                            @endif
+                                                            <h5>{{$stock->selling_price}} /=</h5>
+                                                        </div>
+                                                            <button class="btn btn-info sellButchery" id="{{$stock->id}}" style="margin: 50px">Sell</button>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @elseif($stock->id==5)
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
+                                                    <div class="image-stats-tile">
+                                                        <div class="image-stats-box">
+                                                            <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
+                                                        </div>
+                                                        <div class="img-stats-details">
+                                                            <p>{{$stock->product_name}}</p>
+                                                            @if($stock->quantity<20)
+                                                                <h5><b style="color: red">{{$stock->quantity}} Pieces</b></h5>
+                                                            @else
+                                                                <h5>{{$stock->quantity}} Pieces</h5>
+                                                            @endif
+                                                            <h5>{{$stock->selling_price}} /=</h5>
+                                                        </div>
+                                                        <div class="weekly-graph-details">
+                                                            <button class="btn btn-info sell" id="{{$stock->id}}">Sell</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
+                                                    <div class="image-stats-tile">
+                                                        <div class="image-stats-box">
+                                                            <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
+                                                        </div>
+                                                        <div class="img-stats-details">
+                                                            <p>{{$stock->product_name}}</p>
+
+                                                            <h5>{{$stock->selling_price}} /=</h5>
+                                                        </div>
+                                                            <button class="btn btn-info sell" id="{{$stock->id}}" style="margin: 50px">Sell</button>
+                                                    </div>
+                                                </div>
+                                            @endif
                                         @endif
+
                                     @endforeach
                                 </div>
                                 <!-- Row end -->
@@ -403,6 +433,19 @@
             </div>
     </div>
 </div>
+<div class="modal fade" id="sellByProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="updateSellB">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success" id="sellB">UPDATE</button>
+                </div>
+            </div>
+    </div>
+</div>
 
 <!-- Modal end -->
 <!-- Page wrapper end -->
@@ -495,6 +538,23 @@
             success:function (data) {
                 $('#sellButchery').modal('show');
                 $('#updateSellButchery').html(data);
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+            }
+        });
+    });
+    $(document).on('click','.sellByProduct',function () {
+        $value = $(this).attr('id');
+        $.ajax({
+            type:"get",
+            url:"{{url('sellByProduct')}}",
+            data:{'id':$value},
+            success:function (data) {
+                $('#sellByProduct').modal('show');
+                $('#updateSellB').html(data);
+
             },
             error:function (error) {
                 console.log(error)
@@ -610,6 +670,45 @@
             type:"get",
             url:"{{url('salesMeat')}}",
             data:{'paymentMethod':$paymentMethod,'phone':$phone,'quantity':$quantity,'id':$id,'meatAmount':$meatAmount},
+            success:function (data) {
+                $('#returnPrint').html(data);
+                $.ajax({
+                    type:"get",
+                    url:"{{url('CalTotalHotel')}}",
+                    success:function (data) {
+                        $('#calTotal').html(data);
+                        var printContents = document.getElementById('printDiv').innerHTML;
+                        var originalContents = document.body.innerHTML;
+
+                        document.body.innerHTML = printContents;
+
+                        window.print();
+
+                        document.body.innerHTML = originalContents;
+                        location.reload();
+
+                    },
+                    error:function (error) {
+                        console.log(error)
+                        alert('error')
+                    }
+                });
+
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+            }
+        });
+    });
+    $('#sellB').on('click',function () {
+        $quantity = $('#meatQ').val();
+        $paymentMethod = $('#paymentB').val();
+        $id = $('#sellD').val();
+        $.ajax({
+            type:"get",
+            url:"{{url('salesB')}}",
+            data:{'id':$id,'quantity':$quantity,'paymentMethod':$paymentMethod},
             success:function (data) {
                 $('#returnPrint').html(data);
                 $.ajax({

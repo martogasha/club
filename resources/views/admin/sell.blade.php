@@ -16,7 +16,7 @@
                         <div class="card h-475">
                             <div class="p-0">
                                 <div class="field-wrapper">
-                                    <input type="text" class="form-control" placeholder="Type Something" id="myInput">
+                                        <input type="text" class="form-control" placeholder="Type Something" id="myInput">
                                     <div class="field-placeholder">Search</div>
                                 </div>
                             </div>

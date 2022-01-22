@@ -635,5 +635,30 @@ class AdminController extends Controller
         ';
         return response($output);
     }
+    public function sellByProduct(Request $request){
+        $output = "";
+        $sell = Hotelstock::find($request->id);
+        $output = '
+          <div class="modal-header">
+                                  <input type="hidden" value="'.$sell->id.'" id="sellD">
+
+                        <h5 class="modal-title" id="exampleModalLabel">'.$sell->product_name.'</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="field-wrapper">
+                            <input type="text" class="form-control"  name="meatQuantity" id="meatQ">
+                            <div class="field-placeholder">Quantity(KG)</div>
+                        </div>
+                          <div class="field-wrapper">
+                        <select class="form-select" id="paymentB">
+                            <option value="1">Mpesa</option>
+                            <option value="2">Cash</option>
+                        </select>
+                        <div class="field-placeholder">Payment Method</div>
+                        </div>
+        ';
+        return response($output);
+    }
 
 }
