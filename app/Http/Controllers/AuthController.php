@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HotelOrder;
 use App\Models\Stock;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -94,5 +95,47 @@ class AuthController extends Controller
         else{
             return redirect()->back()->with('error', 'CREDENTIALS DOES NOT MATCH');
         }
+    }
+    public function receiptFooter(Request $request){
+        $output = "";
+        $order = HotelOrder::latest('id')->first();
+        if ($order->payment_method==1){
+            $p = 'Mpesa';
+        }
+        elseif($order->payment_method==3){
+            $p = 'Credit';
+
+        }
+        else{
+            $p = 'Cash';
+
+        }
+        $output = '
+           <table class="summary" cellspacing="0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>payment Method:</td>
+                                                        <td>'.$p.'</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="summary" cellspacing="0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>Name:</td>
+                                                        <td>'.$order->name.'</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="summary" cellspacing="0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>Phone No:</td>
+                                                        <td>'.$order->phone.'</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+        ';
+        return response($output);
     }
 }

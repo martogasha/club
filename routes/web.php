@@ -24,6 +24,7 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/', [\App\Http\Controllers\AuthController::class, 'index']);
+Route::get('receiptFooter', [\App\Http\Controllers\AuthController::class, 'receiptFooter']);
 Route::get('users', [\App\Http\Controllers\AuthController::class, 'users']);
 Route::get('deleteUser', [\App\Http\Controllers\AuthController::class, 'deleteUser']);
 Route::post('eUser', [\App\Http\Controllers\AuthController::class, 'eUser']);
@@ -102,6 +103,8 @@ Route::get('filterHotelIndex', [\App\Http\Controllers\AdminController::class, 'f
 Route::post('filterHotel', [\App\Http\Controllers\AdminController::class, 'filterHotel']);
 Route::get('sellButchery', [\App\Http\Controllers\AdminController::class, 'sellButchery']);
 Route::get('sellByProduct', [\App\Http\Controllers\AdminController::class, 'sellByProduct']);
+Route::get('payCredit', [\App\Http\Controllers\AdminController::class, 'payCredit']);
+Route::post('creditPay', [\App\Http\Controllers\AdminController::class, 'creditPay']);
 Route::get('quotation', [\App\Http\Controllers\Quote::class, 'quotation']);
 Route::get('quote', [\App\Http\Controllers\Quote::class, 'quote']);
 Route::get('editQuotation', [\App\Http\Controllers\Quote::class, 'editQuotation']);

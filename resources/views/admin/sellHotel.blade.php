@@ -121,6 +121,9 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <div id="paymentMeth">
+
+                                            </div>
                                             <div class="separator"></div>
                                         </section>
                                     </div>
@@ -185,9 +188,7 @@
                                         @if($stock->barcode=='0700'||$stock->barcode=='0701')
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                                 <div class="image-stats-tile">
-                                                    <div class="image-stats-box">
                                                         <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
-                                                    </div>
                                                     <div class="img-stats-details">
                                                         <p>{{$stock->product_name}}</p>
                                                         <h5>{{$stock->selling_price}} /=</h5>
@@ -198,15 +199,13 @@
                                         @elseif($stock->barcode=='0606'||$stock->barcode=='702')
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                                 <div class="image-stats-tile">
-                                                    <div class="image-stats-box">
                                                         <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
-                                                    </div>
                                                     <div class="img-stats-details">
                                                         <p>{{$stock->product_name}}</p>
-                                                        @if($stock->quantity<10)
-                                                            <h5><b style="color: red">{{$stock->quantity}}</b></h5>
+                                                        @if($stock->number_of_pack*$stock->quantity_of_pack+$stock->quantity<10)
+                                                            <h5><b style="color: red">{{$stock->number_of_pack*$stock->quantity_of_pack+$stock->quantity}}</b></h5>
                                                         @else
-                                                            <h5>{{$stock->quantity}}</h5>
+                                                            <h5>{{$stock->number_of_pack*$stock->quantity_of_pack+$stock->quantity}}</h5>
                                                         @endif
                                                         <h5>{{$stock->selling_price}} /=</h5>
                                                     </div>
@@ -218,9 +217,7 @@
 
                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                                     <div class="image-stats-tile">
-                                                        <div class="image-stats-box">
                                                             <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
-                                                        </div>
                                                         <div class="img-stats-details">
                                                             <p>{{$stock->product_name}}</p>
                                                             @if($stock->quantity<10)
@@ -236,29 +233,23 @@
                                             @elseif($stock->id==5)
                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                                     <div class="image-stats-tile">
-                                                        <div class="image-stats-box">
                                                             <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
-                                                        </div>
                                                         <div class="img-stats-details">
                                                             <p>{{$stock->product_name}}</p>
-                                                            @if($stock->quantity<20)
-                                                                <h5><b style="color: red">{{$stock->quantity}} Pieces</b></h5>
+                                                            @if($stock->number_of_pack*$stock->quantity_of_pack+$stock->quantity<20)
+                                                                <h5><b style="color: red">{{$stock->number_of_pack*$stock->quantity_of_pack+$stock->quantity}} Pieces</b></h5>
                                                             @else
-                                                                <h5>{{$stock->quantity}} Pieces</h5>
+                                                                <h5>{{$stock->number_of_pack*$stock->quantity_of_pack+$stock->quantity}} Pieces</h5>
                                                             @endif
                                                             <h5>{{$stock->selling_price}} /=</h5>
                                                         </div>
-                                                        <div class="weekly-graph-details">
-                                                            <button class="btn btn-info sell" id="{{$stock->id}}">Sell</button>
-                                                        </div>
+                                                            <button class="btn btn-info sell" id="{{$stock->id}}" style="margin: 50px">Sell</button>
                                                     </div>
                                                 </div>
                                             @else
                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="myTable">
                                                     <div class="image-stats-tile">
-                                                        <div class="image-stats-box">
                                                             <img src="{{asset('uploads/product/'.$stock->image)}}" class="img-fluid" alt="" style="width: 50px;height: 50px">
-                                                        </div>
                                                         <div class="img-stats-details">
                                                             <p>{{$stock->product_name}}</p>
 
@@ -379,12 +370,17 @@
                         <select class="form-select" id="paymentMethod">
                             <option value="1">Mpesa</option>
                             <option value="2">Cash</option>
+                            <option value="3">Credit</option>
                         </select>
                         <div class="field-placeholder">Payment Method</div>
                     </div>
                     <div class="field-wrapper" id="phon">
                         <input type="text" class="form-control" id="phone">
                         <div class="field-placeholder">Phone Number</div>
+                    </div>
+                    <div class="field-wrapper" id="phon">
+                        <input type="text" class="form-control" id="clientName">
+                        <div class="field-placeholder">Name</div>
                     </div>
                     <div class="field-wrapper" id="amount">
                         <input type="text" value="{{\App\Models\sellHotel::sum('total')}}" class="form-control" required>
@@ -625,10 +621,11 @@
     $('#sellButton').on('click',function () {
         $paymentMethod = $('#paymentMethod').val();
         $phone = $('#phone').val();
+        $name = $('#clientName').val();
         $.ajax({
             type:"get",
             url:"{{url('salesHotel')}}",
-            data:{'paymentMethod':$paymentMethod,'phone':$phone},
+            data:{'paymentMethod':$paymentMethod,'phone':$phone,'name':$name},
             success:function (data) {
                 $('#returnPrint').html(data);
                 $.ajax({
@@ -636,16 +633,27 @@
                     url:"{{url('CalTotalHotel')}}",
                     success:function (data) {
                         $('#calTotal').html(data);
-                        var printContents = document.getElementById('printDiv').innerHTML;
-                        var originalContents = document.body.innerHTML;
+                        $.ajax({
+                            type:"get",
+                            url:"{{url('receiptFooter')}}",
+                            success:function (data) {
+                                $('#paymentMeth').html(data);
+                                var printContents = document.getElementById('printDiv').innerHTML;
+                                var originalContents = document.body.innerHTML;
 
-                        document.body.innerHTML = printContents;
+                                document.body.innerHTML = printContents;
 
-                        window.print();
+                                window.print();
 
-                        document.body.innerHTML = originalContents;
-                        location.reload();
+                                document.body.innerHTML = originalContents;
+                                location.reload();
 
+                            },
+                            error:function (error) {
+                                console.log(error)
+                                alert('error')
+                            }
+                        });
                     },
                     error:function (error) {
                         console.log(error)
@@ -662,14 +670,15 @@
     });
     $('#sellMeat').on('click',function () {
         $paymentMethod = $('#paymentM').val();
-        $phone = $('#phone').val();
+        $phone = $('#phoneNo').val();
+        $clientName = $('#clientN').val();
         $id = $('#sellId').val();
         $quantity = $('#meatQuantity').val();
         $meatAmount = $('#meatAmount').val();
         $.ajax({
             type:"get",
             url:"{{url('salesMeat')}}",
-            data:{'paymentMethod':$paymentMethod,'phone':$phone,'quantity':$quantity,'id':$id,'meatAmount':$meatAmount},
+            data:{'paymentMethod':$paymentMethod,'phone':$phone,'quantity':$quantity,'id':$id,'meatAmount':$meatAmount,'name':$clientName},
             success:function (data) {
                 $('#returnPrint').html(data);
                 $.ajax({
@@ -677,16 +686,27 @@
                     url:"{{url('CalTotalHotel')}}",
                     success:function (data) {
                         $('#calTotal').html(data);
-                        var printContents = document.getElementById('printDiv').innerHTML;
-                        var originalContents = document.body.innerHTML;
+                        $.ajax({
+                            type:"get",
+                            url:"{{url('receiptFooter')}}",
+                            success:function (data) {
+                                $('#paymentMeth').html(data);
+                                var printContents = document.getElementById('printDiv').innerHTML;
+                                var originalContents = document.body.innerHTML;
 
-                        document.body.innerHTML = printContents;
+                                document.body.innerHTML = printContents;
 
-                        window.print();
+                                window.print();
 
-                        document.body.innerHTML = originalContents;
-                        location.reload();
+                                document.body.innerHTML = originalContents;
+                                location.reload();
 
+                            },
+                            error:function (error) {
+                                console.log(error)
+                                alert('error')
+                            }
+                        });
                     },
                     error:function (error) {
                         console.log(error)

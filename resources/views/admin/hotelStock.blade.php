@@ -43,7 +43,11 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                            @if(is_null($product->number_of_pack))
                                             <td><b>{{$product->quantity}}</b></td>
+                                            @else
+                                                <td><b>{{$product->number_of_pack*$product->quantity_of_pack+$product->quantity}}</b></td>
+                                            @endif
                                         @if(is_null($product->number_of_pack))
                                             <td><b>N/A</b></td>
                                             @else

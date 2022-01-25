@@ -10,6 +10,8 @@ class HotelOrder extends Model
     use HasFactory;
     protected $fillable = [
         'phone',
+        'name',
+        'total',
         'payment_method',
         'date'
     ];

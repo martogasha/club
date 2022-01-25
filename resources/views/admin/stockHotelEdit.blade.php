@@ -27,9 +27,19 @@
 
                                                     <div class="field-wrapper">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" value="0" placeholder="Add Stock" name="number_of_pack">
+                                                            <input type="text" class="form-control" placeholder="Add Stock" name="number_of_pack">
                                                         </div>
-                                                        <div class="field-placeholder">Add Stock</div>
+                                                        <div class="field-placeholder">Add Packs</div>
+                                                    </div>
+
+                                                </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                                                    <div class="field-wrapper">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Add Quantity" name="quantity">
+                                                        </div>
+                                                        <div class="field-placeholder">Add Quantity</div>
                                                     </div>
 
                                                 </div>
@@ -80,9 +90,9 @@
                                                         <div class="field-wrapper">
                                                             <div class="input-group">
                                                                 @if(!is_null($edit->number_of_pack))
-                                                                <input type="text" class="form-control" value="{{$edit->quantity_of_pack}}" placeholder="Quantity" name="quantity" disabled>
+                                                                <input type="text" class="form-control" value="{{$edit->quantity}}" placeholder="Quantity" disabled>
                                                                 @else
-                                                                    <input type="text" class="form-control" value="{{$edit->quantity}}" placeholder="Quantity" name="quantity" disabled>
+                                                                    <input type="text" class="form-control" value="{{$edit->quantity}}" placeholder="Quantity" disabled>
 
                                                                 @endif
                                                             </div>

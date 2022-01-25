@@ -52,195 +52,6 @@
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
                     <h4>DAILY REPORT</h4>
                 </div>
-                <style>
-
-                    @media(max-width:34em){
-                        .main{
-                            min-width:150px;
-                            width:auto;
-                        }
-                    }
-                    select {
-                        display: none !important;
-                    }
-
-                    .dropdown-select {
-                        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%);
-                        background-repeat: repeat-x;
-                        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#40FFFFFF', endColorstr='#00FFFFFF', GradientType=0);
-                        background-color: #fff;
-                        border-radius: 6px;
-                        border: solid 1px #eee;
-                        box-shadow: 0px 2px 5px 0px rgba(155, 155, 155, 0.5);
-                        box-sizing: border-box;
-                        cursor: pointer;
-                        display: block;
-                        float: left;
-                        font-size: 14px;
-                        font-weight: normal;
-                        height: 42px;
-                        line-height: 40px;
-                        outline: none;
-                        padding-left: 18px;
-                        padding-right: 30px;
-                        position: relative;
-                        text-align: left !important;
-                        transition: all 0.2s ease-in-out;
-                        -webkit-user-select: none;
-                        -moz-user-select: none;
-                        -ms-user-select: none;
-                        user-select: none;
-                        white-space: nowrap;
-                        width: auto;
-
-                    }
-
-                    .dropdown-select:focus {
-                        background-color: #fff;
-                    }
-
-                    .dropdown-select:hover {
-                        background-color: #fff;
-                    }
-
-                    .dropdown-select:active,
-                    .dropdown-select.open {
-                        background-color: #fff !important;
-                        border-color: #bbb;
-                        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) inset;
-                    }
-
-                    .dropdown-select:after {
-                        height: 0;
-                        width: 0;
-                        border-left: 4px solid transparent;
-                        border-right: 4px solid transparent;
-                        border-top: 4px solid #777;
-                        -webkit-transform: origin(50% 20%);
-                        transform: origin(50% 20%);
-                        transition: all 0.125s ease-in-out;
-                        content: '';
-                        display: block;
-                        margin-top: -2px;
-                        pointer-events: none;
-                        position: absolute;
-                        right: 10px;
-                        top: 50%;
-                    }
-
-                    .dropdown-select.open:after {
-                        -webkit-transform: rotate(-180deg);
-                        transform: rotate(-180deg);
-                    }
-
-                    .dropdown-select.open .list {
-                        -webkit-transform: scale(1);
-                        transform: scale(1);
-                        opacity: 1;
-                        pointer-events: auto;
-                    }
-
-                    .dropdown-select.open .option {
-                        cursor: pointer;
-                    }
-
-                    .dropdown-select.wide {
-                        width: 100%;
-                    }
-
-                    .dropdown-select.wide .list {
-                        left: 0 !important;
-                        right: 0 !important;
-                    }
-
-                    .dropdown-select .list {
-                        box-sizing: border-box;
-                        transition: all 0.15s cubic-bezier(0.25, 0, 0.25, 1.75), opacity 0.1s linear;
-                        -webkit-transform: scale(0.75);
-                        transform: scale(0.75);
-                        -webkit-transform-origin: 50% 0;
-                        transform-origin: 50% 0;
-                        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.09);
-                        background-color: #fff;
-                        border-radius: 6px;
-                        margin-top: 4px;
-                        padding: 3px 0;
-                        opacity: 0;
-                        overflow: hidden;
-                        pointer-events: none;
-                        position: absolute;
-                        top: 100%;
-                        left: 0;
-                        z-index: 999;
-                        max-height: 250px;
-                        overflow: auto;
-                        border: 1px solid #ddd;
-                    }
-
-                    .dropdown-select .list:hover .option:not(:hover) {
-                        background-color: transparent !important;
-                    }
-                    .dropdown-select .dd-search{
-                        overflow:hidden;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                        margin:0.5rem;
-                    }
-
-                    .dropdown-select .dd-searchbox{
-                        width:90%;
-                        padding:0.5rem;
-                        border:1px solid #999;
-                        border-color:#999;
-                        border-radius:4px;
-                        outline:none;
-                    }
-                    .dropdown-select .dd-searchbox:focus{
-                        border-color:#12CBC4;
-                    }
-
-                    .dropdown-select .list ul {
-                        padding: 0;
-                    }
-
-                    .dropdown-select .option {
-                        cursor: default;
-                        font-weight: 400;
-                        line-height: 40px;
-                        outline: none;
-                        padding-left: 18px;
-                        padding-right: 29px;
-                        text-align: left;
-                        transition: all 0.2s;
-                        list-style: none;
-                    }
-
-                    .dropdown-select .option:hover,
-                    .dropdown-select .option:focus {
-                        background-color: #f6f6f6 !important;
-                    }
-
-                    .dropdown-select .option.selected {
-                        font-weight: 600;
-                        color: #12cbc4;
-                    }
-
-                    .dropdown-select .option.selected:focus {
-                        background: #f6f6f6;
-                    }
-
-                    .dropdown-select a {
-                        color: #aaa;
-                        text-decoration: none;
-                        transition: all 0.2s ease-in-out;
-                    }
-
-                    .dropdown-select a:hover {
-                        color: #666;
-                    }
-
-                </style>
 
             </form>
         @endif
@@ -248,22 +59,52 @@
     <!-- Row start -->
         @if(\Illuminate\Support\Facades\Auth::user()->role==0)
             <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="stats-tile">
+                        <div class="sale-icon">
+                            <i class="icon-shopping-bag1"></i>
+                        </div>
+                        <div class="sale-details">
+                            <h2 style="color: black">Ksh {{\App\Models\salesHotel::where('barcode','!=','0606')->where('barcode','!=','0502')->sum('profit')+\App\Models\salesHotel::where('barcode','0606')->sum('profit')+\App\Models\salesHotel::where('barcode','0502')->sum('profit')-\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h2>
+                            <p>Total Profit</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+                <div class="row gutters">
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                     <div class="stats-tile">
                         <div class="sale-icon">
                             <i class="icon-shopping-bag1"></i>
                         </div>
                         <div class="sale-details">
-                            <h4>ksh {{\App\Models\salesHotel::where('barcode','!=','0606')->where('barcode','!=','0502')->where('barcode','!=','0702')->sum('profit')-\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h4>
+                            <h2>ksh {{\App\Models\salesHotel::where('barcode','!=','0606')->where('barcode','!=','0502')->where('barcode','!=','0702')->sum('profit')-\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h2>
                             <p>Take Away + Others Profit</p>
-                            <hr>
-                            <h4>ksh {{\App\Models\salesHotel::where('barcode','0606')->sum('profit')}}</h4>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                    <div class="stats-tile">
+                        <div class="sale-icon">
+                            <i class="icon-shopping-bag1"></i>
+                        </div>
+                        <div class="sale-details">
+                            <h2>ksh {{\App\Models\salesHotel::where('barcode','0606')->sum('profit')}}</h2>
                             <p>Chips Profit</p>
-                            <hr>
-                            <h4>ksh {{\App\Models\salesHotel::where('barcode','0502')->sum('profit')}}</h4>
-                            <p>Smokie Profit</p>
-                            <hr>
-                            <h4>ksh {{\App\Models\salesHotel::where('barcode','0702')->sum('profit')}}</h4>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                    <div class="stats-tile">
+                        <div class="sale-icon">
+                            <i class="icon-shopping-bag1"></i>
+                        </div>
+                        <div class="sale-details">
+                            <h2>ksh {{\App\Models\salesHotel::where('barcode','0702')->sum('profit')}}</h2>
                             <p>Soda Profit</p>
                         </div>
 
@@ -275,8 +116,8 @@
                             <i class="icon-shopping-bag1"></i>
                         </div>
                         <div class="sale-details">
-                            <h2>Ksh {{\App\Models\salesHotel::where('barcode','!=','0606')->where('barcode','!=','0502')->sum('profit')+\App\Models\salesHotel::where('barcode','0606')->sum('profit')+\App\Models\salesHotel::where('barcode','0502')->sum('profit')-\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h2>
-                            <p>Total Profit</p>
+                            <h2>ksh {{\App\Models\salesHotel::where('barcode','0502')->sum('profit')}}</h2>
+                            <p>Smokie Profit</p>
                         </div>
 
                     </div>
@@ -301,6 +142,17 @@
                         <div class="sale-details">
                             <h2>Ksh {{\App\Models\Hotelexpense::where('end_date',null)->sum('amount')}}</h2>
                             <p>EXPENSE</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                    <div class="stats-tile">
+                        <div class="sale-icon">
+                            <i class="icon-shopping-bag1"></i>
+                        </div>
+                        <div class="sale-details">
+                            <h2 style="color: red">Ksh {{$credit}}</h2>
+                            <p>Credits</p>
                         </div>
                     </div>
                 </div>
@@ -338,9 +190,11 @@
                                     <th>Order Id</th>
                                     <th>Total</th>
                                     <th>Phone number</th>
+                                    <th>client Name</th>
                                     <th>Payment Method</th>
                                     <th>Date</th>
                                     <th>View Products</th>
+                                    <th>Pay</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -354,13 +208,24 @@
                                             <td><span class="badge badge-warning">N/A</span></td>
 
                                         @endif
+                                        @if(!empty($sale->name))
+                                            <td>{{$sale->name}}</td>
+                                        @else
+                                            <td><span class="badge badge-warning">N/A</span></td>
+
+                                        @endif
                                         @if($sale->payment_method==1)
                                             <td>Mpesa</td>
+                                            @elseif($sale->payment_method==3)
+                                            <td>Credit</td>
                                         @else
                                             <td>Cash</td>
                                         @endif
                                         <td>{{$sale->date}}</td>
                                         <td><button class="btn btn-success view" id="{{$sale->id}}" data-bs-toggle="modal" data-bs-target="#viewOrderProducts">View</button> </td>
+                                        @if($sale->payment_method==3)
+                                        <td><button class="btn btn-info pay" id="{{$sale->id}}" data-bs-toggle="modal" data-bs-target="#payOrder">Pay</button> </td>
+                                        @endif
                                     </tr>
                                 @endforeach
 
@@ -419,6 +284,28 @@
 <!-- *************
     ************ Main container end *************
 ************* -->
+<div class="modal fade" id="payOrder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Make payment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{url('creditPay')}}" method="post">
+                @csrf
+                <div class="modal-body" id="payC">
+
+
+                </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">PAY</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 </div>
 <style>
@@ -546,6 +433,21 @@
                         alert('error')
                     }
                 });
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+            }
+        });
+    });
+    $(document).on('click','.pay',function () {
+        $value = $(this).attr('id');
+        $.ajax({
+            type:"get",
+            url:"{{url('payCredit')}}",
+            data:{'id':$value},
+            success:function (data) {
+                $('#payC').html(data);
             },
             error:function (error) {
                 console.log(error)

@@ -30,9 +30,11 @@ class AdminController extends Controller
         if (Auth::check()){
             $sales = HotelOrder::where('date',Carbon::now()->format('Y-m-d'))->orderByDesc('id')->get();
             $products = Hotelstock::all();
+            $credit = HotelOrder::where('payment_method',3)->sum('total');
             return view('admin.indexHotel',[
                 'sales'=>$sales,
-                'products'=>$products
+                'products'=>$products,
+                'credit'=>$credit
             ]);
         }
         else{
@@ -267,11 +269,8 @@ class AdminController extends Controller
                     <div class="modal-body">
                         <div class="field-wrapper">
                         <input type="hidden" value="'.$sell->id.'" name="sellId">
-                        <input type="hidden" value="'.$sell->quantity.'" id="quant">
-                        <input type="hidden" value="'.$buying->buying_price.'" name="buying_price" id="buying_p">
-                            <input type="hidden" class="form-control" value="'.$sell->selling_price.'" id="realSelling">
-                            <input type="text" class="form-control sel" value="'.$sell->selling_price.'" name="amount">
-                            <div class="field-placeholder">Amount</div>
+                            <input type="text" class="form-control" value="'.$sell->quantity.'" name="quantity">
+                            <div class="field-placeholder">Quantity</div>
                         </div>
                     </div>
         ';
@@ -288,8 +287,8 @@ class AdminController extends Controller
                     <div class="modal-body">
                         <div class="field-wrapper">
                         <input type="hidden" value="'.$sell->id.'" name="sellId">
-                            <input type="text" class="form-control" value="'.$sell->selling_price.'" name="amount">
-                            <div class="field-placeholder">Amount</div>
+                            <input type="text" class="form-control" value="'.$sell->quantity.'" name="amount">
+                            <div class="field-placeholder">Quantity</div>
                         </div>
                     </div>
         ';
@@ -298,35 +297,55 @@ class AdminController extends Controller
     public function burgain(Request $request){
         $getSell = Sell::find($request->sellId);
         $getProduct = Stock::where('barcode',$getSell->barcode)->first();
-        $getOriginalSellingPrice = $getProduct->selling_price;
-        $selling_price = $request->amount;
-        $dis = $getOriginalSellingPrice-$selling_price;
-        $discount = $dis*$getSell->quantity;
-        $calPercent = $discount/$getOriginalSellingPrice;
-        $percentageDiscount = $calPercent*100;
-        if ($percentageDiscount>5){
-            return redirect()->back()->with('error','DISCOUNT SHOULD NOT BE MORE THAN 5%');
+        $sellQ = $getSell->quantity;
+        $stockQ = $getProduct->quantity;
+        $stockF = $stockQ+$sellQ;
+        $FinalStock = $stockF-$request->quantity;
+        $sellingP = $getProduct->selling_price;
+        $total = $sellingP*$request->quantity;
+        $updateStock = Stock::where('id',$getProduct->id)->update(['quantity'=>$FinalStock]);
+        $updateSell = Sell::where('id',$getSell->id)->update(['quantity'=>$request->quantity]);
+        $updateSell = Sell::where('id',$getSell->id)->update(['total'=>$total]);
 
-        }
-        else{
-            $quantity = $getSell->quantity;
-            $amount = $request->amount;
-            $total = $amount*$quantity;
-            $updatePrice = Sell::where('id', $request->sellId)->update(['selling_price'=>$request->amount]);
-            $updateTotal = Sell::where('id', $request->sellId)->update(['total'=>$total]);
-            $updateDiscount = Sell::where('id', $request->sellId)->update(['discount'=>$discount]);
-            $updateDiscountPercentage = Sell::where('id', $request->sellId)->update(['discount_percentage'=>$percentageDiscount]);
-            return redirect()->back()->with('success','AMOUNT EDITED');
-        }
+            return redirect()->back()->with('success','QUANTITY EDITED');
 
     }
     public function burgainHotel(Request $request){
         $getSell = sellHotel::find($request->sellId);
-        $quantity = $getSell->quantity;
-        $amount = $request->amount;
-        $total = $amount*$quantity;
-        $updatePrice = sellHotel::where('id', $request->sellId)->update(['selling_price'=>$request->amount]);
-        $updateTotal = sellHotel::where('id', $request->sellId)->update(['total'=>$total]);
+        $getStockQuantity = Hotelstock::where('barcode',$getSell->barcode)->first();
+        $getStockQa = Hotelstock::where('barcode',$getStockQuantity->barcodeOne)->first();
+        if (!is_null($getStockQa)){
+            $sellQ = $getSell->quantity;
+            $changedQ = $request->amount;
+            $stockQuantity = $getStockQuantity->fixed;
+            $currentSt = $getStockQa->quantity;
+            $cStockFunction = $stockQuantity*$sellQ;
+            $fStock = $currentSt+$cStockFunction;
+            $cStockToDeduct = $stockQuantity*$changedQ;
+            $finalStock = $fStock-$cStockToDeduct;
+            $sellingPrice = $getStockQuantity->selling_price;
+            $total = $sellingPrice*$changedQ;
+            $updatePrice = sellHotel::where('id', $request->sellId)->update(['quantity'=>$changedQ]);
+            $updateTotal = sellHotel::where('id', $request->sellId)->update(['total'=>$total]);
+            $updateQ = Hotelstock::where('id',$getStockQa->id)->update(['quantity'=>$finalStock]);
+        }
+        else{
+            $sellQ = $getSell->quantity;
+            $changedQ = $request->amount;
+            $packNo = $getStockQuantity->number_of_pack;
+            $qOfPack = $getStockQuantity->quantity_of_pack;
+            $quant = $getStockQuantity->quantity;
+            $stockQ = $packNo*$qOfPack+$quant;
+            $eStock = $stockQ+$sellQ;
+            $fStock = $eStock-$changedQ;
+            $total = $getStockQuantity->selling_price*$changedQ;
+            $noOfPack = intdiv($fStock,$qOfPack);
+            $finalQ = $fStock%$qOfPack;
+            $updatePrice = sellHotel::where('id', $request->sellId)->update(['quantity'=>$changedQ]);
+            $updateTotal = sellHotel::where('id', $request->sellId)->update(['total'=>$total]);
+            $updateStock = Hotelstock::where('id',$getStockQuantity->id)->update(['number_of_pack'=>$noOfPack]);
+            $updateQ = Hotelstock::where('id',$getStockQuantity->id)->update(['quantity'=>$finalQ]);
+        }
         return redirect()->back()->with('success','AMOUNT EDITED');
     }
     public function deleteExpense(Request $request){
@@ -434,7 +453,7 @@ class AdminController extends Controller
         $output = "";
         $sales = HotelOrder::find($request->id);
             $output .= '
-               <h5 class="modal-title" id="exampleModalLabel">order #'.$sales->id.' <b style="font-size: 20px">'.$sales->phone.'</b></h5>
+               <h5 class="modal-title" id="exampleModalLabel">order #'.$sales->id.' <b style="font-size: 20px">'.$sales->name.'</b></h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             ';
 
@@ -632,9 +651,18 @@ class AdminController extends Controller
                         <select class="form-select" id="paymentM">
                             <option value="1">Mpesa</option>
                             <option value="2">Cash</option>
+                            <option value="3">Credit</option>
                         </select>
                         <div class="field-placeholder">Payment Method</div>
                     </div>
+                    <div class="field-wrapper">
+                            <input type="text" class="form-control" id="clientN">
+                            <div class="field-placeholder">Name</div>
+                        </div>
+                        <div class="field-wrapper">
+                            <input type="text" class="form-control" id="phoneNo">
+                            <div class="field-placeholder">Phone Number</div>
+                        </div>
                     </div>
         ';
         return response($output);
@@ -663,6 +691,31 @@ class AdminController extends Controller
                         </div>
         ';
         return response($output);
+    }
+    public function payCredit(Request $request){
+        $output = "";
+        $order = HotelOrder::find($request->id);
+        $salestotal = salesHotel::where('order_id',$order->id)->sum('total');
+        $output = '
+<input type="hidden" value="'.$order->id.'" name="orderId">
+                <div class="field-wrapper">
+                    <select class="form-select" name="paymentMethod">
+                        <option value="1">Mpesa</option>
+                        <option value="2">Cash</option>
+                    </select>
+                    <div class="field-placeholder">Payment Method</div>
+                </div>
+                <div class="field-wrapper">
+                    <input type="text" value="'.$salestotal.'" class="form-control" name="amount" required>
+                    <div class="field-placeholder">Amount</div>
+                </div>
+
+        ';
+        return response($output);
+    }
+    public function creditPay(Request $request){
+        $order = HotelOrder::where('id',$request->orderId)->update(['payment_method'=>$request->paymentMethod]);
+        return redirect()->back()->with('success','CREDIT PAID SUCCESS');
     }
 
 }
