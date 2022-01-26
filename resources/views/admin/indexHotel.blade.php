@@ -307,7 +307,7 @@
                         </div>
                         <div class="sale-details">
                             <h2>Ksh {{$dailySales}}</h2>
-                            <p>SALES</p>
+                            <p>DAILY SALES</p>
                         </div>
 
                     </div>
