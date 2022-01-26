@@ -17,6 +17,7 @@
                                 @include('flash-message')
                                 <div class="table-responsive">
                                     <a href="{{url('addHotelExpense')}}"><button class="btn btn-info">Add Expense</button></a>
+                                    <a href="{{url('restock')}}"><button class="btn btn-success">ReStock</button></a>
                                     <table id="copy-print-csv" class="table v-middle">
                                         <thead>
                                         <tr>

@@ -31,11 +31,11 @@ class AdminController extends Controller
             $sales = HotelOrder::where('date',Carbon::now()->format('Y-m-d'))->orderByDesc('id')->get();
             $products = Hotelstock::all();
             $credit = HotelOrder::where('payment_method',3)->sum('total');
-            $sal = salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->where('barcode','!=','0606')->where('barcode','!=','0502')->where('barcode','!=','0702')->sum('profit');
+            $sal = salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->where('barcode','!=','0606')->where('barcode','!=','0502')->where('barcode','!=','0702')->where('reprofit',null)->sum('profit');
             $salii = salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->where('barcode','0606')->sum('profit');
             $salits = salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->where('barcode','0502')->sum('profit');
             $exp = Hotelexpense::where('end_date',null)->sum('amount');
-            $tak = salesHotel::where('barcode','!=','0606')->where('barcode','!=','0502')->where('barcode','!=','0702')->sum('profit');
+            $tak = salesHotel::where('barcode','!=','0606')->where('barcode','!=','0502')->where('barcode','!=','0702')->where('reprofit',null)->sum('profit');
             $ttt = Hotelexpense::where('end_date',null)->sum('amount');
             $chipsProf = salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->where('barcode','0606')->sum('profit');
             $sodaProf = salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->where('barcode','0702')->sum('profit');

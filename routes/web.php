@@ -33,6 +33,7 @@ Route::post('dUser', [\App\Http\Controllers\AuthController::class, 'dUser']);
 Route::get('reset/{id}', [\App\Http\Controllers\AuthController::class, 'reset']);
 Route::post('Login', [\App\Http\Controllers\AuthController::class, 'Login']);
 Route::get('addUser', [\App\Http\Controllers\AuthController::class, 'addUser']);
+Route::get('restock', [\App\Http\Controllers\AuthController::class, 'restock']);
 Route::post('storeUsers', [\App\Http\Controllers\AuthController::class, 'storeUsers']);
 Route::get('userEdit/{id}', [\App\Http\Controllers\AuthController::class, 'userEdit']);
 Route::get('admin', [\App\Http\Controllers\AdminController::class, 'index']);

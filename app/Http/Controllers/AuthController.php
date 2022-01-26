@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HotelOrder;
+use App\Models\salesHotel;
 use App\Models\Stock;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -179,5 +180,9 @@ class AuthController extends Controller
                                                 </table>
         ';
         return response($output);
+    }
+    public function restock(){
+        $restock = salesHotel::where('reprofit',null)->update(['reprofit'=>1]);
+        return redirect(url('hotelDashboard'))->with('success','SUCCESS');
     }
 }
