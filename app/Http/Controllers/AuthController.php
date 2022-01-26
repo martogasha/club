@@ -138,4 +138,46 @@ class AuthController extends Controller
         ';
         return response($output);
     }
+    public function receiptF(Request $request){
+        $output = "";
+        $order = HotelOrder::find($request->id);
+        if ($order->payment_method==1){
+            $p = 'Mpesa';
+        }
+        elseif($order->payment_method==3){
+            $p = 'Credit';
+
+        }
+        else{
+            $p = 'Cash';
+
+        }
+        $output = '
+           <table class="summary" cellspacing="0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>payment Method:</td>
+                                                        <td>'.$p.'</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="summary" cellspacing="0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>Name:</td>
+                                                        <td>'.$order->name.'</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="summary" cellspacing="0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>Phone No:</td>
+                                                        <td>'.$order->phone.'</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+        ';
+        return response($output);
+    }
 }

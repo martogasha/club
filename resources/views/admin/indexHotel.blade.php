@@ -82,7 +82,159 @@
 
         @endif
         @include('flash-message')
-    <!-- Row start -->
+        <div id="printDiv">
+
+            <div class="container">
+                <header class="center">
+                    <h4>Simumu Hotel</h4>
+                </header>
+                <section>
+                    <table class="summary" cellspacing="0">
+                        <tbody>
+                        <tr>
+                            <td>Till No</td>
+                            <td>247247</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td>Contact</td>
+                            <td>0790436545, 0728930978, 0714395000</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="separator"></div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+
+
+                            <th scope="col">Qnty</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+
+                            <th scope="col">Price</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+
+
+                            <th scope="col">Amount</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody id="returnPrint">
+
+                        </tbody>
+                    </table>
+                    <div class="separator"></div>
+                    <table class="summary" cellspacing="0">
+                        <tbody>
+                        <tr>
+                            <td>Total TAX 16%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="separator"></div>
+                    <table class="summary" cellspacing="0">
+                        <tbody>
+                        <tr>
+                            <td>Total</td>
+                            <td><span id="calTotal"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="summary" cellspacing="0">
+                        <tbody>
+                        <tr>
+                            <td>Served By:</td>
+                            <td>{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id="paymentMeth">
+
+                    </div>
+                    <div class="separator"></div>
+                </section>
+            </div>
+            <p>Thank you for your service</p>
+
+            <style>
+                .container {
+                    border: 1px solid crimson;
+                    width: 100%;
+                }
+                body {
+                    font-family: monospace;
+                    width: 100%;
+                    color: #000;
+                    margin: 0;
+                    padding: 0 0 50mm;
+                    font-size: 11pt;
+                }
+
+                .center {
+                    text-align: center;
+                }
+
+                img, .margin {
+                    margin: 15px;
+                }
+
+                .separator {
+                    display: block;
+                    width: 100%;
+                    height: 0;
+                    margin: 10px 0;
+                    border-bottom: 1px dashed black;
+                }
+
+                .product-list {
+                    width: 100%;
+                    padding-bottom: 50px;
+                    word-break: break-word;
+                }
+                .product-list thead th{
+                    font-weight: normal;
+                }
+
+                .summary {
+                    width: 100%;
+                }
+
+                .summary td:last-child {
+                    text-align: right;
+                }
+
+                .info {
+                    margin: 50px 0;
+                }
+
+            </style>
+        </div>
+
+        <!-- Row start -->
         @if(\Illuminate\Support\Facades\Auth::user()->role==0)
             <div class="row gutters">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -219,6 +371,7 @@
                                     <th>client Name</th>
                                     <th>Payment Method</th>
                                     <th>Date</th>
+                                    <th>Print</th>
                                     <th>View Products</th>
                                     <th>Pay</th>
                                 </tr>
@@ -248,6 +401,7 @@
                                             <td>Cash</td>
                                         @endif
                                         <td>{{$sale->date}}</td>
+                                        <td><button class="btn btn-danger print" id="{{$sale->id}}">Reprint</button> </td>
                                         <td><button class="btn btn-success view" id="{{$sale->id}}" data-bs-toggle="modal" data-bs-target="#viewOrderProducts">View</button> </td>
                                         @if($sale->payment_method==3)
                                         <td><button class="btn btn-info pay" id="{{$sale->id}}" data-bs-toggle="modal" data-bs-target="#payOrder">Pay</button> </td>
@@ -439,6 +593,9 @@
 
 </body>
 <script>
+    $(document).ready(function () {
+        $('#printDiv').hide();
+    });
     $(document).on('click','.view',function () {
         $value = $(this).attr('id');
         $.ajax({
@@ -466,6 +623,56 @@
             }
         });
     });
+    $(document).on('click','.print',function () {
+        $value = $(this).attr('id');
+        $.ajax({
+            type:"get",
+            url:"{{url('reprintReceipt')}}",
+            data:{'id':$value},
+            success:function (data) {
+                $('#returnPrint').html(data);
+                $.ajax({
+                    type:"get",
+                    url:"{{url('CalTotalHotel')}}",
+                    success:function (data) {
+                        $('#calTotal').html(data);
+                        $.ajax({
+                            type:"get",
+                            url:"{{url('receiptF')}}",
+                            data:{'id':$value},
+                            success:function (data) {
+                                $('#paymentMeth').html(data);
+                                var printContents = document.getElementById('printDiv').innerHTML;
+                                var originalContents = document.body.innerHTML;
+
+                                document.body.innerHTML = printContents;
+
+                                window.print();
+
+                                document.body.innerHTML = originalContents;
+                                location.reload();
+
+                            },
+                            error:function (error) {
+                                console.log(error)
+                                alert('error')
+                            }
+                        });
+                    },
+                    error:function (error) {
+                        console.log(error)
+                        alert('error')
+                    }
+                });
+
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+            }
+        });
+    });
+
     $(document).on('click','.pay',function () {
         $value = $(this).attr('id');
         $.ajax({

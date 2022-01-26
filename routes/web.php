@@ -25,6 +25,7 @@ require __DIR__.'/auth.php';
 
 Route::get('/', [\App\Http\Controllers\AuthController::class, 'index']);
 Route::get('receiptFooter', [\App\Http\Controllers\AuthController::class, 'receiptFooter']);
+Route::get('receiptF', [\App\Http\Controllers\AuthController::class, 'receiptF']);
 Route::get('users', [\App\Http\Controllers\AuthController::class, 'users']);
 Route::get('deleteUser', [\App\Http\Controllers\AuthController::class, 'deleteUser']);
 Route::post('eUser', [\App\Http\Controllers\AuthController::class, 'eUser']);
@@ -76,6 +77,8 @@ Route::post('burgain', [\App\Http\Controllers\AdminController::class, 'burgain']
 Route::post('burgainHotel', [\App\Http\Controllers\AdminController::class, 'burgainHotel']);
 Route::get('expense', [\App\Http\Controllers\AdminController::class, 'expense']);
 Route::get('expenseHotel', [\App\Http\Controllers\AdminController::class, 'expenseHotel']);
+Route::get('filterHotelEach', [\App\Http\Controllers\AdminController::class, 'filterHotelEach']);
+Route::get('reprintReceipt', [\App\Http\Controllers\AdminController::class, 'reprintReceipt']);
 Route::get('addExpense', [\App\Http\Controllers\AdminController::class, 'addExpense']);
 Route::get('addHotelExpense', [\App\Http\Controllers\AdminController::class, 'addHotelExpense']);
 Route::post('storeExpense', [\App\Http\Controllers\AdminController::class, 'storeExpense']);

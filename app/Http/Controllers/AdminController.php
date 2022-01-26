@@ -642,19 +642,17 @@ class AdminController extends Controller
             ]);
         }
         else{
-            dd('not yet');
-            $sales  = HotelOrder::whereBetween('date', array($start_date, $end_date))->get();
-            $getProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('profit');
-            $totalSales  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('total');
-            $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
-            $profit = $totalSales-$expense;
-            return view('admin.indexHotelFilter',[
+            $sales = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode',$request->productId)->orderByDesc('id')->get();
+            $salesTotal = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode',$request->productId)->sum('total');
+            $salesProfit = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode',$request->productId)->sum('profit');
+            $expe = Hotelexpense::where('end_date',null)->sum('amount');
+            $pp = $salesProfit-$expe;
+            return view('admin.indexHotelFilterEach',[
                 'sales'=>$sales,
-                'profit'=>$profit,
-                'totalSales'=>$totalSales,
+                'salesTotal'=>$salesTotal,
+                'salesProfit'=>$pp,
                 'start_date'=>$start_date,
                 'end_date'=>$end_date,
-                'expense'=>$expense,
             ]);
         }
 
@@ -699,6 +697,48 @@ class AdminController extends Controller
                         </div>
                     </div>
         ';
+        return response($output);
+    }
+    public function reprintReceipt(Request $request){
+        $output = "";
+        $receipts = salesHotel::where('order_id',$request->id)->orderByDesc('id')->get();
+        foreach ($receipts as $receipt){
+            $output .='
+
+							     <tr>
+                                                    <td data-label="Account">'.$receipt->product_name.'</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td data-label="Due Date">'.$receipt->quantity.'</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td data-label="Amount">'.$receipt->selling_price.'</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td data-label="Amount">'.$receipt->total.'</td>
+                                                </tr>
+
+        ';
+        }
+
         return response($output);
     }
     public function sellByProduct(Request $request){
