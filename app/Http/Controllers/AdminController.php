@@ -31,7 +31,7 @@ class AdminController extends Controller
             $sales = HotelOrder::where('date',Carbon::now()->format('Y-m-d'))->orderByDesc('id')->get();
             $products = Hotelstock::all();
             $credit = HotelOrder::where('payment_method',3)->sum('total');
-            $sal = salesHotel::where('barcode','!=','0606')->where('barcode','!=','0502')->sum('profit');
+            $sal = salesHotel::where('barcode','!=','0606')->where('barcode','!=','0502')->where('barcode','!=','0702')->sum('profit');
             $salii = salesHotel::where('barcode','0606')->sum('profit');
             $salits = salesHotel::where('barcode','0502')->sum('profit');
             $exp = Hotelexpense::where('end_date',null)->sum('amount');
@@ -41,9 +41,10 @@ class AdminController extends Controller
             $sodaProf = salesHotel::where('barcode','0702')->sum('profit');
             $smokieProf = salesHotel::where('barcode','0502')->sum('profit');
             $expe = Hotelexpense::where('end_date',null)->sum('amount');
-            $dailySales = salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('total');
+            $dailySales = salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('total')-$credit;
             $takeAwayProf = $tak-$ttt;
-            $totalProfit = $sal+$salii+$salits-$exp;
+            $eeeeee = $exp+$credit;
+            $totalProfit = $sal+$salii+$salits+$sodaProf-$eeeeee;
             return view('admin.indexHotel',[
                 'sales'=>$sales,
                 'products'=>$products,
@@ -608,28 +609,40 @@ class AdminController extends Controller
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         if (is_null($request->productId)){
-            $sales  = HotelOrder::whereBetween('date', array($start_date, $end_date))->get();
-            $getTakeWayProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','!=','0606')->sum('profit');
-            $getChipsProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','0606')->sum('profit');
-            $getsmokieProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','0502')->sum('profit');
-            $getsodaProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','0702')->sum('profit');
-            $totalSales  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('total');
-            $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
-            $profit = $getChipsProfit+$getTakeWayProfit-$expense;
+            $sales = HotelOrder::whereBetween('date', array($start_date, $end_date))->orderByDesc('id')->get();
+            $products = Hotelstock::all();
+            $credit = HotelOrder::whereBetween('date', array($start_date, $end_date))->where('payment_method',3)->sum('total');
+            $sal = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','!=','0606')->where('barcode','!=','0502')->where('barcode','!=','0702')->sum('profit');
+            $salii = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','0606')->sum('profit');
+            $salits = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','0502')->sum('profit');
+            $exp = Hotelexpense::where('end_date',null)->sum('amount');
+            $tak = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','!=','0606')->where('barcode','!=','0502')->where('barcode','!=','0702')->sum('profit');
+            $ttt = Hotelexpense::where('end_date',null)->sum('amount');
+            $chipsProf = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','0606')->sum('profit');
+            $sodaProf = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','0702')->sum('profit');
+            $smokieProf = salesHotel::whereBetween('date', array($start_date, $end_date))->where('barcode','0502')->sum('profit');
+            $expe = Hotelexpense::where('end_date',null)->sum('amount');
+            $dailySales = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('total')-$credit;
+            $takeAwayProf = $tak-$ttt;
+            $eeeeeee = $exp+$credit;
+            $totalProfit = $sal+$salii+$salits+$sodaProf-$eeeeeee;
             return view('admin.indexHotelFilter',[
                 'sales'=>$sales,
-                'getTakeWayProfit'=>$getTakeWayProfit,
-                'getChipsProfit'=>$getChipsProfit,
-                'getsmokieProfit'=>$getsmokieProfit,
-                'getsodaProfit'=>$getsodaProfit,
-                'profit'=>$profit,
-                'totalSales'=>$totalSales,
+                'products'=>$products,
+                'credit'=>$credit,
+                'totalProfit'=>$totalProfit,
+                'takeAwayProf'=>$takeAwayProf,
+                'chipsProf'=>$chipsProf,
+                'sodaProf'=>$sodaProf,
+                'smokieProf'=>$smokieProf,
+                'expe'=>$expe,
+                'dailySales'=>$dailySales,
                 'start_date'=>$start_date,
                 'end_date'=>$end_date,
-                'expense'=>$expense,
             ]);
         }
         else{
+            dd('not yet');
             $sales  = HotelOrder::whereBetween('date', array($start_date, $end_date))->get();
             $getProfit  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('profit');
             $totalSales  = salesHotel::whereBetween('date', array($start_date, $end_date))->sum('total');
@@ -736,7 +749,7 @@ class AdminController extends Controller
     }
     public function creditPay(Request $request){
         $order = HotelOrder::where('id',$request->orderId)->update(['payment_method'=>$request->paymentMethod]);
-        return redirect()->back()->with('success','CREDIT PAID SUCCESS');
+        return redirect(url('hotelDashboard'))->with('success','CREDIT PAID SUCCESS');
     }
 
 }

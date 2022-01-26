@@ -13,22 +13,52 @@
                 <h4>Start Date:<b style="color: red">{{$start_date}}</b> End Date:<b style="color: red">{{$end_date}}</b></h4>
 
                 <div class="row gutters">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="stats-tile">
+                            <div class="sale-icon">
+                                <i class="icon-shopping-bag1"></i>
+                            </div>
+                            <div class="sale-details">
+                                <h2 style="color: black">Ksh {{$totalProfit}}</h2>
+                                <p>Total Profit</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row gutters">
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                         <div class="stats-tile">
                             <div class="sale-icon">
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h4>ksh {{$getTakeWayProfit}}</h4>
+                                <h2>ksh {{$takeAwayProf}}</h2>
                                 <p>Take Away + Others Profit</p>
-                                <hr>
-                                <h4>ksh {{$getChipsProfit}}</h4>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                        <div class="stats-tile">
+                            <div class="sale-icon">
+                                <i class="icon-shopping-bag1"></i>
+                            </div>
+                            <div class="sale-details">
+                                <h2>ksh {{$chipsProf}}</h2>
                                 <p>Chips Profit</p>
-                                <hr>
-                                <h4>ksh {{$getsmokieProfit}}</h4>
-                                <p>Smokie Profit</p>
-                                <hr>
-                                <h4>ksh {{$getsodaProfit}}</h4>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                        <div class="stats-tile">
+                            <div class="sale-icon">
+                                <i class="icon-shopping-bag1"></i>
+                            </div>
+                            <div class="sale-details">
+                                <h2>ksh {{$sodaProf}}</h2>
                                 <p>Soda Profit</p>
                             </div>
 
@@ -40,8 +70,8 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>Ksh {{$profit}}</h2>
-                                <p>Total Profit</p>
+                                <h2>ksh {{$smokieProf}}</h2>
+                                <p>Smokie Profit</p>
                             </div>
 
                         </div>
@@ -52,7 +82,7 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>Ksh {{$totalSales}}</h2>
+                                <h2>Ksh {{$dailySales}}</h2>
                                 <p>SALES</p>
                             </div>
 
@@ -64,13 +94,23 @@
                                 <i class="icon-shopping-bag1"></i>
                             </div>
                             <div class="sale-details">
-                                <h2>Ksh {{$expense}}</h2>
+                                <h2>Ksh {{$expe}}</h2>
                                 <p>EXPENSE</p>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Row end -->
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                        <div class="stats-tile">
+                            <div class="sale-icon">
+                                <i class="icon-shopping-bag1"></i>
+                            </div>
+                            <div class="sale-details">
+                                <h2 style="color: red">Ksh {{$credit}}</h2>
+                                <p>Credits</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>                <!-- Row end -->
 
                 <!-- Row start -->
                 <div class="row gutters">
@@ -102,30 +142,43 @@
                                             <th>Order Id</th>
                                             <th>Total</th>
                                             <th>Phone number</th>
+                                            <th>client Name</th>
                                             <th>Payment Method</th>
                                             <th>Date</th>
                                             <th>View Products</th>
+                                            <th>Pay</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($sales as $sale)
-                                        <tr>
-                                            <td>Order #{{$sale->id}}</td>
-                                            <td>Ksh <b>{{\App\Models\salesHotel::where('order_id',$sale->id)->sum('total')}}</b></td>
-                                            @if(!empty($sale->phone))
-                                            <td>{{$sale->phone}}</td>
-                                            @else
-                                                <td><span class="badge badge-warning">N/A</span></td>
+                                            <tr>
+                                                <td>Order #{{$sale->id}}</td>
+                                                <td>Ksh <b>{{\App\Models\salesHotel::where('order_id',$sale->id)->sum('total')}}</b></td>
+                                                @if(!empty($sale->phone))
+                                                    <td>{{$sale->phone}}</td>
+                                                @else
+                                                    <td><span class="badge badge-warning">N/A</span></td>
 
-                                            @endif
-                                            @if($sale->payment_method==1)
-                                                <td>Mpesa</td>
-                                            @else
-                                                <td>Cash</td>
-                                            @endif
-                                            <td>{{$sale->date}}</td>
-                                            <td><button class="btn btn-success view" id="{{$sale->id}}" data-bs-toggle="modal" data-bs-target="#viewOrderProducts">View</button> </td>
-                                        </tr>
+                                                @endif
+                                                @if(!empty($sale->name))
+                                                    <td>{{$sale->name}}</td>
+                                                @else
+                                                    <td><span class="badge badge-warning">N/A</span></td>
+
+                                                @endif
+                                                @if($sale->payment_method==1)
+                                                    <td>Mpesa</td>
+                                                @elseif($sale->payment_method==3)
+                                                    <td>Credit</td>
+                                                @else
+                                                    <td>Cash</td>
+                                                @endif
+                                                <td>{{$sale->date}}</td>
+                                                <td><button class="btn btn-success view" id="{{$sale->id}}" data-bs-toggle="modal" data-bs-target="#viewOrderProducts">View</button> </td>
+                                                @if($sale->payment_method==3)
+                                                    <td><button class="btn btn-info pay" id="{{$sale->id}}" data-bs-toggle="modal" data-bs-target="#payOrder">Pay</button> </td>
+                                                @endif
+                                            </tr>
                                         @endforeach
 
                                         </tbody>
@@ -256,6 +309,28 @@
     }
 </style>
 <!-- Page wrapper end -->
+<div class="modal fade" id="payOrder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Make payment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{url('creditPay')}}" method="post">
+                @csrf
+                <div class="modal-body" id="payC">
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">PAY</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- *************
     ************ Required JavaScript Files *************
@@ -300,6 +375,21 @@
 
 </body>
 <script>
+    $(document).on('click','.pay',function () {
+        $value = $(this).attr('id');
+        $.ajax({
+            type:"get",
+            url:"{{url('payCredit')}}",
+            data:{'id':$value},
+            success:function (data) {
+                $('#payC').html(data);
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+            }
+        });
+    });
     $(document).on('click','.view',function () {
         $value = $(this).attr('id');
         $.ajax({
