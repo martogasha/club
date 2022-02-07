@@ -554,7 +554,7 @@ class AdminController extends Controller
         if (is_null($request->productId)){
             $sales  = Order::whereBetween('date', array($start_date, $end_date))->get();
             $getProfit  = Sales::whereBetween('date', array($start_date, $end_date))->sum('profit');
-            $totalSales  = Sales::whereBetween('date', array($start_date, $end_date))->sum('total');
+            $totalSales  = Sal::whereBetween('date', array($start_date, $end_date))->sum('total');
             $expense  = Hotelexpense::whereBetween('date', array($start_date, $end_date))->sum('amount');
             $products = Stock::all();
             $profit = $getProfit-$expense;
