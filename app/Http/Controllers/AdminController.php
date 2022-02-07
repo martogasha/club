@@ -295,6 +295,10 @@ class AdminController extends Controller
                             <input type="text" class="form-control" value="'.$sell->quantity.'" name="quantity">
                             <div class="field-placeholder">Quantity</div>
                         </div>
+                         <div class="field-wrapper">
+                            <input type="text" class="form-control" value="'.$sell->selling_price.'" name="price">
+                            <div class="field-placeholder">Quantity</div>
+                        </div>
                     </div>
         ';
         return response($output);
@@ -324,13 +328,13 @@ class AdminController extends Controller
         $stockQ = $getProduct->quantity;
         $stockF = $stockQ+$sellQ;
         $FinalStock = $stockF-$request->quantity;
-        $sellingP = $getProduct->selling_price;
+        $sellingP = $request->price;
         $total = $sellingP*$request->quantity;
         $updateStock = Stock::where('id',$getProduct->id)->update(['quantity'=>$FinalStock]);
         $updateSell = Sell::where('id',$getSell->id)->update(['quantity'=>$request->quantity]);
         $updateSell = Sell::where('id',$getSell->id)->update(['total'=>$total]);
-
-            return redirect()->back()->with('success','QUANTITY EDITED');
+        $updateSell = Sell::where('id',$getSell->id)->update(['selling_price'=>$request->price]);
+        return redirect()->back()->with('success','QUANTITY EDITED');
 
     }
     public function burgainHotel(Request $request){
