@@ -42,7 +42,8 @@ class AdminController extends Controller
             $smokieProf = salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->where('barcode','0502')->sum('profit');
             $expe = Hotelexpense::where('end_date',null)->sum('amount');
             $dailySales = salesHotel::where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('total')-$credit;
-            $takeAwayProf = $tak-$ttt;
+            $ee = $ttt+$credit;
+            $takeAwayProf = $tak-$ee;
             $eeeeee = $exp+$credit;
             $totalProfit = $sal+$salii+$salits+$sodaProf-$eeeeee;
             return view('admin.indexHotel',[
