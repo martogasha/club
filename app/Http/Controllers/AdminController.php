@@ -297,7 +297,7 @@ class AdminController extends Controller
                         </div>
                          <div class="field-wrapper">
                             <input type="text" class="form-control" value="'.$sell->selling_price.'" name="price">
-                            <div class="field-placeholder">Quantity</div>
+                            <div class="field-placeholder">Price</div>
                         </div>
                     </div>
         ';
