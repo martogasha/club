@@ -44,7 +44,13 @@
                                                 </div>
                                             </td>
                                             @if(is_null($product->number_of_pack))
+                                                @if($product->barcode=='0501'||$product->barcode=='0503'||$product->barcode=='0500'||$product->barcode=='0504')
                                             <td><b>{{$product->quantity}}</b></td>
+                                                @else
+                                                    <td><b>N/A</b></td>
+
+                                                @endif
+
                                             @else
                                                 <td><b>{{$product->number_of_pack*$product->quantity_of_pack+$product->quantity}}</b></td>
                                             @endif
