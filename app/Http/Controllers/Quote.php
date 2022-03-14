@@ -62,6 +62,14 @@ class Quote extends Controller
         ';
         return response($output);
     }
+    public function dQuotation(Request $request){
+        $output = "";
+        $edit = Quotation::find($request->id);
+        $output = '
+<input type="hidden" value="'.$edit->id.'" name="dQ">
+        ';
+        return response($output);
+    }
     public function editQ(Request $request){
         $edit = Quotation::find($request->qId);
         $sell = $request->price;
@@ -74,5 +82,9 @@ class Quote extends Controller
     }
     public function startAgain(){
         $del = Quotation::where('id','>',0)->delete();
+    }
+    public function dQ(Request $request){
+        $del = Quotation::where('id',$request->dQ)->delete();
+        return redirect()->back();
     }
 }

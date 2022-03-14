@@ -114,5 +114,7 @@ Route::post('creditPay', [\App\Http\Controllers\AdminController::class, 'creditP
 Route::get('quotation', [\App\Http\Controllers\Quote::class, 'quotation']);
 Route::get('quote', [\App\Http\Controllers\Quote::class, 'quote']);
 Route::get('editQuotation', [\App\Http\Controllers\Quote::class, 'editQuotation']);
+Route::get('dQuotation', [\App\Http\Controllers\Quote::class, 'dQuotation']);
+Route::post('dQ', [\App\Http\Controllers\Quote::class, 'dQ']);
 Route::post('editQ', [\App\Http\Controllers\Quote::class, 'editQ']);
 Route::get('startAgain', [\App\Http\Controllers\Quote::class, 'startAgain']);

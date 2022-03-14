@@ -68,6 +68,10 @@
                                                     <i class="icon-edit1 text-info"></i>
                                                 </a>
                                             </td>
+                                            <td id="editHide"><a href="#" class="vie" id="{{$quotation->id}}" title="View" data-bs-toggle="modal" data-bs-target="#viewS">
+                                                    <i class="icon-delete text-info"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                         </tbody>
@@ -430,6 +434,17 @@
         <button type="submit" class="btn btn-primary btn-lg btn-block">Update</button>
     </form>
 </div>
+<div id="viewS" role="dialog" aria-modal="true" class="fade modal" tabindex="-1">
+    <form action="{{url('dQ')}}" method="post">
+        @csrf
+        <div class="modal-dialog">
+            <div class="modal-content" id="bas">
+                <p>ARE YOU SURE</p>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Delete</button>
+    </form>
+</div>
 <!-- *************
     ************ Required JavaScript Files *************
 ************* -->
@@ -481,6 +496,21 @@
             data:{'id':$value},
             success:function (data) {
                 $('#basic1').html(data);
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+            }
+        });
+    });
+    $(document).on('click','.vie',function () {
+        $value = $(this).attr('id');
+        $.ajax({
+            type:"get",
+            url:"{{url('dQuotation')}}",
+            data:{'id':$value},
+            success:function (data) {
+                $('#bas').html(data);
             },
             error:function (error) {
                 console.log(error)
