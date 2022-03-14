@@ -15,7 +15,7 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->string('barcode')->unique();
+            $table->string('barcode');
             $table->string('product_name');
             $table->integer('quantity');
             $table->integer('quantity_of_pack')->nullable();
@@ -23,7 +23,6 @@ class CreatePurchasesTable extends Migration
             $table->integer('buying_price');
             $table->integer('selling_price');
             $table->string('date');
-            $table->string('te')->nullable();
             $table->mediumText('image')->nullable();
             $table->timestamps();
         });
