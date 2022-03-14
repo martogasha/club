@@ -14,7 +14,8 @@ class AddQuantityToSalesTable extends Migration
     public function up()
     {
         Schema::table('sales', function (Blueprint $table) {
-            //
+            $table->decimal('quantity')->change();
+
         });
     }
 

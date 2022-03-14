@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'barcode',
+        'product_name',
+        'quantity',
+        'quantity_of_pack',
+        'number_of_pack',
+        'buying_price',
+        'selling_price',
+        'date',
+        'image',
+    ];
 }

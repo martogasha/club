@@ -98,17 +98,10 @@
                                 <li>
                                     <a href="{{url('HardwareDashboard')}}">Hardware Dashboard</a>
                                 </li>
-                                @elseif(\Illuminate\Support\Facades\Auth::user()->role==0)
+                                @else
                                     <li>
                                         <a href="{{url('HardwareDashboard')}}">Hardware Dashboard</a>
                                     </li>
-                                    <li>
-                                        <a href="{{url('hotelDashboard')}}">Hotel Dashboard</a>
-                                    </li>
-                                @else
-                                <li>
-                                    <a href="{{url('hotelDashboard')}}">Hotel Dashboard</a>
-                                </li>
                                 @endif
                                     @if(\Illuminate\Support\Facades\Auth::user()->role==0)
                                     <li>
@@ -118,43 +111,30 @@
                                         @if(\Illuminate\Support\Facades\Auth::user()->role==0 || \Illuminate\Support\Facades\Auth::user()->role==2)
                                         <li>
                                         <a href="{{url('stock')}}">Hardware Stock</a>
-                                </li>
+                                        </li>
+                                        <li>
+                                        <a href="{{url('purchase')}}">Purchased Stock</a>
+                                        </li>
                                         <li>
                                         <a href="{{url('stockBelowFive')}}">Hardware Stock Below 5</a>
-                                </li>
-                                        @endif
-                                    @if(\Illuminate\Support\Facades\Auth::user()->role==0||\Illuminate\Support\Facades\Auth::user()->role==1)
-
-                                    <li>
-                                            <a href="{{url('hotelStock')}}">Hotel Stock</a>
                                         </li>
-                                    @endif
+                                        @endif
                                     @if(\Illuminate\Support\Facades\Auth::user()->role==2)
                                     <li>
                                     <a href="{{url('sell')}}">Sell Hardware</a>
                                 </li>
-                                    @elseif(\Illuminate\Support\Facades\Auth::user()->role==0)
+                                    @else
                                         <li>
                                             <a href="{{url('sell')}}">Sell Hardware</a>
                                         </li>
-                                        <li>
-                                            <a href="{{url('sellHotel')}}">Sell Hotel</a>
-                                        </li>
-                                    @else
-                                <li>
-                                    <a href="{{url('sellHotel')}}">Sell Hotel</a>
-                                </li>
                                     @endif
                                     @if(\Illuminate\Support\Facades\Auth::user()->role==2)
                                     <li>
                                     <a href="{{url('expense')}}">Hardware Expenses</a>
                                 </li>
-                                    @elseif(\Illuminate\Support\Facades\Auth::user()->role==0)
+                                    @else
                                         <li>
                                             <a href="{{url('expense')}}">Hardware Expenses</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{url('expenseHotel')}}">Hotel Expenses</a>
                                         </li>
                                         <li>
                                             <a href="{{url('quotation')}}">Quote</a>
@@ -162,10 +142,6 @@
                                         <li>
                                             <a href="{{url('highMovingproducts')}}">Highly Moving Products</a>
                                         </li>
-                                    @else
-                                <li>
-                                    <a href="{{url('expenseHotel')}}">Hotel Expenses</a>
-                                </li>
                                     @endif
                             </ul>
                         </div>

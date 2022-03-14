@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\HotelOrder;
 use App\Models\Hotelstock;
 use App\Models\Order;
+use App\Models\Purchase;
 use App\Models\Sales;
 use App\Models\salesHotel;
 use App\Models\Sell;
@@ -16,6 +17,17 @@ use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
+    public function purchase(){
+        if (Auth::check()){
+            $products = Purchase::orderByDesc('id')->get();
+            return view('admin.purchase',[
+                'products'=>$products
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
+    }
     public function storeStock(Request $request){
         if (!is_null($request->number_of_pack)){
             $incompleteQuantity = $request->quantity;
@@ -117,6 +129,23 @@ class StockController extends Controller
             $edit->image = $filename;
         }
         $edit->save();
+        $storeP = new Purchase();
+        $storeP->barcode = $request->barcode;
+        $storeP->product_name = $request->product_name;
+        $storeP->quantity = $request->addStock;
+        $storeP->quantity_of_pack = $request->input('quantity_of_pack');
+        $storeP->number_of_pack = $request->input('number_of_pack');
+        $storeP->buying_price = $request->buying_price;
+        $storeP->selling_price = $request->selling_price;
+        $storeP->date = $request->date;
+        if ($request->image) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalName();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/product/', $filename);
+            $edit->image = $filename;
+        }
+        $storeP->save();
         return redirect(url('stock'))->with('success','PRODUCT EDITED SUCCESS');
     }
     public function eHotelStock(Request $request){
@@ -1017,5 +1046,22 @@ class StockController extends Controller
         else{
             return redirect(url('login'));
         }
+    }
+    public function filterMpesa(Request $request){
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        if (is_null($request->productId)){
+            $products  = Purchase::whereBetween('date', array($start_date, $end_date))->get();
+            return view('admin.purchase',[
+                'products'=>$products,
+            ]);
+        }
+        else{
+            $products  = Purchase::whereBetween('date', array($start_date, $end_date))->where('barcode',$request->productId)->get();
+            return view('admin.purchase',[
+                'products'=>$products,
+            ]);
+        }
+
     }
 }

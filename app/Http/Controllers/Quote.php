@@ -64,8 +64,9 @@ class Quote extends Controller
     }
     public function editQ(Request $request){
         $edit = Quotation::find($request->qId);
-        $sell = $edit->selling_price;
+        $sell = $request->price;
         $selling = $sell*$request->quantity;
+        $edit->selling_price = $request->price;
         $edit->quantity = $request->quantity;
         $edit->total = $selling;
         $edit->save();

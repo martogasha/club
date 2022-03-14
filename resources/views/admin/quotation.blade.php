@@ -42,12 +42,16 @@
                                     <table class="summary" cellspacing="0">
                                         <tbody>
                                         <tr>
-                                            <td>Till No</td>
-                                            <td>0000034</td>
+                                            <td>Business No</td>
+                                            <td>247247</td>
+                                        </tr>
+                                        <tr>
+                                            <td>A/C No</td>
+                                            <td>0714399377</td>
                                         </tr>
                                         <tr>
                                             <td>Contact</td>
-                                            <td>0790268795</td>
+                                            <td>0790436545</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -58,6 +62,7 @@
                                         <tr class="service">
                                             <td class="tableitem"><p class="itemtext">{{$quotation->product_name}}</p></td>
                                             <td class="tableitem"><p class="itemtext">{{$quotation->quantity}}</p></td>
+                                            <td class="tableitem"><p class="itemtext">Ksh {{$quotation->selling_price}}</p></td>
                                             <td class="tableitem"><p class="itemtext">Ksh {{$quotation->total}}</p></td>
                                             <td id="editHide"><a href="#" class="view" id="{{$quotation->id}}" title="View" data-bs-toggle="modal" data-bs-target="#viewStock">
                                                     <i class="icon-edit1 text-info"></i>

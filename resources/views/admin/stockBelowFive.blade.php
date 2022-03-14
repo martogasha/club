@@ -25,7 +25,6 @@
                                             <th>Updated Date</th>
                                             <th>Buying Price</th>
                                             <th>Selling Price</th>
-                                            <th>Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -49,19 +48,6 @@
                                             <td>{{$product->date}}</td>
                                             <td>{{$product->buying_price}}</td>
                                             <td>{{$product->selling_price}}</td>
-                                            <td>
-                                                <div class="actions">
-                                                    <a href="#" class="view" title="View" id="{{$product->id}}" data-bs-toggle="modal" data-bs-target="#viewStock">
-                                                        <i class="icon-eye text-info"></i>
-                                                    </a>
-                                                    <a href="{{url('stockEdit',$product->id)}}" data-placement="top" title="Edit" data-original-title="Edit">
-                                                        <i class="icon-edit1 text-info"></i>
-                                                    </a>
-                                                        <a href="#" class="delete" id="{{$product->id}}" data-bs-toggle="modal" data-bs-target="#deleteStock" data-placement="top" title="Delete" data-original-title="Delete">
-                                                            <i class="icon-x-circle text-danger"></i>
-                                                        </a>
-                                                </div>
-                                            </td>
                                         </tr>
                                         @endforeach
                                         </tbody>

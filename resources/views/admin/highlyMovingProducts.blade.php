@@ -40,7 +40,7 @@
         </form>
         <!-- Row start -->
         <div class="row gutters">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
                 <!-- Row start -->
                 <div class="row gutters">
@@ -92,72 +92,6 @@
                                                         </div>
                                                     </td>
                                                     <td><b>{{\App\Models\Sales::where('barcode',$sale->barcode)->where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('quantity')}}</b></td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Row end -->
-
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-
-                <!-- Row start -->
-                <div class="row gutters">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="card h-475">
-                            <div class="card-body pt-0" style="height: 300px;overflow: auto">
-
-                                <div class="earnings-detail">
-                                    <div class="earnings-info">
-                                        <h5 class="text-danger">Hotel Highly moving Products</h5>
-                                    </div>
-                                </div>
-                                @include('flash-message')
-
-                                <div class="table-responsive">
-                                    <table class="table products-table">
-                                        <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Quantity</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @if(!empty($hots))
-                                            @foreach($hots as $hot)
-                                                <tr>
-                                                    <td>
-                                                        <div class="media-box">
-                                                            <img class="media-avatar" src="{{asset('uploads/product/'.$hot->image)}}" alt="">
-                                                            <div class="media-box-body text-truncate">
-                                                                <a href="#">{{$hot->product_name}}</a>
-                                                                <p>#{{$hot->barcode}}</p>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td><b>{{\App\Models\salesHotel::where('barcode',$hot->barcode)->whereBetween('date',array($start_date, $end_date))->sum('quantity')}}</b></td>
-                                                </tr>
-                                            @endforeach
-                                        @else
-                                            @foreach($hotels as $hotel)
-                                                <tr>
-                                                    <td>
-                                                        <div class="media-box">
-                                                            <img class="media-avatar" src="{{asset('uploads/product/'.$hotel->image)}}" alt="">
-                                                            <div class="media-box-body text-truncate">
-                                                                <a href="#">{{$hotel->product_name}}</a>
-                                                                <p>#{{$hotel->barcode}}</p>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td><b>{{\App\Models\salesHotel::where('barcode',$hotel->barcode)->where('date',\Carbon\Carbon::now()->format('Y-m-d'))->sum('quantity')}}</b></td>
                                                 </tr>
                                             @endforeach
                                         @endif

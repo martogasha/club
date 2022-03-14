@@ -52,6 +52,7 @@ Route::get('viewHotelStock', [\App\Http\Controllers\StockController::class, 'vie
 Route::get('deleteStock', [\App\Http\Controllers\StockController::class, 'deleteStock']);
 Route::get('deleteHotelStock', [\App\Http\Controllers\StockController::class, 'deleteHotelStock']);
 Route::post('eStock', [\App\Http\Controllers\StockController::class, 'eStock']);
+Route::get('purchase', [\App\Http\Controllers\StockController::class, 'purchase']);
 Route::post('eHotelStock', [\App\Http\Controllers\StockController::class, 'eHotelStock']);
 Route::post('dStock', [\App\Http\Controllers\StockController::class, 'dStock']);
 Route::post('dHotelStock', [\App\Http\Controllers\StockController::class, 'dHotelStock']);
@@ -102,6 +103,7 @@ Route::get('profile', [\App\Http\Controllers\AdminController::class, 'profile'])
 Route::post('updateProfile', [\App\Http\Controllers\AdminController::class, 'updateProfile']);
 Route::get('filterHardware', [\App\Http\Controllers\AdminController::class, 'filterHardware']);
 Route::post('hardwareFilter', [\App\Http\Controllers\AdminController::class, 'filterMpesa']);
+Route::post('hardwareF', [\App\Http\Controllers\StockController::class, 'filterMpesa']);
 Route::post('highly', [\App\Http\Controllers\AdminController::class, 'highly']);
 Route::get('filterHotelIndex', [\App\Http\Controllers\AdminController::class, 'filterHotelIndex']);
 Route::post('filterHotel', [\App\Http\Controllers\AdminController::class, 'filterHotel']);
