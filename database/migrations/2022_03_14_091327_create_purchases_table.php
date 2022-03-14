@@ -23,6 +23,7 @@ class CreatePurchasesTable extends Migration
             $table->integer('buying_price');
             $table->integer('selling_price');
             $table->string('date');
+            $table->string('te')->nullable();
             $table->mediumText('image')->nullable();
             $table->timestamps();
         });
